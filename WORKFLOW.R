@@ -56,10 +56,6 @@ list.files(
 
 # Read metadata -------------------------------------------------
 
-ma_quality_metrics <- 
-  read_json('data/metadata/ma-quality-metrics.json',
-            simplifyVector = T)
-
 dataset_quality_metrics <- 
   read_json('data/metadata/dataset-quality-metrics.json',
             simplifyVector = T)
@@ -70,7 +66,16 @@ impacts <-
   read_csv(
     'data/MerFPs_Impacts.csv'
   ) %>% 
-  clean_names()
+  clean_names() %>% 
+  filter()
+
+papers <- 
+  impacts %>% 
+  filter(info_type == 'G')
+
+paper_details <- 
+  impacts %>% 
+  filter(info_type == 'I')
 
 # Clean and check integrity -------------------------------------
 
@@ -86,10 +91,12 @@ paper_metadata_colnames <-
 
 
 selected_paper_metadata <- 
-  impacts %>% 
+  papers %>% 
   select(
     all_of(paper_metadata_colnames)
   ) %>% 
+  group_by(doi) %>% 
+  # fill_na
   distinct()
 
 selected_paper_metadata %>% 
@@ -101,7 +108,7 @@ selected_paper_metadata %>%
 # paper farming practice ----------------------------------------
 
 selected_paper_fpid <- 
-  impacts %>% 
+  papers %>% 
   select(
     doi,
     fpid
@@ -122,7 +129,7 @@ selection_criteria_colnames <-
             simplifyVector = T)
 
 selection_criteria <- 
-  impacts %>% 
+  papers %>% 
   select(
     all_of(selection_criteria_colnames)
   ) %>% 
@@ -131,5 +138,23 @@ selection_criteria <-
 selection_criteria %>% 
   write_csv(
     'data/output/paper-selection-criteria.csv' 
+  )
+
+# paper quality score -------------------------------------------
+
+paper_quality_metrics_colnames <- 
+  read_json('data/metadata/paper-quality-metrics.json',
+            simplifyVector = T)
+
+paper_quality_metrics <- 
+  papers %>% 
+  select(
+    all_of(paper_quality_metrics_colnames)
+  ) %>% 
+  distinct()
+
+paper_quality_metrics %>% 
+  write_csv(
+    'data/output/paper_quality_metrics.csv' 
   )
 
