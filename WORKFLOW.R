@@ -102,11 +102,8 @@ selected_paper_metadata %>%
     'data/output/selected-paper-metadata.csv'
   )
 
-selected_paper_metadata_dupl <- 
-  extract_duplicated_rows(selected_paper_metadata)
-  
-
-selected_paper_metadata_dupl %>% 
+selected_paper_metadata %>% 
+  extract_duplicated_rows() %>% 
   write_csv(
     'data/output/selected-paper-metadata-DUPL.csv'
   )
@@ -146,6 +143,12 @@ selection_criteria %>%
     'data/output/paper-selection-criteria.csv' 
   )
 
+selection_criteria %>% 
+  extract_duplicated_rows() %>% 
+  write_csv(
+    'data/output/paper-selection-criteria-DUPL.csv' 
+  )
+
 # paper quality score -------------------------------------------
 
 paper_quality_metrics_colnames <- 
@@ -164,3 +167,8 @@ paper_quality_metrics %>%
     'data/output/paper_quality_metrics.csv' 
   )
 
+paper_quality_metrics %>% 
+  extract_duplicated_rows() %>% 
+  write_csv(
+    'data/output/paper_quality_metrics-DUPL.csv' 
+  )
