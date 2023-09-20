@@ -19,14 +19,7 @@ list.files(
 ) %>% 
   walk(source)
 
-
-# Read metadata -------------------------------------------------
-
-dataset_quality_metrics <- 
-  read_json('data/metadata/dataset-quality-metrics.json',
-            simplifyVector = T)
-
-# Read data -----------------------------------------------------
+# Read selected paper data ---------------------------------------
 
 impacts <-
   read_csv(
@@ -43,6 +36,15 @@ paper_details <-
   impacts %>% 
   filter(info_type == 'I')
 
+
+# read column metadata ------------------------------------------
+
+column_metadata <- 
+  read_json(
+    'data/metadata/selecte-ma-coltypes.json',
+    simplifyVector = T
+  )
+
 # Clean and check integrity -------------------------------------
 
 # impacts %>% 
@@ -51,32 +53,35 @@ paper_details <-
 
 # paper metadata ------------------------------------------------
 
-paper_metadata_colnames <- 
-  read_json('data/metadata/paper-metadata-column-name.json',
-            simplifyVector = T)
 
-
-selected_paper_metadata <- 
+metadata <- 
   papers %>% 
   select(
-    all_of(paper_metadata_colnames)
+    all_of(column_metadata$metadata$colname)
   ) %>% 
   distinct() %>% 
   arrange(doi)
 
-selected_paper_metadata %>% 
+metadata %>% 
   write_csv(
     'data/output/selected-paper-metadata.csv'
   )
 
-selected_paper_metadata %>% 
+metadata %>% 
   glimpse()
 
-selected_paper_metadata %>% 
+metadata %>% 
   extract_duplicated_rows() %>% 
   write_csv(
     'data/output/selected-paper-metadata-DUPL.csv'
   )
+
+coltypes_metadata <- 
+  metadata %>% {
+    tibble(colname = colnames(.),
+           type = map_chr(., class))  
+  }
+  
 
 # paper farming practice ----------------------------------------
 
@@ -113,14 +118,10 @@ selected_paper_fpid %>%
 
 # paper selection criteria --------------------------------------
 
-selection_criteria_colnames <- 
-  read_json('data/metadata/paper-selection-criteria.json',
-            simplifyVector = T)
-
-selection_criteria <- 
+criteria <- 
   papers %>% 
   select(
-    all_of(selection_criteria_colnames)
+    all_of(column_metadata$criteria$colname)
   ) %>% 
   distinct() %>% 
   mutate(data_in_europe = data_in_europe %>% {
@@ -139,30 +140,33 @@ selection_criteria <-
   ) %>% 
   arrange(doi)
     
-selection_criteria %>% 
+criteria %>% 
   glimpse()
 
-selection_criteria %>% 
+criteria %>% 
   write_csv(
     'data/output/paper-selection-criteria.csv' 
   )
 
-selection_criteria %>% 
+criteria %>% 
   extract_duplicated_rows() %>% 
   write_csv(
     'data/output/paper-selection-criteria-DUPL.csv' 
   )
 
+coltypes_criteria <- 
+  criteria %>% {
+    tibble(colname = colnames(.),
+           type = map_chr(., class))  
+  }
+
+
 # paper quality score -------------------------------------------
 
-paper_quality_metrics_colnames <- 
-  read_json('data/metadata/paper-quality-metrics.json',
-            simplifyVector = T)
-
-paper_quality_metrics <- 
+quality_metrics <- 
   papers %>% 
   select(
-    all_of(paper_quality_metrics_colnames)
+    all_of(column_metadata$qualty_metrics$colname)
   ) %>% 
   distinct() %>% 
   mutate(
@@ -173,19 +177,39 @@ paper_quality_metrics <-
   ) %>% 
   arrange(doi)
 
-paper_quality_metrics %>% 
+quality_metrics %>% 
   glimpse()
 
-paper_quality_metrics %>% 
+quality_metrics %>% 
   write_csv(
     'data/output/paper_quality_metrics.csv' 
   )
 
-paper_quality_metrics %>% 
+quality_metrics %>% 
   extract_duplicated_rows() %>% 
   write_csv(
     'data/output/paper_quality_metrics-DUPL.csv' 
   )
+
+quality_metrics %>% skim()
+
+coltypes_quality_metrics <- 
+  quality_metrics %>% {
+    tibble(colname = colnames(.),
+           type = map_chr(., class))  
+  }
+# 
+# coltypes <- 
+#   list(metadata = coltypes_metadata,
+#        criteria = coltypes_criteria,
+#        quality_metrics = coltypes_quality_metrics)
+# 
+# coltypes %>% 
+#   write_json(
+#     'data/metadata/selecte-ma-coltypes.json',
+#     pretty = T
+#   )
+#   
 
 # paper PICO ----------------------------------------------------
 
