@@ -1,3 +1,24 @@
+extract_duplicated_rows <- function(df) {
+  stopifnot('doi' %in% colnames(df))
+  
+  df <- 
+    df %>% 
+    distinct() %>% 
+    pull(doi) %>% 
+    {
+      .[duplicated(.)]
+    } %>% 
+    {
+      filter(
+        df,
+        doi %in% .
+      )
+    } %>% 
+    arrange(doi)
+  
+  return(df)
+}
+
 count_dois <- function(impacts, message = "") {
   cat(
     "detected",

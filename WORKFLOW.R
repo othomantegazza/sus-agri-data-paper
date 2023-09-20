@@ -95,8 +95,6 @@ selected_paper_metadata <-
   select(
     all_of(paper_metadata_colnames)
   ) %>% 
-  # group_by(doi) %>% 
-  # fill_na
   distinct()
 
 selected_paper_metadata %>% 
@@ -105,18 +103,8 @@ selected_paper_metadata %>%
   )
 
 selected_paper_metadata_dupl <- 
-  selected_paper_metadata %>% 
-  pull(doi) %>% 
-  {
-    .[duplicated(.)]
-  } %>% 
-  {
-    filter(
-      selected_paper_metadata,
-      doi %in% .
-    )
-  } %>% 
-  arrange(doi)
+  extract_duplicated_rows(selected_paper_metadata)
+  
 
 selected_paper_metadata_dupl %>% 
   write_csv(
