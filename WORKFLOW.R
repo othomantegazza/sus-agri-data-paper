@@ -154,7 +154,24 @@ selection_criteria <-
   select(
     all_of(selection_criteria_colnames)
   ) %>% 
-  distinct()
+  distinct() %>% 
+  mutate(data_in_europe = data_in_europe %>% {
+    case_when(. == 'Y' ~ TRUE,
+              . == 'N' ~ FALSE,
+              TRUE ~ NA)
+  }) %>% 
+  mutate(
+    across(
+      .cols = c(
+        'selection_criteria_2',
+        'selection_criteria_3'
+      ),
+      .fns = ~as.numeric(.) %>% as.logical() 
+    )
+  )
+    
+    selection_criteria %>% 
+  glimpse()
 
 selection_criteria %>% 
   write_csv(
