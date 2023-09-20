@@ -95,7 +95,8 @@ selected_paper_metadata <-
   select(
     all_of(paper_metadata_colnames)
   ) %>% 
-  distinct()
+  distinct() %>% 
+  arrange(doi)
 
 selected_paper_metadata %>% 
   write_csv(
@@ -132,7 +133,8 @@ selected_paper_fpid <-
     fpid
   ) %>% 
   group_by(doi) %>% 
-  summarise(fpid = list(unique(fpid)))
+  summarise(fpid = list(unique(fpid))) %>% 
+  arrange(doi)
   
 selected_paper_fpid %>% 
   glimpse()
@@ -168,7 +170,8 @@ selection_criteria <-
       ),
       .fns = ~as.numeric(.) %>% as.logical() 
     )
-  )
+  ) %>% 
+  arrange(doi)
     
 selection_criteria %>% 
   glimpse()
@@ -195,7 +198,17 @@ paper_quality_metrics <-
   select(
     all_of(paper_quality_metrics_colnames)
   ) %>% 
-  distinct()
+  distinct() %>% 
+  mutate(
+    across(
+      .cols = !doi,
+      .fns = ~as.numeric(.) %>% as.logical()
+    )
+  ) %>% 
+  arrange(doi)
+
+paper_quality_metrics %>% 
+  glimpse()
 
 paper_quality_metrics %>% 
   write_csv(
@@ -207,3 +220,5 @@ paper_quality_metrics %>%
   write_csv(
     'data/output/paper_quality_metrics-DUPL.csv' 
   )
+
+
