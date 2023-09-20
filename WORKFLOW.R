@@ -221,4 +221,31 @@ paper_quality_metrics %>%
     'data/output/paper_quality_metrics-DUPL.csv' 
   )
 
+# paper PICO ----------------------------------------------------
 
+paper_pico_colnames <- 
+  read_json('data/metadata/paper-PICO.json',
+            simplifyVector = T)
+
+
+paper_pico <- 
+  papers %>% 
+  select(
+    all_of(paper_pico_colnames)
+  ) %>% 
+  distinct() %>% 
+  arrange(doi)
+
+paper_pico %>% 
+  glimpse()
+
+paper_pico %>% 
+  write_csv(
+    'data/output/paper-pico.csv' 
+  )
+
+paper_pico %>% 
+  extract_duplicated_rows() %>% 
+  write_csv(
+    'data/output/paper-pico-DUPL.csv' 
+  )
