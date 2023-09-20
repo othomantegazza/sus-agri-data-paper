@@ -1,7 +1,9 @@
 # data
-data/**.xlsx
-data/**sv
-data/**.pdf
+data/*.xlsx
+**.csv
+data/*.pdf
+data/output/*.json
+
 
 # output
 img/**.svg
