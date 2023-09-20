@@ -170,7 +170,7 @@ selection_criteria <-
     )
   )
     
-    selection_criteria %>% 
+selection_criteria %>% 
   glimpse()
 
 selection_criteria %>% 
