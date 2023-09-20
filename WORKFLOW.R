@@ -95,7 +95,7 @@ selected_paper_metadata <-
   select(
     all_of(paper_metadata_colnames)
   ) %>% 
-  group_by(doi) %>% 
+  # group_by(doi) %>% 
   # fill_na
   distinct()
 
@@ -104,6 +104,24 @@ selected_paper_metadata %>%
     'data/output/selected-paper-metadata.csv'
   )
 
+selected_paper_metadata_dupl <- 
+  selected_paper_metadata %>% 
+  pull(doi) %>% 
+  {
+    .[duplicated(.)]
+  } %>% 
+  {
+    filter(
+      selected_paper_metadata,
+      doi %in% .
+    )
+  } %>% 
+  arrange(doi)
+
+selected_paper_metadata_dupl %>% 
+  write_csv(
+    'data/output/selected-paper-metadata-DUPL.csv'
+  )
 
 # paper farming practice ----------------------------------------
 
