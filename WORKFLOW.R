@@ -103,6 +103,9 @@ selected_paper_metadata %>%
   )
 
 selected_paper_metadata %>% 
+  glimpse()
+
+selected_paper_metadata %>% 
   extract_duplicated_rows() %>% 
   write_csv(
     'data/output/selected-paper-metadata-DUPL.csv'
@@ -130,6 +133,9 @@ selected_paper_fpid <-
   ) %>% 
   group_by(doi) %>% 
   summarise(fpid = list(unique(fpid)))
+  
+selected_paper_fpid %>% 
+  glimpse()
 
 selected_paper_fpid %>% 
   write_json(
