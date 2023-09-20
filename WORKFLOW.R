@@ -41,7 +41,7 @@ paper_details <-
 
 column_metadata <- 
   read_json(
-    'data/metadata/selecte-ma-coltypes.json',
+    'data/metadata/selected-ma-coltypes.json',
     simplifyVector = T
   )
 
