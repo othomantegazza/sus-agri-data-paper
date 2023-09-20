@@ -166,7 +166,7 @@ coltypes_criteria <-
 quality_metrics <- 
   papers %>% 
   select(
-    all_of(column_metadata$qualty_metrics$colname)
+    all_of(column_metadata$quality_metrics$colname)
   ) %>% 
   distinct() %>% 
   mutate(
