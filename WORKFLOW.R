@@ -110,6 +110,18 @@ selected_paper_metadata %>%
 
 # paper farming practice ----------------------------------------
 
+farming_practices <- 
+  read_json(
+    'data/metadata/farming-practices.json',
+    simplifyVector = T
+  )
+
+stopifnot(
+  all(
+    papers$fpid %in% farming_practices
+  )
+)
+
 selected_paper_fpid <- 
   papers %>% 
   select(
