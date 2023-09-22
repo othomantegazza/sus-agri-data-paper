@@ -213,18 +213,21 @@ coltypes_quality_metrics <-
 
 # g lines PICO ----------------------------------------------------
 
-paper_pico_colnames <- 
+population_colnames <- 
   read_json('data/metadata/paper-PICO.json',
             simplifyVector = T)
 
-
-paper_pico <- 
+paper_population <- 
   papers %>% 
   select(
-    all_of(paper_pico_colnames)
+    all_of(population_colnames)
   ) %>% 
   distinct() %>% 
-  arrange(doi)
+  relocate(
+    doi,
+    impact_matrix
+  ) %>% 
+  arrange(doi, impact_matrix)
 
 paper_pico %>% 
   glimpse()
@@ -239,3 +242,5 @@ paper_pico %>%
   write_csv(
     'data/output/paper-pico-DUPL.csv' 
   )
+
+
