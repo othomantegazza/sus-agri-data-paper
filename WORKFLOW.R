@@ -24,7 +24,7 @@ list.files(
 impacts <-
   read_csv(
     'data/MerFPs_Impacts.csv'
-  ) %>% 
+  ) %>%
   clean_names() %>% 
   filter()
 
@@ -211,7 +211,7 @@ coltypes_quality_metrics <-
 #   )
 #   
 
-# paper PICO ----------------------------------------------------
+# g lines PICO ----------------------------------------------------
 
 paper_pico_colnames <- 
   read_json('data/metadata/paper-PICO.json',
