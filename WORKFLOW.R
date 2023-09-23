@@ -227,7 +227,18 @@ paper_population <-
     doi,
     impact_matrix
   ) %>% 
-  arrange(doi, impact_matrix)
+  arrange(
+    doi,
+    impact_matrix
+  )
+
+# unique_impact_matrices <- 
+# paper_population %>% 
+#   pull(impact_matrix) %>% 
+#   unique() %>% 
+#   sort() %>% 
+#   write_json('data/metadata/impact_matrices.json')
+
 
 paper_pico %>% 
   glimpse()
@@ -242,5 +253,6 @@ paper_pico %>%
   write_csv(
     'data/output/paper-pico-DUPL.csv' 
   )
+
 
 
