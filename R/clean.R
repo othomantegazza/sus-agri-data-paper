@@ -1,20 +1,25 @@
-extract_duplicated_rows <- function(df) {
-  stopifnot('doi' %in% colnames(df))
+extract_duplicated_rows <- function(df, id_cols = "doi") {
+  
+  stopifnot(
+    all(
+      id_cols %in% colnames(df)
+    )
+  )
   
   df <- 
     df %>% 
-    distinct() %>% 
-    pull(doi) %>% 
-    {
-      .[duplicated(.)]
-    } %>% 
-    {
-      filter(
-        df,
-        doi %in% .
-      )
-    } %>% 
-    arrange(doi)
+    distinct()
+  
+  df_dupl <-
+    df %>% 
+    count(across(all_of(id_cols))) %>% 
+    filter(n > 1) %>% 
+    select(-n)
+
+  df <- 
+    df_dupl %>% 
+    left_join(df, by = id_cols) %>% 
+    arrange(across(all_of(id_cols)))
   
   return(df)
 }

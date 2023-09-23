@@ -217,7 +217,7 @@ impact_matrices <-
 
 stopifnot(
   all(
-    paper$impact_matrix %in% impact_matrices
+    papers$impact_matrix %in% impact_matrices
   )
 )
 
