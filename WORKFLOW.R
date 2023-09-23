@@ -45,12 +45,6 @@ column_metadata <-
     simplifyVector = T
   )
 
-# Clean and check integrity -------------------------------------
-
-# impacts %>% 
-#   clean_impacts()
-
-
 # paper metadata ------------------------------------------------
 
 
@@ -217,6 +211,16 @@ population_colnames <-
   read_json('data/metadata/paper-PICO.json',
             simplifyVector = T)
 
+impact_matrices <- 
+  read_json('data/metadata/impact_matrices.json',
+            simplifyVector = T)
+
+stopifnot(
+  all(
+    paper$impact_matrix %in% impact_matrices
+  )
+)
+
 paper_population <- 
   papers %>% 
   select(
@@ -231,6 +235,8 @@ paper_population <-
     doi,
     impact_matrix
   )
+
+
 
 # unique_impact_matrices <- 
 # paper_population %>% 
