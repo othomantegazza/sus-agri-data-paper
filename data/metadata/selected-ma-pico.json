@@ -1,0 +1,23 @@
+[
+    "doi",
+    "fpid",
+    "impact_matrix",
+    "scale",
+    "data_in_europe",
+    "nb_of_papers",
+    "population",
+    "intervention",
+    "intervention_matrix",
+    "control",
+    "control_matrix",
+    "metric",
+    "metric_positive_effect",
+    "metric_matrix",
+    "effect_size",
+    "impact_positive_effect",
+    "positive",
+    "negative",
+    "no_effect",
+    "uncertain",
+    "results_level"
+]

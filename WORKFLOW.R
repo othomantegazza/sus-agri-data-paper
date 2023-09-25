@@ -228,6 +228,87 @@ coltypes_quality_metrics <-
            type = map_chr(., class))  
   }
 
+# I and S lines PICO ----------------------------------------------------
+
+columns_pico <-
+  read_json('data/metadata/selected-ma-pico.json',
+            simplifyVector = T)
+
+pico_details <- 
+  paper_details %>%
+  select(
+    all_of(columns_pico)
+  )
+
+pico_details %>% skim()
+
+stopifnot(
+  all(
+    paper_details$fpid %in% farming_practices
+  )
+)
+
+stopifnot(
+  all(
+    paper_details$impact_matrix %in% impact_matrices
+  )
+)
+
+if(
+  !all(
+    paper_details$doi %in% primary_keys_combinations$doi
+  )
+) {
+  stop('Some doi in I or S rows is not represented in the G rows')
+  
+  paper_details %>% 
+    filter( ! doi %in% primary_keys_combinations$doi )
+  
+} 
+
+ 
+# paper_population <- 
+#   papers %>% 
+#   select(
+#     all_of(population_colnames)
+#   ) %>% 
+#   distinct() %>% 
+#   relocate(
+#     doi,
+#     impact_matrix
+#   ) %>% 
+#   arrange(
+#     doi,
+#     impact_matrix
+#   )
+# 
+# paper_population %>% 
+#   glimpse()
+# 
+# paper_population_DUPL <- 
+#   paper_population %>% 
+#   extract_duplicated_rows(id_cols = c("doi", "impact_matrix"))
+# 
+# paper_population %>% 
+#   nest(results = matches('result_*'),
+#        factors = matches('factor*_*'))
+# 
+# paper_population %>% 
+#   write_csv(
+#     'data/output/paper-population.csv' 
+#   )
+# 
+# paper_population %>% 
+#   extract_duplicated_rows() %>% 
+#   write_csv(
+#     'data/output/paper-population-DUPL.csv' 
+#   )
+# 
+
+# write data types ----------------------------------------------
+
+
+
 # coltypes <- 
 #   list(metadata = coltypes_metadata,
 #        criteria = coltypes_criteria,
@@ -238,60 +319,5 @@ coltypes_quality_metrics <-
 #     'data/metadata/selecte-ma-coltypes.json',
 #     pretty = T
 #   )
-
-
-# g lines PICO ----------------------------------------------------
-
-population_colnames <- 
-  read_json('data/metadata/paper-PICO.json',
-            simplifyVector = T)
-
-impact_matrices <- 
-  read_json('data/metadata/impact_matrices.json',
-            simplifyVector = T)
-
-stopifnot(
-  all(
-    papers$impact_matrix %in% impact_matrices
-  )
-)
-
-paper_population <- 
-  papers %>% 
-  select(
-    all_of(population_colnames)
-  ) %>% 
-  distinct() %>% 
-  relocate(
-    doi,
-    impact_matrix
-  ) %>% 
-  arrange(
-    doi,
-    impact_matrix
-  )
-
-paper_population %>% 
-  glimpse()
-
-paper_population_DUPL <- 
-  paper_population %>% 
-  extract_duplicated_rows(id_cols = c("doi", "impact_matrix"))
-
-paper_population %>% 
-  nest(results = matches('result_*'),
-       factors = matches('factor*_*'))
-
-paper_population %>% 
-  write_csv(
-    'data/output/paper-population.csv' 
-  )
-
-paper_population %>% 
-  extract_duplicated_rows() %>% 
-  write_csv(
-    'data/output/paper-population-DUPL.csv' 
-  )
-
 
 
