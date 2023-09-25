@@ -1,4 +1,5 @@
 library(dplyr)
+library(tibble)
 library(tidyr)
 library(ggplot2)
 library(forcats)
@@ -243,12 +244,20 @@ paper_population_DUPL <-
   paper_population %>% 
   extract_duplicated_rows(id_cols = c("doi", "impact_matrix"))
 
-# unique_impact_matrices <- 
-# paper_population %>% 
-#   pull(impact_matrix) %>% 
-#   unique() %>% 
-#   sort() %>% 
-#   write_json('data/metadata/impact_matrices.json')
+paper_population %>% 
+  # group_by(
+  #   across(
+  #     .cols = all_of(
+  #       population_colnames %>% 
+  #         .[ ! str_detect(., 'result_*') ] %>% 
+  #         .[ ! str_detect(., 'factor[:digit:]_title')] %>% 
+  #         .[ ! str_detect(., 'factor[:digit:]_direction')]
+  #     )
+  #   )
+  # ) %>% 
+  nest(results = matches('result_*'),
+       factors = matches('factor*_*')) %>% 
+  pull(factors)
 
 paper_population %>% 
   write_csv(
