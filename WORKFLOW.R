@@ -135,7 +135,7 @@ selected_paper_fpid_im %>%
 # paper synthesis --------------------------------------
 
 
-synthesis_colnames <- 
+synthesis_colnames <-
   read_json(
     'data/metadata/selected-ma-synthesis.json',
     simplifyVector = T
@@ -161,24 +161,30 @@ synthesis <-
       .fns = ~as.numeric(.) %>% as.logical() 
     )
   ) %>% 
-  arrange(doi)
-    
-criteria %>% 
+  arrange(
+    across(
+      all_of(
+        impacts_primary_keys
+      )
+    )
+  )
+
+synthesis %>% 
   glimpse()
 
-criteria %>% 
+synthesis %>% 
+  extract_duplicated_rows(id_cols = impacts_primary_keys) %>% view()
   write_csv(
-    'data/output/paper-selection-criteria.csv' 
+    'data/output/paper-synthesis-DUPL.csv' 
+  )
+  
+synthesis %>% 
+  write_csv(
+    'data/output/paper-synthesis.csv' 
   )
 
-criteria %>% 
-  extract_duplicated_rows() %>% 
-  write_csv(
-    'data/output/paper-selection-criteria-DUPL.csv' 
-  )
-
-coltypes_criteria <- 
-  criteria %>% {
+coltypes_synthesis <- 
+  synthesis %>% {
     tibble(colname = colnames(.),
            type = map_chr(., class))  
   }
@@ -221,18 +227,18 @@ coltypes_quality_metrics <-
     tibble(colname = colnames(.),
            type = map_chr(., class))  
   }
-# 
+
 # coltypes <- 
 #   list(metadata = coltypes_metadata,
 #        criteria = coltypes_criteria,
 #        quality_metrics = coltypes_quality_metrics)
-# 
+
 # coltypes %>% 
 #   write_json(
 #     'data/metadata/selecte-ma-coltypes.json',
 #     pretty = T
 #   )
-#   
+
 
 # g lines PICO ----------------------------------------------------
 
