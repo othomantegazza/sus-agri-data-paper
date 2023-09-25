@@ -29,7 +29,18 @@ impacts <-
     'data/MerFPs_Impacts.csv'
   ) %>%
   clean_names() %>% 
-  filter()
+  group_by(
+    across(
+      all_of(impacts_primary_keys)
+    )
+  )  %>% 
+  fill(
+    scale,
+    data_in_europe,
+    nb_of_papers,
+    .direction = "downup"
+  ) %>%
+  ungroup()
 
 papers <- 
   impacts %>% 
@@ -242,29 +253,34 @@ pico_details <-
 
 pico_details %>% skim()
 
+pico_details %>% glimpse
+
 stopifnot(
   all(
-    paper_details$fpid %in% farming_practices
+    pico_details$fpid %in% farming_practices
   )
 )
 
 stopifnot(
   all(
-    paper_details$impact_matrix %in% impact_matrices
+    pico_details$impact_matrix %in% impact_matrices
   )
 )
 
 if(
   !all(
-    paper_details$doi %in% primary_keys_combinations$doi
+    pico_details$doi %in% primary_keys_combinations$doi
   )
 ) {
-  stop('Some doi in I or S rows is not represented in the G rows')
+  warning('Some doi in I or S rows is not represented in the G rows')
   
-  paper_details %>% 
-    filter( ! doi %in% primary_keys_combinations$doi )
+  pico_details %>% 
+    filter( ! doi %in% primary_keys_combinations$doi ) %>% 
+    write_csv("data/output/selected-paper-PICO-extra-DOI.csv")
   
 } 
+
+pico_details
 
  
 # paper_population <- 
