@@ -112,7 +112,7 @@ stopifnot(
 
 # ┣ extract json with unique keys ---------------------------------
 
-selected_paper_fpid_im <- 
+primary_keys_combinations <- 
   papers %>% 
   select(all_of(impacts_primary_keys)) %>% 
   distinct() %>% 
@@ -124,10 +124,10 @@ selected_paper_fpid_im <-
     )
   )
   
-selected_paper_fpid_im %>% 
+primary_keys_combinations %>% 
   glimpse()
 
-selected_paper_fpid_im %>% 
+primary_keys_combinations %>% 
   write_csv(
     'data/output/selected-paper-primary-keys.csv'
   )
