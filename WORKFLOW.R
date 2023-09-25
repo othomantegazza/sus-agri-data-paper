@@ -129,12 +129,19 @@ selected_paper_fpid_im %>%
     'data/output/selected-paper-primary-keys.csv'
   )
 
-# paper selection criteria --------------------------------------
+# paper synthesis --------------------------------------
 
-criteria <- 
+
+synthesis_colnames <- 
+  read_json(
+    'data/metadata/selected-ma-synthesis.json',
+    simplifyVector = T
+  )
+
+synthesis <- 
   papers %>% 
   select(
-    all_of(column_metadata$criteria$colname)
+    all_of(synthesis_colnames)
   ) %>% 
   distinct() %>% 
   mutate(data_in_europe = data_in_europe %>% {
