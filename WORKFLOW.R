@@ -236,7 +236,12 @@ paper_population <-
     impact_matrix
   )
 
+paper_population %>% 
+  glimpse()
 
+paper_population_DUPL <- 
+  paper_population %>% 
+  extract_duplicated_rows(id_cols = c("doi", "impact_matrix"))
 
 # unique_impact_matrices <- 
 # paper_population %>% 
@@ -245,19 +250,15 @@ paper_population <-
 #   sort() %>% 
 #   write_json('data/metadata/impact_matrices.json')
 
-
-paper_pico %>% 
-  glimpse()
-
-paper_pico %>% 
+paper_population %>% 
   write_csv(
-    'data/output/paper-pico.csv' 
+    'data/output/paper-population.csv' 
   )
 
-paper_pico %>% 
+paper_population %>% 
   extract_duplicated_rows() %>% 
   write_csv(
-    'data/output/paper-pico-DUPL.csv' 
+    'data/output/paper-population-DUPL.csv' 
   )
 
 
