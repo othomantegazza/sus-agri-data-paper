@@ -22,6 +22,8 @@ list.files(
 
 # Read selected paper data ---------------------------------------
 
+impacts_primary_keys <- c('doi', 'fpid', 'impact_matrix')
+
 impacts <-
   read_csv(
     'data/MerFPs_Impacts.csv'
@@ -112,14 +114,15 @@ stopifnot(
 
 selected_paper_fpid_im <- 
   papers %>% 
-  select(
-    doi,
-    fpid,
-    impact_matrix
-  ) %>% 
-  select(doi, fpid, impact_matrix) %>% 
+  select(all_of(impacts_primary_keys)) %>% 
   distinct() %>% 
-  arrange(doi, fpid, impact_matrix)
+  arrange(
+    across(
+      all_of(
+        impacts_primary_keys
+      )
+    )
+  )
   
 selected_paper_fpid_im %>% 
   glimpse()
