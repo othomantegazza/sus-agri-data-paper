@@ -245,16 +245,6 @@ paper_population_DUPL <-
   extract_duplicated_rows(id_cols = c("doi", "impact_matrix"))
 
 paper_population %>% 
-  # group_by(
-  #   across(
-  #     .cols = all_of(
-  #       population_colnames %>% 
-  #         .[ ! str_detect(., 'result_*') ] %>% 
-  #         .[ ! str_detect(., 'factor[:digit:]_title')] %>% 
-  #         .[ ! str_detect(., 'factor[:digit:]_direction')]
-  #     )
-  #   )
-  # ) %>% 
   nest(results = matches('result_*'),
        factors = matches('factor*_*')) %>% 
   pull(factors)
