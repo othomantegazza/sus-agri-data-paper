@@ -246,8 +246,7 @@ paper_population_DUPL <-
 
 paper_population %>% 
   nest(results = matches('result_*'),
-       factors = matches('factor*_*')) %>% 
-  pull(factors)
+       factors = matches('factor*_*'))
 
 paper_population %>% 
   write_csv(
