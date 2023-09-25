@@ -173,7 +173,7 @@ synthesis %>%
   glimpse()
 
 synthesis %>% 
-  extract_duplicated_rows(id_cols = impacts_primary_keys) %>% view()
+  extract_duplicated_rows(id_cols = impacts_primary_keys) %>% 
   write_csv(
     'data/output/paper-synthesis-DUPL.csv' 
   )
