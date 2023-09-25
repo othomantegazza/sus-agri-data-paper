@@ -76,9 +76,12 @@ coltypes_metadata <-
     tibble(colname = colnames(.),
            type = map_chr(., class))  
   }
-  
 
-# paper farming practice ----------------------------------------
+
+# paper primary keys ----------------------------------------
+
+
+# ┣ farming practices ---------------------------------------
 
 farming_practices <- 
   read_json(
@@ -92,23 +95,38 @@ stopifnot(
   )
 )
 
-selected_paper_fpid <- 
+# ┣ impact matrices --------------------------------------------
+
+impact_matrices <- 
+  read_json('data/metadata/impact_matrices.json',
+            simplifyVector = T)
+
+stopifnot(
+  all(
+    papers$impact_matrix %in% impact_matrices
+  )
+)
+
+
+# ┣ extract json with unique keys ---------------------------------
+
+selected_paper_fpid_im <- 
   papers %>% 
   select(
     doi,
-    fpid
+    fpid,
+    impact_matrix
   ) %>% 
-  group_by(doi) %>% 
-  summarise(fpid = list(unique(fpid))) %>% 
-  arrange(doi)
+  select(doi, fpid, impact_matrix) %>% 
+  distinct() %>% 
+  arrange(doi, fpid, impact_matrix)
   
-selected_paper_fpid %>% 
+selected_paper_fpid_im %>% 
   glimpse()
 
-selected_paper_fpid %>% 
-  write_json(
-    'data/output/selected-paper-fpid.json',
-    pretty = TRUE
+selected_paper_fpid_im %>% 
+  write_csv(
+    'data/output/selected-paper-primary-keys.csv'
   )
 
 # paper selection criteria --------------------------------------
