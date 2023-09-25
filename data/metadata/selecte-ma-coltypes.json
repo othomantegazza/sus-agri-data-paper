@@ -1,0 +1,280 @@
+{
+  "metadata": [
+    {
+      "colname": "doi",
+      "type": "character"
+    },
+    {
+      "colname": "authors",
+      "type": "character"
+    },
+    {
+      "colname": "year",
+      "type": "numeric"
+    },
+    {
+      "colname": "title",
+      "type": "character"
+    },
+    {
+      "colname": "reference",
+      "type": "character"
+    }
+  ],
+  "synthesis": [
+    {
+      "colname": "doi",
+      "type": "character"
+    },
+    {
+      "colname": "fpid",
+      "type": "character"
+    },
+    {
+      "colname": "impact_matrix",
+      "type": "character"
+    },
+    {
+      "colname": "search_strategy",
+      "type": "character"
+    },
+    {
+      "colname": "selection_criteria",
+      "type": "character"
+    },
+    {
+      "colname": "selection_criteria_2",
+      "type": "logical"
+    },
+    {
+      "colname": "selection_criteria_3",
+      "type": "logical"
+    },
+    {
+      "colname": "data_analysis",
+      "type": "character"
+    },
+    {
+      "colname": "scale",
+      "type": "character"
+    },
+    {
+      "colname": "data_in_europe",
+      "type": "logical"
+    },
+    {
+      "colname": "nb_of_papers",
+      "type": "character"
+    },
+    {
+      "colname": "background",
+      "type": "character"
+    },
+    {
+      "colname": "objective",
+      "type": "character"
+    },
+    {
+      "colname": "population",
+      "type": "character"
+    },
+    {
+      "colname": "intervention",
+      "type": "character"
+    },
+    {
+      "colname": "control",
+      "type": "character"
+    },
+    {
+      "colname": "metric",
+      "type": "character"
+    },
+    {
+      "colname": "effect_size",
+      "type": "character"
+    },
+    {
+      "colname": "result_1",
+      "type": "character"
+    },
+    {
+      "colname": "result_2",
+      "type": "character"
+    },
+    {
+      "colname": "result_3",
+      "type": "character"
+    },
+    {
+      "colname": "result_4",
+      "type": "character"
+    },
+    {
+      "colname": "result_5",
+      "type": "character"
+    },
+    {
+      "colname": "general_conclusion",
+      "type": "character"
+    },
+    {
+      "colname": "factor1_title",
+      "type": "character"
+    },
+    {
+      "colname": "factor1_direction",
+      "type": "character"
+    },
+    {
+      "colname": "factor2_title",
+      "type": "character"
+    },
+    {
+      "colname": "factor2_direction",
+      "type": "character"
+    },
+    {
+      "colname": "factor3_title",
+      "type": "character"
+    },
+    {
+      "colname": "factor3_direction",
+      "type": "character"
+    },
+    {
+      "colname": "factor4_title",
+      "type": "character"
+    },
+    {
+      "colname": "factor4_direction",
+      "type": "character"
+    },
+    {
+      "colname": "factor5_title",
+      "type": "character"
+    },
+    {
+      "colname": "factor5_direction",
+      "type": "character"
+    },
+    {
+      "colname": "factor6_title",
+      "type": "character"
+    },
+    {
+      "colname": "factor6_direction",
+      "type": "character"
+    },
+    {
+      "colname": "factor7_title",
+      "type": "character"
+    },
+    {
+      "colname": "factor7_direction",
+      "type": "character"
+    },
+    {
+      "colname": "factor8_title",
+      "type": "character"
+    },
+    {
+      "colname": "factor8_direction",
+      "type": "character"
+    },
+    {
+      "colname": "knowledge_gaps",
+      "type": "character"
+    }
+  ],
+  "pico": [
+    {
+      "colname": "doi",
+      "type": "character"
+    },
+    {
+      "colname": "fpid",
+      "type": "character"
+    },
+    {
+      "colname": "impact_matrix",
+      "type": "character"
+    },
+    {
+      "colname": "info_type",
+      "type": "character"
+    },
+    {
+      "colname": "scale",
+      "type": "character"
+    },
+    {
+      "colname": "data_in_europe",
+      "type": "logical"
+    },
+    {
+      "colname": "nb_of_papers",
+      "type": "numeric"
+    },
+    {
+      "colname": "population",
+      "type": "character"
+    },
+    {
+      "colname": "intervention",
+      "type": "character"
+    },
+    {
+      "colname": "intervention_matrix",
+      "type": "character"
+    },
+    {
+      "colname": "control",
+      "type": "character"
+    },
+    {
+      "colname": "control_matrix",
+      "type": "character"
+    },
+    {
+      "colname": "metric",
+      "type": "character"
+    },
+    {
+      "colname": "metric_positive_effect",
+      "type": "character"
+    },
+    {
+      "colname": "metric_matrix",
+      "type": "character"
+    },
+    {
+      "colname": "effect_size",
+      "type": "character"
+    },
+    {
+      "colname": "impact_positive_effect",
+      "type": "character"
+    },
+    {
+      "colname": "positive",
+      "type": "logical"
+    },
+    {
+      "colname": "negative",
+      "type": "logical"
+    },
+    {
+      "colname": "no_effect",
+      "type": "logical"
+    },
+    {
+      "colname": "uncertain",
+      "type": "logical"
+    },
+    {
+      "colname": "results_level",
+      "type": "character"
+    }
+  ]
+}

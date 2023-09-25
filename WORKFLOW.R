@@ -251,10 +251,6 @@ pico_details <-
     all_of(columns_pico)
   )
 
-pico_details %>% skim()
-
-pico_details %>% glimpse
-
 stopifnot(
   all(
     pico_details$fpid %in% farming_practices
@@ -280,8 +276,34 @@ if(
   
 } 
 
-pico_details
+pico_details <- 
+  pico_details %>% 
+  mutate(data_in_europe = data_in_europe %>% {
+    case_when(. == 'Y' ~ TRUE,
+              . == 'N' ~ FALSE,
+              TRUE ~ NA)
+  }) %>% 
+  mutate(
+    across(
+    .cols =   c(positive, negative, no_effect, uncertain),
+    .fns = ~as.numeric(.) %>% as.logical()
+    )
+  ) %>% 
+  mutate(nb_of_papers = nb_of_papers %>% as.numeric())
 
+
+pico_details %>% skim()
+
+pico_details %>% glimpse()
+
+pico_details %>% 
+  write_csv("data/output/selected-paper-PICO.csv")
+
+coltypes_pico <- 
+  pico_details %>% {
+    tibble(colname = colnames(.),
+           type = map_chr(., class))  
+  }
  
 # paper_population <- 
 #   papers %>% 
@@ -325,15 +347,15 @@ pico_details
 
 
 
-# coltypes <- 
-#   list(metadata = coltypes_metadata,
-#        criteria = coltypes_criteria,
-#        quality_metrics = coltypes_quality_metrics)
+coltypes <-
+  list(metadata = coltypes_metadata,
+       synthesis = coltypes_synthesis,
+       pico = coltypes_pico)
 
-# coltypes %>% 
-#   write_json(
-#     'data/metadata/selecte-ma-coltypes.json',
-#     pretty = T
-#   )
+coltypes %>%
+  write_json(
+    'data/metadata/selecte-ma-coltypes.json',
+    pretty = T
+  )
 
 
