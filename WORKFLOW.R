@@ -37,7 +37,7 @@ papers <-
 
 paper_details <- 
   impacts %>% 
-  filter(info_type == 'I')
+  filter(info_type %in% c('I', 'S'))
 
 
 # read column metadata ------------------------------------------
