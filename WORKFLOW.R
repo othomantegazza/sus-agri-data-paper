@@ -186,12 +186,12 @@ synthesis %>%
 synthesis %>% 
   extract_duplicated_rows(id_cols = impacts_primary_keys) %>% 
   write_csv(
-    'data/output/paper-synthesis-DUPL.csv' 
+    'data/output/selected-paper-synthesis-DUPL.csv' 
   )
   
 synthesis %>% 
   write_csv(
-    'data/output/paper-synthesis.csv' 
+    'data/output/selected-paper-synthesis.csv' 
   )
 
 coltypes_synthesis <- 
@@ -222,13 +222,13 @@ quality_metrics %>%
 
 quality_metrics %>% 
   write_csv(
-    'data/output/paper_quality_metrics.csv' 
+    'data/output/selected-paper-quality-metrics.csv' 
   )
 
 quality_metrics %>% 
   extract_duplicated_rows() %>% 
   write_csv(
-    'data/output/paper_quality_metrics-DUPL.csv' 
+    'data/output/selected-paper-quality-metrics-DUPL.csv' 
   )
 
 quality_metrics %>% skim()
