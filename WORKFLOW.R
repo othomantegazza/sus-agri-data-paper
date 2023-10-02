@@ -350,11 +350,12 @@ coltypes_pico <-
 coltypes <-
   list(metadata = coltypes_metadata,
        synthesis = coltypes_synthesis,
+       quality_metrics = coltypes_quality_metrics,
        pico = coltypes_pico)
 
 coltypes %>%
   write_json(
-    'data/metadata/selecte-ma-coltypes.json',
+    'data/metadata/selected-ma-coltypes.json',
     pretty = T
   )
 
