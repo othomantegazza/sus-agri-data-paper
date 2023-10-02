@@ -145,7 +145,6 @@ primary_keys_combinations %>%
 
 # paper synthesis --------------------------------------
 
-
 synthesis_colnames <-
   read_json(
     'data/metadata/selected-ma-synthesis.json',
@@ -184,7 +183,7 @@ synthesis %>%
   glimpse()
 
 synthesis %>% 
-  extract_duplicated_rows(id_cols = impacts_primary_keys) %>% 
+  extract_duplicated_rows(id_cols = impacts_primary_keys) %>%
   write_csv(
     'data/output/selected-paper-synthesis-DUPL.csv' 
   )
@@ -199,7 +198,6 @@ coltypes_synthesis <-
     tibble(colname = colnames(.),
            type = map_chr(., class))  
   }
-
 
 # paper quality score -------------------------------------------
 
@@ -239,16 +237,54 @@ coltypes_quality_metrics <-
            type = map_chr(., class))  
   }
 
-# I and S lines PICO ----------------------------------------------------
+# MA Level Data -----------------------------------------------
 
-columns_pico <-
-  read_json('data/metadata/selected-ma-pico.json',
-            simplifyVector = T)
+ma_level_data <-
+  papers %>% 
+  select(
+    all_of(
+      column_metadata$ma_level_data$colname
+    )
+  ) %>% 
+  distinct()
+
+ma_level_data_clean <-
+  ma_level_data %>% 
+  mutate(data_in_europe = data_in_europe %>% {
+    case_when(. == 'Y' ~ TRUE,
+              . == 'N' ~ FALSE,
+              TRUE ~ NA)
+  }) %>% 
+  mutate(nb_of_papers = nb_of_papers %>% as.numeric())
+
+ma_level_data_not_clean <- 
+  ma_level_data %>% 
+  anti_join(ma_level_data_clean %>% drop_na() %>% select(doi))
+
+ma_level_data_not_clean %>% 
+  write_csv(
+    'data/output/ma-level-data-need-fix.csv'
+  )
+
+ma_level_data_clean %>% 
+  extract_duplicated_rows() %>%
+  write_csv(
+    "data/output/ma-level-data-DUPL.csv"
+  )
+
+ma_level_data_clean %>% 
+  write_csv(
+    "data/output/ma-level-data.csv"
+  )
+
+
+
+# I and S lines PICO --------------------------------------------
 
 pico_details <- 
   paper_details %>%
   select(
-    all_of(columns_pico)
+    all_of(column_metadata$pico$colname)
   )
 
 stopifnot(
@@ -278,11 +314,6 @@ if(
 
 pico_details <- 
   pico_details %>% 
-  mutate(data_in_europe = data_in_europe %>% {
-    case_when(. == 'Y' ~ TRUE,
-              . == 'N' ~ FALSE,
-              TRUE ~ NA)
-  }) %>% 
   mutate(
     across(
     .cols =   c(positive, negative, no_effect, uncertain),
@@ -319,7 +350,7 @@ coltypes_pico <-
 #     doi,
 #     impact_matrix
 #   )
-# 
+
 # paper_population %>% 
 #   glimpse()
 # 
@@ -335,28 +366,28 @@ coltypes_pico <-
 #   write_csv(
 #     'data/output/paper-population.csv' 
 #   )
-# 
+
 # paper_population %>% 
 #   extract_duplicated_rows() %>% 
 #   write_csv(
 #     'data/output/paper-population-DUPL.csv' 
 #   )
-# 
+
 
 # write data types ----------------------------------------------
 
+# 
+# 
+# coltypes <-
+#   list(metadata = coltypes_metadata,
+#        synthesis = coltypes_synthesis,
+#        quality_metrics = coltypes_quality_metrics,
+#        pico = coltypes_pico)
 
-
-coltypes <-
-  list(metadata = coltypes_metadata,
-       synthesis = coltypes_synthesis,
-       quality_metrics = coltypes_quality_metrics,
-       pico = coltypes_pico)
-
-coltypes %>%
-  write_json(
-    'data/metadata/selected-ma-coltypes.json',
-    pretty = T
-  )
-
+# coltypes %>%
+#   write_json(
+#     'data/metadata/selected-ma-coltypes.json',
+#     pretty = T
+#   )
+# 
 

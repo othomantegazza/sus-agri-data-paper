@@ -253,6 +253,24 @@
       "type": "logical"
     }
   ],
+  "ma_level_data": [
+    {
+      "colname": "doi",
+      "type": "character"
+    },
+    {
+      "colname": "scale",
+      "type": "character"
+    },
+    {
+      "colname": "data_in_europe",
+      "type": "logical"
+    },
+    {
+      "colname": "nb_of_papers",
+      "type": "numeric"
+    }
+  ],
   "pico": [
     {
       "colname": "doi",
@@ -269,18 +287,6 @@
     {
       "colname": "info_type",
       "type": "character"
-    },
-    {
-      "colname": "scale",
-      "type": "character"
-    },
-    {
-      "colname": "data_in_europe",
-      "type": "logical"
-    },
-    {
-      "colname": "nb_of_papers",
-      "type": "numeric"
     },
     {
       "colname": "population",
