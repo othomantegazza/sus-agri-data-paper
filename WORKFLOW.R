@@ -61,7 +61,6 @@ column_metadata <-
 
 # paper metadata ------------------------------------------------
 
-
 metadata <- 
   papers %>% 
   select(
@@ -76,19 +75,10 @@ metadata %>%
   )
 
 metadata %>% 
-  glimpse()
-
-metadata %>% 
   extract_duplicated_rows() %>% 
   write_csv(
     'data/output/selected-paper-metadata-DUPL.csv'
   )
-
-coltypes_metadata <- 
-  metadata %>% {
-    tibble(colname = colnames(.),
-           type = map_chr(., class))  
-  }
 
 
 # paper primary keys ----------------------------------------
@@ -119,7 +109,6 @@ stopifnot(
     papers$impact_matrix %in% impact_matrices
   )
 )
-
 
 # ┣ extract json with unique keys ---------------------------------
 
@@ -157,11 +146,6 @@ synthesis <-
     all_of(synthesis_colnames)
   ) %>% 
   distinct() %>% 
-  mutate(data_in_europe = data_in_europe %>% {
-    case_when(. == 'Y' ~ TRUE,
-              . == 'N' ~ FALSE,
-              TRUE ~ NA)
-  }) %>% 
   mutate(
     across(
       .cols = c(
@@ -180,9 +164,6 @@ synthesis <-
   )
 
 synthesis %>% 
-  glimpse()
-
-synthesis %>% 
   extract_duplicated_rows(id_cols = impacts_primary_keys) %>%
   write_csv(
     'data/output/selected-paper-synthesis-DUPL.csv' 
@@ -193,11 +174,6 @@ synthesis %>%
     'data/output/selected-paper-synthesis.csv' 
   )
 
-coltypes_synthesis <- 
-  synthesis %>% {
-    tibble(colname = colnames(.),
-           type = map_chr(., class))  
-  }
 
 # paper quality score -------------------------------------------
 
@@ -216,9 +192,6 @@ quality_metrics <-
   arrange(doi)
 
 quality_metrics %>% 
-  glimpse()
-
-quality_metrics %>% 
   write_csv(
     'data/output/selected-paper-quality-metrics.csv' 
   )
@@ -228,14 +201,6 @@ quality_metrics %>%
   write_csv(
     'data/output/selected-paper-quality-metrics-DUPL.csv' 
   )
-
-quality_metrics %>% skim()
-
-coltypes_quality_metrics <- 
-  quality_metrics %>% {
-    tibble(colname = colnames(.),
-           type = map_chr(., class))  
-  }
 
 # MA Level Data -----------------------------------------------
 
@@ -281,7 +246,7 @@ ma_level_data_clean %>%
 
 # I and S lines PICO --------------------------------------------
 
-pico_details <- 
+pico <- 
   paper_details %>%
   select(
     all_of(column_metadata$pico$colname)
@@ -289,95 +254,50 @@ pico_details <-
 
 stopifnot(
   all(
-    pico_details$fpid %in% farming_practices
+    pico$fpid %in% farming_practices
   )
 )
 
 stopifnot(
   all(
-    pico_details$impact_matrix %in% impact_matrices
+    pico$impact_matrix %in% impact_matrices
   )
 )
 
 if(
   !all(
-    pico_details$doi %in% primary_keys_combinations$doi
+    pico$doi %in% primary_keys_combinations$doi
   )
 ) {
   warning('Some doi in I or S rows is not represented in the G rows')
   
-  pico_details %>% 
+  pico %>% 
     filter( ! doi %in% primary_keys_combinations$doi ) %>% 
     write_csv("data/output/selected-paper-PICO-extra-DOI.csv")
   
 } 
 
-pico_details <- 
-  pico_details %>% 
+pico <- 
+  pico %>% 
   mutate(
     across(
     .cols =   c(positive, negative, no_effect, uncertain),
     .fns = ~as.numeric(.) %>% as.logical()
     )
-  ) %>% 
-  mutate(nb_of_papers = nb_of_papers %>% as.numeric())
+  )
 
-
-pico_details %>% skim()
-
-pico_details %>% glimpse()
-
-pico_details %>% 
+pico %>% 
   write_csv("data/output/selected-paper-PICO.csv")
 
 coltypes_pico <- 
-  pico_details %>% {
+  pico %>% {
     tibble(colname = colnames(.),
            type = map_chr(., class))  
   }
  
-# paper_population <- 
-#   papers %>% 
-#   select(
-#     all_of(population_colnames)
-#   ) %>% 
-#   distinct() %>% 
-#   relocate(
-#     doi,
-#     impact_matrix
-#   ) %>% 
-#   arrange(
-#     doi,
-#     impact_matrix
-#   )
-
-# paper_population %>% 
-#   glimpse()
-# 
-# paper_population_DUPL <- 
-#   paper_population %>% 
-#   extract_duplicated_rows(id_cols = c("doi", "impact_matrix"))
-# 
-# paper_population %>% 
-#   nest(results = matches('result_*'),
-#        factors = matches('factor*_*'))
-# 
-# paper_population %>% 
-#   write_csv(
-#     'data/output/paper-population.csv' 
-#   )
-
-# paper_population %>% 
-#   extract_duplicated_rows() %>% 
-#   write_csv(
-#     'data/output/paper-population-DUPL.csv' 
-#   )
-
 
 # write data types ----------------------------------------------
 
-# 
-# 
 # coltypes <-
 #   list(metadata = coltypes_metadata,
 #        synthesis = coltypes_synthesis,

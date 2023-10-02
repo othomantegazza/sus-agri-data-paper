@@ -55,18 +55,6 @@
       "type": "character"
     },
     {
-      "colname": "scale",
-      "type": "character"
-    },
-    {
-      "colname": "data_in_europe",
-      "type": "logical"
-    },
-    {
-      "colname": "nb_of_papers",
-      "type": "character"
-    },
-    {
       "colname": "background",
       "type": "character"
     },
