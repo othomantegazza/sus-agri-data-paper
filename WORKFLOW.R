@@ -183,23 +183,55 @@ quality_metrics <-
     all_of(column_metadata$quality_metrics$colname)
   ) %>% 
   distinct() %>% 
+  arrange(doi)
+
+quality_metrics_clean <- 
+  quality_metrics %>% 
   mutate(
     across(
       .cols = !doi,
       .fns = ~as.numeric(.) %>% as.logical()
     )
-  ) %>% 
-  arrange(doi)
+  )
 
-quality_metrics %>% 
+quality_metrics_not_clean <- 
+  quality_metrics %>%
+  anti_join(quality_metrics_clean %>%
+              drop_na() %>%
+              select(doi))
+
+
+
+quality_metrics_clean %>% 
   write_csv(
     'data/output/selected-paper-quality-metrics.csv' 
   )
 
-quality_metrics %>% 
+quality_metrics_clean %>% 
   extract_duplicated_rows() %>% 
   write_csv(
     'data/output/selected-paper-quality-metrics-DUPL.csv' 
+  )
+
+quality_metrics_not_clean %>% 
+  write_csv(
+    'data/output/selected-paper-quality-metrics-NEED-FIX.csv'
+  )
+  
+
+# quality metrics with more than one vote -----------------------
+
+quality_metrics_clean %>% 
+  extract_duplicated_rows() %>% 
+  group_by(doi) %>% 
+  summarise(
+    across(
+      everything(),
+      ~sum(., na.rm = T)/n()
+    )
+  ) %>% 
+  write_csv(
+    'data/output/selected-paper-quality-metrics-VOTED-MORE-THAN-ONE.csv' 
   )
 
 # MA Level Data -----------------------------------------------
