@@ -27,7 +27,12 @@ impacts_primary_keys <- c('doi', 'fpid', 'impact_matrix')
 impacts <-
   read_csv(
     'data/MerFPs_Impacts.csv'
-  ) %>%
+  ) 
+
+problems(impacts)
+  
+impacts <- 
+  impacts %>%   
   clean_names() %>% 
   group_by(
     across(
@@ -140,18 +145,21 @@ synthesis_colnames <-
     simplifyVector = T
   )
 
+synthesis_coerced_cols <- 
+  c(
+    'selection_criteria_2',
+    'selection_criteria_3'
+  )
+
 synthesis <- 
   papers %>% 
   select(
     all_of(synthesis_colnames)
   ) %>% 
   distinct() %>% 
-  mutate(
+  mutate( 
     across(
-      .cols = c(
-        'selection_criteria_2',
-        'selection_criteria_3'
-      ),
+      .cols = all_of(synthesis_coerced_cols),
       .fns = ~as.numeric(.) %>% as.logical() 
     )
   ) %>% 
