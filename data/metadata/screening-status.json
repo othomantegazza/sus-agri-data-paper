@@ -1,0 +1,7 @@
+{
+  "B":	"Included after full text reading",
+  "R":	"Excluded after abstract reading",
+  "G":	"Excluded after abstract reading but possibly interesting for other practices",
+  "O":	"Excluded after full text reading",
+  "Y":	"To be included at a later stage"
+}
