@@ -43,7 +43,8 @@ screening_status <- read_json(
 
 # make figures --------------------------------------------------
 
-screening %>% 
+selection <- 
+  screening %>% 
   select(
     Search,
     Source_of_search,
@@ -51,5 +52,8 @@ screening %>%
     FPID,
     Paper.reviewer,
     Status
-  )
-
+  ) %>% 
+  summarise(
+    n = n(),
+    .by = c(FPID, Status)
+  ) %>% view()
