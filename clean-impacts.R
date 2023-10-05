@@ -309,7 +309,7 @@ pico_combinations <-
   filter(info_type == "G") %>% 
   select(
     all_of(
-      metadata$G$pico_combinations$columns
+      metadata$G$pico_combinations$columns$colname
       )
   ) %>% 
   distinct() %>% 
