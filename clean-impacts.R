@@ -197,7 +197,7 @@ quality_metrics_clean <-
   quality_metrics %>% 
   mutate(
     across(
-      .cols = !doi,
+      .cols = !c(doi, fpid),
       .fns = ~as.numeric(.) %>% as.logical()
     )
   )
@@ -272,7 +272,7 @@ ma_level_data_not_clean %>%
   )
 
 ma_level_data_clean %>% 
-  extract_duplicated_rows() %>%
+  extract_duplicated_rows(id_cols = c("doi", "fpid")) %>%
   write_csv(
     "data/output/ma-level-data-DUPL.csv"
   )
@@ -281,8 +281,6 @@ ma_level_data_clean %>%
   write_csv(
     "data/output/ma-level-data.csv"
   )
-
-
 
 # I and S lines PICO --------------------------------------------
 
@@ -351,3 +349,5 @@ coltypes_pico <-
 #   )
 # 
 
+impacts %>% 
+  count(control_matrix) %>% view()
