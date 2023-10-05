@@ -283,16 +283,48 @@
         "impact_matrix"
       ],
       "columns": [
-        "doi",
-        "fpid",
-        "impact_matrix",
-        "population",
-        "intervention",
-        "control",
-        "metric",
-        "metric_positive_effect",
-        "effect_size",
-        "impact_positive_effect"
+        [
+          {
+            "colname": "doi",
+            "type": "character"
+          },
+          {
+            "colname": "fpid",
+            "type": "character"
+          },
+          {
+            "colname": "impact_matrix",
+            "type": "character"
+          },
+          {
+            "colname": "population",
+            "type": "character"
+          },
+          {
+            "colname": "intervention",
+            "type": "character"
+          },
+          {
+            "colname": "control",
+            "type": "character"
+          },
+          {
+            "colname": "metric",
+            "type": "character"
+          },
+          {
+            "colname": "metric_positive_effect",
+            "type": "character"
+          },
+          {
+            "colname": "effect_size",
+            "type": "character"
+          },
+          {
+            "colname": "impact_positive_effect",
+            "type": "character"
+          }
+        ]
       ]
     }
   },

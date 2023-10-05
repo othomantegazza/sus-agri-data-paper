@@ -334,6 +334,14 @@ pico_combinations %>%
     'data/output/pico-combinations-DUPL.csv' 
   )
 
+# pico_combinations %>% 
+#   {tibble(
+#     colname = colnames(.),
+#     type = map_chr(., class)
+#   )} %>% 
+#   toJSON()
+#   write_json()
+
 # I and S lines PICO --------------------------------------------
 
 pico <- 
