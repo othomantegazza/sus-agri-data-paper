@@ -22,7 +22,7 @@ list.files(
 
 # Read selected paper data ---------------------------------------
 
-impacts_primary_keys <- c('doi', 'fpid', 'impact_matrix')
+# impacts_primary_keys <- c('doi', 'fpid', 'impact_matrix')
 
 impacts <-
   read_csv(
@@ -33,32 +33,32 @@ problems(impacts)
   
 impacts <- 
   impacts %>%   
-  clean_names() %>% 
-  group_by(
-    across(
-      all_of(impacts_primary_keys)
-    )
-  )  %>% 
-  fill(
-    scale,
-    data_in_europe,
-    nb_of_papers,
-    .direction = "downup"
-  ) %>%
-  ungroup()
+  clean_names() # %>% 
+  # group_by(
+  #   across(
+  #     all_of(impacts_primary_keys)
+  #   )
+  # )  %>% 
+  # fill(
+  #   scale,
+  #   data_in_europe,
+  #   nb_of_papers,
+  #   .direction = "downup"
+  # ) %>%
+  # ungroup()
 
-papers <- 
-  impacts %>% 
-  filter(info_type == 'G')
-
-paper_details <- 
-  impacts %>% 
-  filter(info_type %in% c('I', 'S'))
+# papers <- 
+#   impacts %>% 
+#   filter(info_type == 'G')
+# 
+# paper_details <- 
+#   impacts %>% 
+#   filter(info_type %in% c('I', 'S'))
 
 
 # read column metadata ------------------------------------------
 
-column_metadata <- 
+metadata <- 
   read_json(
     'data/metadata/selected-ma-coltypes.json',
     simplifyVector = T
@@ -66,20 +66,21 @@ column_metadata <-
 
 # paper metadata ------------------------------------------------
 
-metadata <- 
-  papers %>% 
+ma_metadata <- 
+  impacts %>% 
+  filter(info_type == "G") %>% 
   select(
-    all_of(column_metadata$metadata$colname)
+    all_of(metadata$G$ma_metadata$columns$colname)
   ) %>% 
   distinct() %>% 
   arrange(doi)
 
-metadata %>% 
+ma_metadata %>% 
   write_csv(
     'data/output/selected-paper-metadata.csv'
   )
 
-metadata %>% 
+ma_metadata %>% 
   extract_duplicated_rows() %>% 
   write_csv(
     'data/output/selected-paper-metadata-DUPL.csv'
@@ -99,7 +100,7 @@ farming_practices <-
 
 stopifnot(
   all(
-    papers$fpid %in% farming_practices
+    impacts$fpid %in% farming_practices
   )
 )
 
@@ -111,20 +112,20 @@ impact_matrices <-
 
 stopifnot(
   all(
-    papers$impact_matrix %in% impact_matrices
+    impacts$impact_matrix %in% impact_matrices
   )
 )
 
 # ┣ extract json with unique keys ---------------------------------
 
 primary_keys_combinations <- 
-  papers %>% 
-  select(all_of(impacts_primary_keys)) %>% 
+  impacts %>% 
+  select(all_of(metadata$G$synthesis$unique_identifiers)) %>% 
   distinct() %>% 
   arrange(
     across(
       all_of(
-        impacts_primary_keys
+        metadata$G$synthesis$unique_identifiers
       )
     )
   )
@@ -139,11 +140,11 @@ primary_keys_combinations %>%
 
 # paper synthesis --------------------------------------
 
-synthesis_colnames <-
-  read_json(
-    'data/metadata/selected-ma-synthesis.json',
-    simplifyVector = T
-  )
+# synthesis_colnames <-
+#   read_json(
+#     'data/metadata/selected-ma-synthesis.json',
+#     simplifyVector = T
+#   )
 
 synthesis_coerced_cols <- 
   c(
@@ -152,9 +153,10 @@ synthesis_coerced_cols <-
   )
 
 synthesis <- 
-  papers %>% 
+  impacts %>% 
+  filter(info_type == "G") %>% 
   select(
-    all_of(synthesis_colnames)
+    all_of(metadata$G$synthesis$column$colname)
   ) %>% 
   distinct() %>% 
   mutate( 
@@ -162,21 +164,29 @@ synthesis <-
       .cols = all_of(synthesis_coerced_cols),
       .fns = ~as.numeric(.) %>% as.logical() 
     )
-  ) %>% 
+  ) %>%
+  mutate(data_in_europe = data_in_europe %>% {
+    case_when(. == 'Y' ~ TRUE,
+              . == 'N' ~ FALSE,
+              TRUE ~ NA)
+  }) %>%
+  mutate(nb_of_papers = nb_of_papers %>% as.numeric()) %>% 
   arrange(
     across(
       all_of(
-        impacts_primary_keys
+        metadata$G$synthesis$unique_identifiers
       )
     )
   )
 
 synthesis %>% 
-  extract_duplicated_rows(id_cols = impacts_primary_keys) %>%
+  extract_duplicated_rows(
+    id_cols = metadata$G$synthesis$unique_identifiers
+  ) %>%
   write_csv(
     'data/output/selected-paper-synthesis-DUPL.csv' 
   )
-  
+
 synthesis %>% 
   write_csv(
     'data/output/selected-paper-synthesis.csv' 
@@ -186,9 +196,10 @@ synthesis %>%
 # paper quality score -------------------------------------------
 
 quality_metrics <- 
-  papers %>% 
+  impacts %>% 
+  filter(info_type == "G") %>% 
   select(
-    all_of(column_metadata$quality_metrics$colname)
+    all_of(metadata$G$quality_metrics$columns$colname)
   ) %>% 
   distinct() %>% 
   arrange(doi)
@@ -216,7 +227,9 @@ quality_metrics_clean %>%
   )
 
 quality_metrics_clean %>% 
-  extract_duplicated_rows() %>% 
+  extract_duplicated_rows(
+    id_cols = metadata$G$quality_metrics$unique_identifiers
+  ) %>% 
   write_csv(
     'data/output/selected-paper-quality-metrics-DUPL.csv' 
   )
@@ -230,8 +243,13 @@ quality_metrics_not_clean %>%
 # quality metrics with more than one vote -----------------------
 
 quality_metrics_clean %>% 
-  extract_duplicated_rows() %>% 
-  group_by(doi) %>% 
+  group_by(
+    across(
+      all_of(
+        metadata$G$quality_metrics$unique_identifiers
+      )
+    )
+  ) %>% 
   summarise(
     across(
       everything(),
@@ -244,43 +262,46 @@ quality_metrics_clean %>%
 
 # MA Level Data -----------------------------------------------
 
-ma_level_data <-
-  papers %>% 
-  select(
-    all_of(
-      column_metadata$ma_level_data$colname
-    )
-  ) %>% 
-  distinct()
+# ma_level_data <-
+#   impacts %>% 
+#   
+#   select(
+#     all_of(
+#       column_metadata$ma_level_data$colname
+#     )
+#   ) %>% 
+#   distinct()
+# 
+# ma_level_data_clean <-
+#   ma_level_data %>% 
+#   mutate(data_in_europe = data_in_europe %>% {
+#     case_when(. == 'Y' ~ TRUE,
+#               . == 'N' ~ FALSE,
+#               TRUE ~ NA)
+#   }) %>% 
+#   mutate(nb_of_papers = nb_of_papers %>% as.numeric())
+# 
+# ma_level_data_not_clean <- 
+#   ma_level_data %>% 
+#   anti_join(ma_level_data_clean %>% drop_na() %>% select(doi))
+# 
+# ma_level_data_not_clean %>% 
+#   write_csv(
+#     'data/output/ma-level-data-need-fix.csv'
+#   )
+# 
+# ma_level_data_clean %>% 
+#   extract_duplicated_rows(id_cols = c("doi", "fpid")) %>%
+#   write_csv(
+#     "data/output/ma-level-data-DUPL.csv"
+#   )
+# 
+# ma_level_data_clean %>% 
+#   write_csv(
+#     "data/output/ma-level-data.csv"
+#   )
 
-ma_level_data_clean <-
-  ma_level_data %>% 
-  mutate(data_in_europe = data_in_europe %>% {
-    case_when(. == 'Y' ~ TRUE,
-              . == 'N' ~ FALSE,
-              TRUE ~ NA)
-  }) %>% 
-  mutate(nb_of_papers = nb_of_papers %>% as.numeric())
 
-ma_level_data_not_clean <- 
-  ma_level_data %>% 
-  anti_join(ma_level_data_clean %>% drop_na() %>% select(doi))
-
-ma_level_data_not_clean %>% 
-  write_csv(
-    'data/output/ma-level-data-need-fix.csv'
-  )
-
-ma_level_data_clean %>% 
-  extract_duplicated_rows(id_cols = c("doi", "fpid")) %>%
-  write_csv(
-    "data/output/ma-level-data-DUPL.csv"
-  )
-
-ma_level_data_clean %>% 
-  write_csv(
-    "data/output/ma-level-data.csv"
-  )
 
 # I and S lines PICO --------------------------------------------
 
