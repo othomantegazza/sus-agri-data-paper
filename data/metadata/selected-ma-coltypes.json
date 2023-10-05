@@ -283,14 +283,14 @@
         "impact_matrix"
       ],
       "columns": [
-        "fpid",
         "doi",
+        "fpid",
         "impact_matrix",
         "population",
         "intervention",
         "control",
         "metric",
-        "metric_Positive_effect",
+        "metric_positive_effect",
         "effect_size",
         "impact_positive_effect"
       ]

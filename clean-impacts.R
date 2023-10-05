@@ -302,6 +302,37 @@ quality_metrics_clean %>%
 #   )
 
 
+# PICO combinations ---------------------------------------------
+
+pico_combinations <- 
+  impacts %>% 
+  filter(info_type == "G") %>% 
+  select(
+    all_of(
+      metadata$G$pico_combinations$columns
+      )
+  ) %>% 
+  distinct() %>% 
+  arrange(
+    across(
+      all_of(
+        metadata$G$pico_combinations$unique_identifiers
+      )
+    )
+  )
+
+pico_combinations %>% 
+  write_csv(
+    'data/output/pico-combinations.csv' 
+  )
+
+pico_combinations %>% 
+  extract_duplicated_rows(
+    id_cols = metadata$G$pico_combinations$unique_identifiers
+  ) %>% 
+  write_csv(
+    'data/output/pico-combinations-DUPL.csv' 
+  )
 
 # I and S lines PICO --------------------------------------------
 
