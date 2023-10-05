@@ -344,55 +344,55 @@ pico_combinations %>%
 
 # I and S lines PICO --------------------------------------------
 
-pico <- 
-  paper_details %>%
-  select(
-    all_of(column_metadata$pico$colname)
-  )
-
-stopifnot(
-  all(
-    pico$fpid %in% farming_practices
-  )
-)
-
-stopifnot(
-  all(
-    pico$impact_matrix %in% impact_matrices
-  )
-)
-
-if(
-  !all(
-    pico$doi %in% primary_keys_combinations$doi
-  )
-) {
-  warning('Some doi in I or S rows is not represented in the G rows')
-  
-  pico %>% 
-    filter( ! doi %in% primary_keys_combinations$doi ) %>% 
-    write_csv("data/output/selected-paper-PICO-extra-DOI.csv")
-  
-} 
-
-pico <- 
-  pico %>% 
-  mutate(
-    across(
-    .cols =   c(positive, negative, no_effect, uncertain),
-    .fns = ~as.numeric(.) %>% as.logical()
-    )
-  )
-
-pico %>% 
-  write_csv("data/output/selected-paper-PICO.csv")
-
-coltypes_pico <- 
-  pico %>% {
-    tibble(colname = colnames(.),
-           type = map_chr(., class))  
-  }
- 
+# pico <- 
+#   paper_details %>%
+#   select(
+#     all_of(column_metadata$pico$colname)
+#   )
+# 
+# stopifnot(
+#   all(
+#     pico$fpid %in% farming_practices
+#   )
+# )
+# 
+# stopifnot(
+#   all(
+#     pico$impact_matrix %in% impact_matrices
+#   )
+# )
+# 
+# if(
+#   !all(
+#     pico$doi %in% primary_keys_combinations$doi
+#   )
+# ) {
+#   warning('Some doi in I or S rows is not represented in the G rows')
+#   
+#   pico %>% 
+#     filter( ! doi %in% primary_keys_combinations$doi ) %>% 
+#     write_csv("data/output/selected-paper-PICO-extra-DOI.csv")
+#   
+# } 
+# 
+# pico <- 
+#   pico %>% 
+#   mutate(
+#     across(
+#     .cols =   c(positive, negative, no_effect, uncertain),
+#     .fns = ~as.numeric(.) %>% as.logical()
+#     )
+#   )
+# 
+# pico %>% 
+#   write_csv("data/output/selected-paper-PICO.csv")
+# 
+# coltypes_pico <- 
+#   pico %>% {
+#     tibble(colname = colnames(.),
+#            type = map_chr(., class))  
+#   }
+#  
 
 # write data types ----------------------------------------------
 

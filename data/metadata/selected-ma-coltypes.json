@@ -283,53 +283,51 @@
         "impact_matrix"
       ],
       "columns": [
-        [
-          {
-            "colname": "doi",
-            "type": "character"
-          },
-          {
-            "colname": "fpid",
-            "type": "character"
-          },
-          {
-            "colname": "impact_matrix",
-            "type": "character"
-          },
-          {
-            "colname": "population",
-            "type": "character"
-          },
-          {
-            "colname": "intervention",
-            "type": "character"
-          },
-          {
-            "colname": "control",
-            "type": "character"
-          },
-          {
-            "colname": "metric",
-            "type": "character"
-          },
-          {
-            "colname": "metric_positive_effect",
-            "type": "character"
-          },
-          {
-            "colname": "effect_size",
-            "type": "character"
-          },
-          {
-            "colname": "impact_positive_effect",
-            "type": "character"
-          }
-        ]
+        {
+          "colname": "doi",
+          "type": "character"
+        },
+        {
+          "colname": "fpid",
+          "type": "character"
+        },
+        {
+          "colname": "impact_matrix",
+          "type": "character"
+        },
+        {
+          "colname": "population",
+          "type": "character"
+        },
+        {
+          "colname": "intervention",
+          "type": "character"
+        },
+        {
+          "colname": "control",
+          "type": "character"
+        },
+        {
+          "colname": "metric",
+          "type": "character"
+        },
+        {
+          "colname": "metric_positive_effect",
+          "type": "character"
+        },
+        {
+          "colname": "effect_size",
+          "type": "character"
+        },
+        {
+          "colname": "impact_positive_effect",
+          "type": "character"
+        }
       ]
     }
   },
   "I": {
-    "pico_results": {
+    "pico_cat_result": {
       "unique_identifiers": [
         "doi",
         "fpid",
@@ -349,14 +347,6 @@
         },
         {
           "colname": "impact_matrix",
-          "type": "character"
-        },
-        {
-          "colname": "info_type",
-          "type": "character"
-        },
-        {
-          "colname": "population",
           "type": "character"
         },
         {
@@ -380,19 +370,15 @@
           "type": "character"
         },
         {
-          "colname": "metric_positive_effect",
-          "type": "character"
-        },
-        {
           "colname": "metric_matrix",
           "type": "character"
         },
         {
-          "colname": "effect_size",
+          "colname": "metric_positive_effect",
           "type": "character"
         },
         {
-          "colname": "impact_positive_effect",
+          "colname": "effect_size",
           "type": "character"
         },
         {
