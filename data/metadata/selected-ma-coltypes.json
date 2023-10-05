@@ -1,4 +1,6 @@
 {
+  "G":
+  {
   "metadata": {
     "unique_identifiers": [
       "doi"
@@ -199,98 +201,84 @@
       }
     ]
   },
-  "quality_metrics": [
-    {
-      "colname": "doi",
-      "type": "character"
-    },
-    {
-      "colname": "fpid",
-      "type": "character"
-    },
-    {
-      "colname": "list_of_std",
-      "type": "logical"
-    },
-    {
-      "colname": "ma_specified_objective",
-      "type": "logical"
-    },
-    {
-      "colname": "search_databases",
-      "type": "logical"
-    },
-    {
-      "colname": "search_string",
-      "type": "logical"
-    },
-    {
-      "colname": "nb_std_per_step",
-      "type": "logical"
-    },
-    {
-      "colname": "quantitative_results_described",
-      "type": "logical"
-    },
-    {
-      "colname": "statistical_methods_described",
-      "type": "logical"
-    },
-    {
-      "colname": "individual_effect_sizes",
-      "type": "logical"
-    },
-    {
-      "colname": "individual_std_weighted",
-      "type": "logical"
-    },
-    {
-      "colname": "dataset_available",
-      "type": "logical"
-    },
-    {
-      "colname": "confidence_intervals",
-      "type": "logical"
-    },
-    {
-      "colname": "method_of_data_extraction",
-      "type": "logical"
-    },
-    {
-      "colname": "heterogeneity_of_results_analyzed",
-      "type": "logical"
-    },
-    {
-      "colname": "funding_sources_mentioned",
-      "type": "logical"
-    },
-    {
-      "colname": "publication_bias_analyzed",
-      "type": "logical"
-    }
-  ],
-  "ma_level_data": [
-    {
-      "colname": "doi",
-      "type": "character"
-    },
-    {
-      "colname": "fpid",
-      "type": "character"
-    },
-    {
-      "colname": "scale",
-      "type": "character"
-    },
-    {
-      "colname": "data_in_europe",
-      "type": "logical"
-    },
-    {
-      "colname": "nb_of_papers",
-      "type": "numeric"
-    }
-  ],
+  "quality_metrics": {
+    "unique_identifiers": [
+      "doi",
+      "fpid"
+    ],
+    "columns": [
+      {
+        "colname": "doi",
+        "type": "character"
+      },
+      {
+        "colname": "fpid",
+        "type": "character"
+      },
+      {
+        "colname": "list_of_std",
+        "type": "logical"
+      },
+      {
+        "colname": "ma_specified_objective",
+        "type": "logical"
+      },
+      {
+        "colname": "search_databases",
+        "type": "logical"
+      },
+      {
+        "colname": "search_string",
+        "type": "logical"
+      },
+      {
+        "colname": "nb_std_per_step",
+        "type": "logical"
+      },
+      {
+        "colname": "quantitative_results_described",
+        "type": "logical"
+      },
+      {
+        "colname": "statistical_methods_described",
+        "type": "logical"
+      },
+      {
+        "colname": "individual_effect_sizes",
+        "type": "logical"
+      },
+      {
+        "colname": "individual_std_weighted",
+        "type": "logical"
+      },
+      {
+        "colname": "dataset_available",
+        "type": "logical"
+      },
+      {
+        "colname": "confidence_intervals",
+        "type": "logical"
+      },
+      {
+        "colname": "method_of_data_extraction",
+        "type": "logical"
+      },
+      {
+        "colname": "heterogeneity_of_results_analyzed",
+        "type": "logical"
+      },
+      {
+        "colname": "funding_sources_mentioned",
+        "type": "logical"
+      },
+      {
+        "colname": "publication_bias_analyzed",
+        "type": "logical"
+      }
+    ]
+  }
+},
+"I": {
   "pico": [
     {
       "colname": "doi",
@@ -369,4 +357,5 @@
       "type": "character"
     }
   ]
+}
 }
