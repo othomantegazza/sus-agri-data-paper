@@ -28,11 +28,10 @@ screening <-
     'data/MerFPs_Screening_20230810.xlsx'
   )
 
-
-
 screening %>% colnames()
 
-screening_status <- read_json(
+screening_status <-
+  read_json(
   'data/metadata/screening-status.json',
   simplifyVector = T
 ) %>% 
@@ -43,7 +42,7 @@ screening_status <- read_json(
 
 # make figures --------------------------------------------------
 
-selection <- 
+status_by_fpid <- 
   screening %>% 
   select(
     Search,
@@ -56,4 +55,10 @@ selection <-
   summarise(
     n = n(),
     .by = c(FPID, Status)
-  ) %>% view()
+  ) %>% 
+  mutate(Status = Status %>% toupper()) %>% 
+  filter(Status %in% names(screening_status)) %>% 
+  mutate(status_details = screening_status[Status],
+         .before = 'n')
+
+ 
