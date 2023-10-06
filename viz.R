@@ -202,7 +202,7 @@ status_by_fpid %>%
     . ~ short_description,
     scales = 'free_x',
     space = 'free_x',
-    labeller = label_wrap_gen(width = 15)
+    labeller = label_wrap_gen(width = 12)
   ) +
   labs(
     x = NULL,
@@ -210,7 +210,8 @@ status_by_fpid %>%
   ) +
   scale_x_continuous(
     expand = expansion(add = c(0, 100)),
-    breaks = ~seq(0, .[2], by = 200)
+    # breaks = ~seq(0, .[2], by = 200),
+    limits = ~c(0, ifelse(.[2] > 150, .[2], 150))
   ) +
   theme(
     axis.line.y = element_blank(),
