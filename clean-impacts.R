@@ -350,9 +350,61 @@ pico_cat_results <-
   filter(info_type == "I") %>% 
   select(
     all_of(
-      metadata$I$pico_results$columns$colname
+      metadata$I$pico_cat_result$columns$colname
+    )
+  ) %>% 
+  distinct() %>% 
+  arrange(
+    across(
+      all_of(
+        metadata$I$pico_cat_result$unique_identifiers
+      )
     )
   )
+
+
+# VIZ -----------------------------------------------------------
+
+fpid_ordered <-  
+  synthesis %>% 
+  count(fpid,
+        sort = T) %>% 
+  pull(fpid)
+
+matrix_ordered <- 
+  synthesis %>% 
+  count(impact_matrix,
+        sort = T) %>% 
+  pull(impact_matrix)
+
+
+synthesis %>% 
+  count(fpid, impact_matrix) %>% 
+  ggplot() +
+  aes(x = impact_matrix %>% 
+        factor(
+          levels = matrix_ordered
+        ),
+      y = fpid %>% factor(
+        levels = fpid_ordered) %>%
+        fct_rev(),
+      fill = n) +
+  geom_tile() +
+  theme(
+    axis.text.x = element_text(
+      angle = 90, hjust = 1, vjust = 1
+    )
+  )
+
+
+
+pico_cat_results %>% 
+  count(fpid, sort = T) %>% 
+  ggplot() +
+  aes(x = n,
+      y = fpid) +
+  geom_col()
+
 
 # I and S lines PICO --------------------------------------------
 
