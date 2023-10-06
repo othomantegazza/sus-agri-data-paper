@@ -11,14 +11,15 @@ library(glue)
 library(purrr)
 library(jsonlite)
 library(skimr)
+library(paletteer)
 
 
 # GRAPH SETUP ---------------------------------------------------
 
 unit_type <- 'mm'
 line_width <- 1.2
-height <- width
 width <- 150
+height <- width
 base_size <- 10
 categorical_palette <- paletteer_d("futurevisions::atomic_blue")
 colours_dia <- categorical_palette[2:3]
@@ -61,6 +62,12 @@ pico_cat_results <-
   read_csv(
     'data/output/pico-cat-results.csv'
   )
+
+status_by_fpid <-   
+  read_csv(
+    'data/output/status-by-fpid.csv'
+    )
+
 
 # VIZ -----------------------------------------------------------
 
@@ -117,7 +124,7 @@ synthesis %>%
       colour = 'black',
       size = line_width*.1,
       linetype = '11'
-      )
+    )
   )
 
 pico_cat_results %>% 
@@ -125,4 +132,14 @@ pico_cat_results %>%
   ggplot() +
   aes(x = n,
       y = fpid) +
+  geom_col()
+
+
+# VIZ SCREEN ----------------------------------------------------
+
+status_by_fpid %>% 
+  ggplot() +
+  aes(x = n,
+      y = FPID %>% factor(levels = fpid_ordered) %>% fct_rev(),
+      fill = Status) +
   geom_col()
