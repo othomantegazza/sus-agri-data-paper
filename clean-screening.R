@@ -52,13 +52,34 @@ status_by_fpid <-
     Paper.reviewer,
     Status
   ) %>% 
+  mutate(Status = Status %>% {
+    case_when(
+      . == "LB" ~ "O",
+      . == "Y" ~ "O",
+      . == "G" ~ "R",
+      TRUE ~ .
+    )
+  })
+
+status_by_fpid_DUPL <- 
+  status_by_fpid %>% 
+  extract_duplicated_rows(id_cols = c('DOI', 'FPID'))
+
+warning("Removing randomly duplicated rows in Screening Results")
+
+status_by_fpid_clean <- 
+  status_by_fpid %>% 
+  distinct(DOI, FPID, .keep_all = T) %>% 
+  mutate(Status = Status %>% toupper()) %>% 
   summarise(
     n = n(),
     .by = c(FPID, Status)
   ) %>% 
-  mutate(Status = Status %>% toupper()) %>% 
   filter(Status %in% names(screening_status)) %>% 
   mutate(status_details = screening_status[Status],
-         .before = 'n')
+         .before = 'n') 
 
- 
+status_by_fpid_clean %>%  
+  write_csv(
+    'data/output/status-by-fpid.csv'
+  )
