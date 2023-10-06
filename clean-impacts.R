@@ -342,6 +342,18 @@ pico_combinations %>%
 #   toJSON()
 #   write_json()
 
+
+# categorical results for each pico -----------------------------
+
+pico_cat_results <- 
+  impacts %>% 
+  filter(info_type == "I") %>% 
+  select(
+    all_of(
+      metadata$I$pico_results$columns$colname
+    )
+  )
+
 # I and S lines PICO --------------------------------------------
 
 # pico <- 

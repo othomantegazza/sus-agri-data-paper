@@ -332,9 +332,9 @@
         "doi",
         "fpid",
         "impact_matrix",
-        "Intervention_matrix",
-        "Control_matrix",
-        "Effect_size"
+        "intervention_matrix",
+        "control_matrix",
+        "effect_size"
       ],
       "columns": [
         {
