@@ -111,20 +111,38 @@ synthesis %>%
     size = text_size_plot,
     show.legend = FALSE
   ) +
-  labs(x = NULL,
-       y = NULL) +
-  guides(fill = 'none') +
+  labs(
+    x = NULL,
+    y = NULL
+  ) +
+  guides(
+    fill = 'none'
+  ) +
+  scale_x_discrete(
+    position = 'top'
+  ) +
   scale_fill_viridis_c(
     direction = -1,
     option = 'G',
     na.value = '#00000000',
   ) +
-  scale_colour_manual(values = c(white = 'white',
-                                 black = 'black')) +
+  scale_colour_manual(
+    values = c('white',
+               'black') %>% 
+      set_names()
+  ) +
   theme(
-    axis.text.x = element_text(
-      angle = 90, hjust = 1, vjust = .5
+    axis.line = element_line(
+      size = line_width*.2
     ),
+    axis.text.x = element_text(
+      angle = 300, 
+      hjust = 1, 
+      vjust = .5
+    ),
+    axis.ticks = element_line(
+      size = line_width*.2
+    ) +
     panel.grid = element_line(
       colour = 'black',
       size = line_width*.1,
