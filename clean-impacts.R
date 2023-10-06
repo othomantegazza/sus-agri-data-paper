@@ -362,6 +362,8 @@ pico_cat_results <-
     )
   )
 
+pico_cat_results %>% 
+  write_csv("data/output/pico-cat-results.csv")
 
 # I and S lines PICO --------------------------------------------
 
@@ -430,5 +432,5 @@ pico_cat_results <-
 #   )
 # 
 
-impacts %>% 
-  count(control_matrix) %>% view()
+# impacts %>% 
+#   count(control_matrix) %>% view()
