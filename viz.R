@@ -46,6 +46,11 @@ theme_set(
       axis.ticks = element_line(),
       axis.line = element_line(linewidth = line_width),
       legend.position = "bottom",
+      panel.grid = element_line(
+        colour = 'black',
+        size = line_width*.1,
+        linetype = '11'
+      ),
       panel.grid.minor = element_blank()
     )
 )
@@ -137,9 +142,84 @@ pico_cat_results %>%
 
 # VIZ SCREEN ----------------------------------------------------
 
+fpid_ordered_screening <- 
+  status_by_fpid %>% 
+  summarise(
+    n = n %>% sum(na.rm = T),
+    .by = FPID
+  ) %>% 
+  arrange(desc(n)) %>% 
+  pull(FPID) 
+
+screening_levels <- 
+  c(
+    'After Web Search',
+    'After Reading Abstract',
+    'After Reading Full Text'
+  )
+
+status_by_fpid <- 
+  status_by_fpid %>% 
+  mutate(
+    short_description = Status %>% {
+      case_when(. == 'R' ~ screening_levels[1],
+                . == 'O' ~ screening_levels[2],
+                . == 'B' ~ screening_levels[3]
+      )
+    } %>% 
+      factor(levels = screening_levels)
+  )
+
 status_by_fpid %>% 
+  arrange(FPID, Status) %>% 
+  mutate(tot_before_step = n %>% cumsum(),
+         .by = FPID) %>% 
   ggplot() +
-  aes(x = n,
-      y = FPID %>% factor(levels = fpid_ordered) %>% fct_rev(),
-      fill = Status) +
-  geom_col()
+  aes(
+    x = tot_before_step,
+    y = FPID %>%
+      factor(levels = fpid_ordered_screening) %>%
+      fct_rev()) +
+  geom_col(
+    fill = 'white',
+    colour = 'black',
+    size = line_width/2,
+    width = 1
+  ) +
+  geom_text(
+    aes(
+      x = tot_before_step + 20,
+      label = tot_before_step
+    ),
+    size = text_size_plot,
+    hjust = 0
+  ) +
+  geom_vline(
+    xintercept = 0,
+    size = line_width
+    ) +
+  facet_grid(
+    . ~ short_description,
+    scales = 'free_x',
+    space = 'free_x',
+    labeller = label_wrap_gen(width = 15)
+  ) +
+  labs(
+    x = NULL,
+    y = NULL
+  ) +
+  scale_x_continuous(
+    expand = expansion(add = c(0, 100)),
+    breaks = ~seq(0, .[2], by = 200)
+  ) +
+  theme(
+    axis.line.y = element_blank(),
+    panel.grid.major.x = element_blank(),
+    axis.line.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    axis.text.x = element_blank(),
+    panel.spacing = unit(0, 'mm'),
+    strip.text = element_text(size = base_size,
+                              hjust = 0)
+  )
+  
