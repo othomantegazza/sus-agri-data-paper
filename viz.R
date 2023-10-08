@@ -12,7 +12,8 @@ library(purrr)
 library(jsonlite)
 library(skimr)
 library(paletteer)
-
+library(grid)
+library(gtable)
 
 # GRAPH SETUP ---------------------------------------------------
 
@@ -142,7 +143,7 @@ synthesis %>%
     ),
     axis.ticks = element_line(
       size = line_width*.2
-    ) +
+    ),
     panel.grid = element_line(
       colour = 'black',
       size = line_width*.1,
@@ -188,7 +189,8 @@ status_by_fpid <-
       factor(levels = screening_levels)
   )
 
-status_by_fpid %>% 
+p_screening <- 
+  status_by_fpid %>% 
   arrange(FPID, Status) %>% 
   mutate(tot_before_step = n %>% cumsum(),
          .by = FPID) %>% 
@@ -238,7 +240,114 @@ status_by_fpid %>%
     axis.ticks.x = element_blank(),
     axis.text.x = element_blank(),
     panel.spacing = unit(0, 'mm'),
-    strip.text = element_text(size = base_size,
-                              hjust = 0)
+    strip.text = element_blank()
+    # strip.text = element_text(size = base_size,
+    #                           hjust = 0,
+    #                           vjust = 0,
+    #                           margin = margin(l = 0, b = 5))
   )
+
+p_screening
+
+gp <- gpar(
+  fontsize = base_size
+)
+
+rect <- rectGrob(
+  x = unit(0, "cm"),
+  y = unit(0, "cm"),
+  width = unit(1, "npc"),
+  height = unit(1, "cm"),
+  hjust = 0,
+  vjust = 0,
+  gp = gpar(
+    fill = "#00000080"
+  )
+)
+
+
+
+p_screening_augmented <- 
+  p_screening %>%
+  ggplotGrob() %>% 
+  gtable_add_rows(
+    heights = unit(2, "cm"),
+    pos = 7
+  ) %>%
+  gtable_add_grob(
+    # grobs = list(
+    #   # rect,
+    #   textGrob(
+    #     label = 'After Web Search',
+    #     0, 0.1,
+    #     gp = gp,
+    #     just = c('left', 'bottom')
+    #   )
+    # ),
+    grobs = rect,
+    t = 8,
+    l = 5
+  )
+
+p_screening_augmented %>% .$layout
+
+p_screening_augmented %>% grid.draw()
+grid.ls()
+
+pushViewport(viewport(layout.pos.col = 2:3, layout.pos.row = 3))
+grid.rect(gp = gpar(col = "grey"))
+
+
   
+# .$layout %>% %>% 
+  # filter(name %>% str_detect('^strip-t'))
+
+
+
+gtable_add_grob(
+  grobs = textGrob(
+    label = 'Ciao',
+    gp = gpar(fontsize = base_size)
+  ),
+  t = 7,
+  l = 5
+  ) %>% # .$layout
+  grid.draw()
+
+
+
+
+
+
+
+
+p_scr_t <- 
+  p_screening %>%
+  ggplotGrob() %>% 
+  gtable_add_rows(heights = unit(1, 'cm'), pos = 6) %>%
+  gtable_add_grob(
+    rect,
+    t = 1,
+    b = 13,
+    l = 1,
+    r = 9,
+    z = Inf
+  )
+  # gtable_add_grob(
+  #   textGrob('ciao', gp = gpar(col = 'red', fontsize = 30)),
+  #   t = 7,
+  #   l = 8,
+  #   # b = 7,
+  #   # r = 5, 
+  #   z = Inf)
+
+grid.draw(p_scr_t)
+
+p_scr_t$layout
+
+
+rect <- rectGrob(gp = gpar(fill = "#00000080"))
+tab <- gtable(unit(rep(1, 3), "null"), unit(rep(1, 3), "null"))
+tab <- gtable_add_grob(tab, rect, t = 1, l = 1, r = 3)
+tab <- gtable_add_grob(tab, rect, t = 1, b = 3, l = 1)
+tab <- gtable_add_grob(tab, rect, t = 1, b = 3, l = 3)
