@@ -254,24 +254,27 @@ gp <- gpar(
   fontsize = base_size
 )
 
-rect <- rectGrob(
-  x = unit(0, "cm"),
-  y = unit(0, "cm"),
-  width = unit(1, "npc"),
-  height = unit(1, "cm"),
-  hjust = 0,
-  vjust = 0,
-  gp = gpar(
-    fill = "#00000080"
-  )
-)
+# rect <- rectGrob(
+#   x = unit(0, "cm"),
+#   y = unit(0, "cm"),
+#   width = unit(1, "npc"),
+#   height = unit(1, "cm"),
+#   hjust = 0,
+#   vjust = 0,
+#   gp = gpar(
+#     fill = "#00000080"
+#   )
+# )
 
-txt <- 
+hs <- c(2, .2, 1, 1)
+ws <- c(2, 1, .5)
+
+btxt <- 
   textbox_grob(
-    text = 'After <span style="color: red">Web Search</span>',
+    text = 'After Web Search',
     x = unit(0, "npc"),
-    y = unit(.1, "npc"),
-    width = unit(1.5, "cm"),
+    y = unit(0, "npc"),
+    width = unit(1, "npc"),
     hjust = 0,
     vjust = 0,
     gp = gp,
@@ -279,10 +282,24 @@ txt <-
                   col = '#00000000')
   )
 
-arrow <- 
+ttxt <- 
+  textbox_grob(
+    text = 'Discarded....',
+    x = unit(0, "npc"),
+    y = unit(0, "npc"),
+    width = unit(1, "npc"),
+    hjust = 0,
+    vjust = 0,
+    gp = gp,
+    box_gp = gpar(fill = 'white',
+                  col = '#00000000')
+  )
+
+
+harr <- 
   linesGrob(
     x = unit(c(0, 1), 'npc'),
-    y = unit(rep(base_size/20, 2), 'cm'),
+    y = unit(rep(base_size, 2), 'points'),
     arrow = arrow(
       length = unit(.2, 'cm'),
       type = "open"
@@ -292,57 +309,97 @@ arrow <-
     )
   )
 
-diagram_part <- gTree(
-  children = gList(
-    arrow,
-    txt
+varr <- 
+  linesGrob(
+    x = unit(rep(ws[1]/2, 2), 'cm'),
+    y = unit(c(0, 1), 'npc'),
+    arrow = arrow(
+      length = unit(.2, 'cm'),
+      type = "open"
+    ),
+    gp = gpar(
+      lty = '11'
+    )
   )
-)
 
+diagr <- 
+  gtable() %>% 
+  gtable_add_rows(
+    heights = unit(2, "cm")
+  ) %>%
+  gtable_add_rows(
+    heights = unit(.2, "cm")
+  ) %>%
+  gtable_add_rows(
+    heights = unit(1, "null")
+  ) %>%
+  gtable_add_rows(
+    heights = unit(2, "cm")
+  ) %>%
+  gtable_add_rows(
+    heights = unit(.2, "cm")
+  ) %>%
+  gtable_add_cols(
+    widths = unit(2, "cm")
+  ) %>%
+  gtable_add_cols(
+    widths = unit(1, "null")
+  ) %>%
+  gtable_add_cols(
+    widths = unit(.5, "cm")
+  )
+
+diagr %>% gtable_show_layout()
+
+diagr <- 
+  diagr %>% 
+  gtable_add_grob(
+    grobs = btxt,
+    t = 4,
+    l = 1
+  ) %>% 
+  gtable_add_grob(
+    grobs = ttxt,
+    t = 1,
+    l = 1
+  ) %>% 
+  gtable_add_grob(
+    grobs = harr,
+    t = 4,
+    l = 2
+  ) %>% 
+  gtable_add_grob(
+    grobs = varr,
+    t = 3,
+    l = 1
+  ) 
+
+grid.newpage()
+diagr %>% grid.draw()
 
 p_screening_augmented <- 
   p_screening %>%
   ggplotGrob() %>% 
   gtable_add_rows(
-    heights = unit(2, "cm"),
+    heights = unit(7, "cm"),
     pos = 7
   ) %>% 
   gtable_add_grob(
-    # grobs = list(
-    #   # rect,
-    #   textGrob(
-    #     label = 'After Web Search',
-    #     0, 0.1,
-    #     gp = gp,
-    #     just = c('left', 'bottom')
-    #   )
-    # ),
-    grobs = diagram_part,
+    grobs = diagr,
     t = 8,
     l = 5
-  ) %>%
-  gtable_add_grob(
-    # grobs = list(
-    #   # rect,
-    #   textGrob(
-    #     label = 'After Web Search',
-    #     0, 0.1,
-    #     gp = gp,
-    #     just = c('left', 'bottom')
-    #   )
-    # ),
-    grobs = diagram_part,
-    t = 8,
-    l = 7
   )
+
+p_screening_augmented %>% gtable_show_layout()
+p_screening %>% ggplotGrob %>% gtable_show_layout()
 p_screening_augmented %>% grid.draw()
 
 # p_screening_augmented %>% .$layout
 
-grid.ls()
-
-pushViewport(viewport(layout.pos.col = 2:3, layout.pos.row = 3))
-grid.rect(gp = gpar(col = "grey"))
+# grid.ls()
+# 
+# pushViewport(viewport(layout.pos.col = 2:3, layout.pos.row = 3))
+# grid.rect(gp = gpar(col = "grey"))
 
 
   

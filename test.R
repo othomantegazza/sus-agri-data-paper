@@ -75,3 +75,60 @@ candy <- circleGrob(r = 0.1, x = 0.5, y = 0.6)
 stick <- segmentsGrob(x0 = 0.5, x1 = 0.5, y0 = 0, y1 = 0.5)
 lollipop <- gTree(children = gList(candy, stick))
 grid.draw(lollipop)
+
+
+?gtable
+library(grid)
+a <- gtable(
+  unit(1:3, c("cm")),
+  unit(5, "cm")
+)
+a
+gtable_show_layout(a)
+b <- gtable(unit(c(2, 2, 2), "cm"), unit(c(2, 2, 2), "cm"))
+b %>% gtable_show_layout()
+b <- gtable_add_grob(b, rect, 2, 2)
+
+g <- 
+  grid.layout(
+    4, 4,
+    widths = unit(
+      c(3, 1, 1, 1),
+      c("lines", "null", "null", "cm")
+    ),
+    heights = c(1, 1, 2, 3),
+    c("cm", "null", "null", "lines")
+  )
+
+diagr <- 
+  gtable() %>% 
+  gtable_add_rows(
+    heights = unit(2, "cm")
+  ) %>%
+  gtable_add_rows(
+    heights = unit(.5, "cm")
+  ) %>%
+  gtable_add_rows(
+    heights = unit(1, "null")
+  ) %>%
+  gtable_add_rows(
+    heights = unit(2, "cm")
+  ) %>%
+  gtable_add_cols(
+    widths = unit(2, "cm")
+  ) %>%
+  gtable_add_cols(
+    widths = unit(1, "null")
+  ) %>%
+  gtable_add_cols(
+    widths = unit(.5, "cm")
+  ) 
+
+diagr %>% gtable_show_layout()  
+
+g
+class(g)
+class(a)
+gtable_show_layout(a)
+
+grid.show.layout(g)
