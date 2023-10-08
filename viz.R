@@ -231,7 +231,6 @@ p_screening <-
   ) +
   scale_x_continuous(
     expand = expansion(add = c(0, 100)),
-    # breaks = ~seq(0, .[2], by = 200),
     limits = ~c(0, ifelse(.[2] > 150, .[2], 150))
   ) +
   theme(
@@ -242,156 +241,194 @@ p_screening <-
     axis.text.x = element_blank(),
     panel.spacing = unit(0, 'mm'),
     strip.text = element_blank()
-    # strip.text = element_text(size = base_size,
-    #                           hjust = 0,
-    #                           vjust = 0,
-    #                           margin = margin(l = 0, b = 5))
   )
 
 p_screening
+
+statuses <- 
+  status_by_fpid %>% 
+  group_by(short_description) %>% 
+  summarise(n = n %>% sum()) %>% 
+  mutate(discarded = c(NA, n[1:{n() - 1}]) - n) %>% 
+  # transmute(res = paste(
+  #   short_description, ': retained ', n, ' MAs', sep = '')
+  # ) %>% 
+  # pull(res) 
+  mutate(
+    top_arrow = c(F, T, T),
+    right_arrow = c(T, T, F),
+    top_text = top_arrow
+  )
 
 gp <- gpar(
   fontsize = base_size
 )
 
-# rect <- rectGrob(
-#   x = unit(0, "cm"),
-#   y = unit(0, "cm"),
-#   width = unit(1, "npc"),
-#   height = unit(1, "cm"),
-#   hjust = 0,
-#   vjust = 0,
-#   gp = gpar(
-#     fill = "#00000080"
-#   )
-# )
 
-hs <- c(2, .2, 1, 1)
-ws <- c(2, 1, .5)
-
-btxt <- 
-  textbox_grob(
-    text = 'After Web Search',
-    x = unit(0, "npc"),
-    y = unit(0, "npc"),
-    width = unit(1, "npc"),
-    hjust = 0,
-    vjust = 0,
-    gp = gp,
-    box_gp = gpar(fill = 'white',
-                  col = '#00000000')
-  )
-
-ttxt <- 
-  textbox_grob(
-    text = 'Discarded....',
-    x = unit(0, "npc"),
-    y = unit(0, "npc"),
-    width = unit(1, "npc"),
-    hjust = 0,
-    vjust = 0,
-    gp = gp,
-    box_gp = gpar(fill = 'white',
-                  col = '#00000000')
-  )
-
-
-harr <- 
-  linesGrob(
-    x = unit(c(0, 1), 'npc'),
-    y = unit(rep(base_size, 2), 'points'),
-    arrow = arrow(
-      length = unit(.2, 'cm'),
-      type = "open"
-    ),
-    gp = gpar(
-      lty = '11'
+make_diagram <- function(
+    short_description,
+    n,
+    discarded,
+    top_arrow = T,
+    right_arrow = T,
+    top_text = T,
+    ...
+) {
+  hs <- c(2, .2, 1, 2.2, .2)
+  ws <- c(2, 1, .5)
+  
+  diagr <- 
+    gtable() %>% 
+    gtable_add_rows(
+      heights = unit(hs[1], "cm")
+    ) %>%
+    gtable_add_rows(
+      heights = unit(hs[2], "cm")
+    ) %>%
+    gtable_add_rows(
+      heights = unit(hs[3], "null")
+    ) %>%
+    gtable_add_rows(
+      heights = unit(hs[4], "cm")
+    ) %>%
+    gtable_add_rows(
+      heights = unit(hs[5], "cm")
+    ) %>%
+    gtable_add_cols(
+      widths = unit(ws[1], "cm")
+    ) %>%
+    gtable_add_cols(
+      widths = unit(ws[2], "null")
+    ) %>%
+    gtable_add_cols(
+      widths = unit(ws[3], "cm")
     )
-  )
-
-varr <- 
-  linesGrob(
-    x = unit(rep(ws[1]/2, 2), 'cm'),
-    y = unit(c(0, 1), 'npc'),
-    arrow = arrow(
-      length = unit(.2, 'cm'),
-      type = "open"
-    ),
-    gp = gpar(
-      lty = '11'
+  
+  # bottom text
+  btxt <- 
+    textbox_grob(
+      text = paste(
+        short_description, ': retained ', n, ' MAs', sep = ''
+      ),
+      x = unit(0, "npc"),
+      y = unit(0, "npc"),
+      width = unit(1, "npc"),
+      hjust = 0,
+      vjust = 0,
+      gp = gp
     )
-  )
+  
+  diagr <- 
+    diagr %>% 
+    gtable_add_grob(
+      grobs = btxt,
+      t = 4,
+      l = 1
+    ) 
+  
+  if(top_text) {
+    ttxt <- 
+      textbox_grob(
+        text = ,paste(
+          'Discarded:', ' ', discarded, ' ', 'MAs', sep = ''
+        ),
+        x = unit(0, "npc"),
+        y = unit(0, "npc"),
+        width = unit(1, "npc"),
+        hjust = 0,
+        vjust = 0,
+        gp = gp,
+        box_gp = gpar(fill = 'white',
+                      col = '#00000000')
+      )
+    
+    diagr <- 
+      diagr %>% 
+      gtable_add_grob(
+        grobs = ttxt,
+        t = 1,
+        l = 1
+      )
+  }
+  
+  if(right_arrow) {
+    harr <- 
+      linesGrob(
+        x = unit(c(0, 1), 'npc'),
+        y = unit(rep(base_size, 2), 'points'),
+        arrow = arrow(
+          length = unit(.2, 'cm'),
+          type = "open"
+        ),
+        gp = gpar(
+          lty = '11'
+        )
+      )
+    
+    diagr <- 
+      diagr %>% 
+      gtable_add_grob(
+        grobs = harr,
+        t = 4,
+        l = 2
+      )
+  }
+  
+  if(top_arrow) {  
+    varr <- 
+      linesGrob(
+        x = unit(rep(base_size, 2), 'points'),
+        y = unit(c(0, 1), 'npc'),
+        arrow = arrow(
+          length = unit(.2, 'cm'),
+          type = "open"
+        ),
+        gp = gpar(
+          lty = '11'
+        )
+      )
+    
+    diagr <- 
+      diagr %>% 
+      gtable_add_grob(
+        grobs = varr,
+        t = 3,
+        l = 1
+      )
+  }
+  return(diagr)
+}
 
-diagr <- 
-  gtable() %>% 
-  gtable_add_rows(
-    heights = unit(2, "cm")
-  ) %>%
-  gtable_add_rows(
-    heights = unit(.2, "cm")
-  ) %>%
-  gtable_add_rows(
-    heights = unit(1, "null")
-  ) %>%
-  gtable_add_rows(
-    heights = unit(2, "cm")
-  ) %>%
-  gtable_add_rows(
-    heights = unit(.2, "cm")
-  ) %>%
-  gtable_add_cols(
-    widths = unit(2, "cm")
-  ) %>%
-  gtable_add_cols(
-    widths = unit(1, "null")
-  ) %>%
-  gtable_add_cols(
-    widths = unit(.5, "cm")
-  )
+status_tables <- 
+  statuses %>% pmap(make_diagram)
 
-diagr %>% gtable_show_layout()
-
-diagr <- 
-  diagr %>% 
-  gtable_add_grob(
-    grobs = btxt,
-    t = 4,
-    l = 1
-  ) %>% 
-  gtable_add_grob(
-    grobs = ttxt,
-    t = 1,
-    l = 1
-  ) %>% 
-  gtable_add_grob(
-    grobs = harr,
-    t = 4,
-    l = 2
-  ) %>% 
-  gtable_add_grob(
-    grobs = varr,
-    t = 3,
-    l = 1
-  ) 
-
-grid.newpage()
-diagr %>% grid.draw()
+# 
+# grid.newpage()
+# diagr %>% grid.draw()
 
 p_screening_augmented <- 
   p_screening %>%
   ggplotGrob() %>% 
   gtable_add_rows(
-    heights = unit(7, "cm"),
+    heights = unit(5.5, "cm"),
     pos = 7
   ) %>% 
   gtable_add_grob(
-    grobs = diagr,
+    grobs = status_tables[[1]],
     t = 8,
     l = 5
+  ) %>% gtable_add_grob(
+    grobs = status_tables[[2]],
+    t = 8,
+    l = 7
+  ) %>% gtable_add_grob(
+    grobs = status_tables[[3]],
+    t = 8,
+    l = 9
   )
 
-p_screening_augmented %>% gtable_show_layout()
-p_screening %>% ggplotGrob %>% gtable_show_layout()
+# p_screening_augmented %>% gtable_show_layout()
+# p_screening %>% ggplotGrob %>% gtable_show_layout()
 p_screening_augmented %>% grid.draw()
 
 # p_screening_augmented %>% .$layout
