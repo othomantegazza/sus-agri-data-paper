@@ -14,6 +14,7 @@ library(skimr)
 library(paletteer)
 library(grid)
 library(gtable)
+library(gridtext)
 
 # GRAPH SETUP ---------------------------------------------------
 
@@ -265,6 +266,38 @@ rect <- rectGrob(
   )
 )
 
+txt <- 
+  textbox_grob(
+    text = 'After <span style="color: red">Web Search</span>',
+    x = unit(0, "npc"),
+    y = unit(.1, "npc"),
+    width = unit(1.5, "cm"),
+    hjust = 0,
+    vjust = 0,
+    gp = gp,
+    box_gp = gpar(fill = 'white',
+                  col = '#00000000')
+  )
+
+arrow <- 
+  linesGrob(
+    x = unit(c(0, 1), 'npc'),
+    y = unit(rep(base_size/20, 2), 'cm'),
+    arrow = arrow(
+      length = unit(.2, 'cm'),
+      type = "open"
+    ),
+    gp = gpar(
+      lty = '11'
+    )
+  )
+
+diagram_part <- gTree(
+  children = gList(
+    arrow,
+    txt
+  )
+)
 
 
 p_screening_augmented <- 
@@ -273,6 +306,20 @@ p_screening_augmented <-
   gtable_add_rows(
     heights = unit(2, "cm"),
     pos = 7
+  ) %>% 
+  gtable_add_grob(
+    # grobs = list(
+    #   # rect,
+    #   textGrob(
+    #     label = 'After Web Search',
+    #     0, 0.1,
+    #     gp = gp,
+    #     just = c('left', 'bottom')
+    #   )
+    # ),
+    grobs = diagram_part,
+    t = 8,
+    l = 5
   ) %>%
   gtable_add_grob(
     # grobs = list(
@@ -284,14 +331,14 @@ p_screening_augmented <-
     #     just = c('left', 'bottom')
     #   )
     # ),
-    grobs = rect,
+    grobs = diagram_part,
     t = 8,
-    l = 5
+    l = 7
   )
-
-p_screening_augmented %>% .$layout
-
 p_screening_augmented %>% grid.draw()
+
+# p_screening_augmented %>% .$layout
+
 grid.ls()
 
 pushViewport(viewport(layout.pos.col = 2:3, layout.pos.row = 3))
