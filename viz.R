@@ -101,12 +101,13 @@ impact_matrix_by_fpid <-
       set_names()
   ) +
   theme(
-    axis.line = element_line(
-      size = line_width*.2
-    ),
+    # axis.line = element_line(
+    #   size = line_width*.2
+    # ),
+    axis.line = element_blank(),
     axis.text.x = element_text(
-      angle = 300,
-      # angle = 270,
+      # angle = 300,
+      angle = 270,
       hjust = 1, 
       vjust = .5
     ),
@@ -203,9 +204,65 @@ mas_by_fpid_grob <-
   ggplotGrob() %>% 
   gtable_filter('panel-1-2')
 
-# mas_by_fpid_grob_width <- 
-#   mas_by_fpid_grob %>% 
-#   gtable_width()
+lay_head <- function(head_text,
+                     gp = gpar(fontsize = 10)) {
+  hline_grob <- 
+    linesGrob(
+      x = unit(c(.05, .95), 'npc'),
+      y = unit(rep(.5, 2), 'npc'),
+      gp = gpar(
+        lty = '11'
+      )
+    )
+  
+  head_grob <- 
+    richtext_grob(
+      x = unit(.5, 'npc'),
+      y = unit(.5, 'npc'),
+      text = head_text,
+      margin = unit(c(0, 5, 0, 5), "pt"),
+      gp = gp
+    )
+  
+  diag <- 
+    gtable() %>% 
+    gtable_add_cols(
+      widths = unit(1, 'null')
+    ) %>% 
+    gtable_add_cols(
+      widths = unit(
+        widthDetails(head_grob), 'points'
+      )
+    ) %>% 
+    gtable_add_cols(
+      widths = unit(1, 'null')
+    ) %>% 
+    gtable_add_rows(
+      heights = unit(1, 'null')
+    ) %>% 
+    gtable_add_grob(
+      grobs = hline_grob,
+      t = 1,
+      l = 1
+    ) %>% 
+    gtable_add_grob(
+      grobs = head_grob,
+      t = 1,
+      l = 2
+    ) %>% gtable_add_grob(
+      grobs = hline_grob,
+      t = 1,
+      l = 3
+    )
+    
+  return(diag)
+}
+
+# tst <- lay_head(head_text = 'MAs [n]') 
+# 
+# tst %>% gtable_show_layout()
+# grid.newpage()
+# tst %>% grid.draw()
 
 es_by_fpid_grob <- 
   size_by_fpid %>% 
@@ -223,6 +280,9 @@ viz2_gtable <-
   # padding
   gtable_add_rows(
     heights = unit(.2, 'cm')
+  ) %>% 
+  gtable_add_rows(
+    heights = unit(.5, 'cm')
   ) %>% 
   gtable_add_rows(
     heights = impact_id_grob %>% 
@@ -248,7 +308,7 @@ viz2_gtable <-
       gtable_width()
   ) %>% 
   gtable_add_cols(
-    widths =  unit(1000, 'null')
+    widths =  unit(1200, 'null')
   ) %>% 
   gtable_add_cols(
     widths =  es_by_fpid_grob %>% 
@@ -259,13 +319,63 @@ viz2_gtable <-
     widths = unit(.2, 'cm')
   ) 
   
-viz2_gtable %>% gtable_show_layout()
+viz2_gtable %>%
+  gtable_show_layout()
+
+lay_head(
+  text ='MAs [n]'
+)
+
 
 viz2 <- 
   viz2_gtable %>% 
   gtable_add_grob(
-    grobs = fpid_grob 
-  )
+    grobs = fpid_grob,
+    t = 4,
+    l = 2
+  ) %>% 
+  gtable_add_grob(
+    grobs = mas_by_fpid_grob,
+    t = 4,
+    l = 3
+  ) %>% 
+  gtable_add_grob(
+    grobs = impact_by_fpid_grob,
+    t = 4,
+    l = 4
+  ) %>% 
+  gtable_add_grob(
+    grobs = impact_id_grob,
+    t = 3,
+    l = 4
+  ) %>% 
+  gtable_add_grob(
+    grobs = es_by_fpid_grob,
+    t = 4,
+    l = 5
+  ) %>% 
+  gtable_add_grob(
+    grobs = lay_head(
+      'MAs [n]'
+    ),
+    t = 2,
+    l = 3
+  ) %>% 
+  gtable_add_grob(
+    grobs = lay_head(
+      'Impacts [n]'
+    ),
+    t = 2,
+    l = 4
+  ) %>% 
+  gtable_add_grob(
+    grobs = lay_head(
+      'Effect Sizes [n]'
+    ),
+    t = 2,
+    l = 5
+  ) 
+
 
 grid.newpage()
 viz2 %>% grid.draw()
