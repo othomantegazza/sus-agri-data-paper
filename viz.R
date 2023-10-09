@@ -104,7 +104,8 @@ synthesis %>%
       size = line_width*.2
     ),
     axis.text.x = element_text(
-      angle = 300, 
+      angle = 300,
+      # angle = 270,
       hjust = 1, 
       vjust = .5
     ),
@@ -123,7 +124,41 @@ pico_cat_results %>%
   ggplot() +
   aes(x = n,
       y = fpid) +
-  geom_col()
+  geom_col(
+    fill = 'white',
+    colour = 'black',
+    size = line_width/2,
+    width = 1
+  ) +
+  geom_text(
+    aes(
+      x = n + 10,
+      label = n
+    ),
+    size = text_size_plot,
+    hjust = 0
+  ) +
+  geom_vline(
+    xintercept = 0,
+    size = line_width
+  ) + 
+  labs(
+    x = NULL,
+    y = NULL
+  ) +
+  scale_x_continuous(
+    expand = expansion(add = c(0, 50)),
+    limits = ~c(0, ifelse(.[2] > 150, .[2], 150))
+  ) +
+  theme(
+    axis.line.y = element_blank(),
+    panel.grid.major.x = element_blank(),
+    axis.line.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    axis.text.x = element_blank(),
+    panel.spacing = unit(0, 'mm'),
+    strip.text = element_blank()
+  )
 
 
 # VIZ SCREEN ----------------------------------------------------
