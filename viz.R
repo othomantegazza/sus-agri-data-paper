@@ -409,26 +409,46 @@ status_tables <-
 p_screening_augmented <- 
   p_screening %>%
   ggplotGrob() %>% 
+  # keep only panels and the active axis
+  gtable_filter(
+    pattern = c('panel|axis-l-1')
+    ) %>% 
+  # add back padding
+  gtable_add_cols(
+    widths = unit(.2, 'cm'),
+    pos = 0
+  ) %>% 
+  gtable_add_cols(
+    widths = unit(.5, 'cm')
+    ) %>% 
+  gtable_add_rows(
+    heights = unit(.5, 'cm'),
+    pos = 0
+  ) %>% 
+  gtable_add_rows(
+    heights = unit(.5, 'cm')
+  )  %>% 
   gtable_add_rows(
     heights = unit(5.5, "cm"),
-    pos = 7
+    pos = 1
   ) %>% 
   gtable_add_grob(
     grobs = status_tables[[1]],
-    t = 8,
-    l = 5
+    t = 2,
+    l = 3
   ) %>% gtable_add_grob(
     grobs = status_tables[[2]],
-    t = 8,
-    l = 7
+    t = 2,
+    l = 5
   ) %>% gtable_add_grob(
     grobs = status_tables[[3]],
-    t = 8,
-    l = 9
-  )
+    t = 2,
+    l = 7
+  ) 
 
 # p_screening_augmented %>% gtable_show_layout()
 # p_screening %>% ggplotGrob %>% gtable_show_layout()
+grid.newpage()
 p_screening_augmented %>% grid.draw()
 
 # p_screening_augmented %>% .$layout
