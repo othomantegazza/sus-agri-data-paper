@@ -412,69 +412,6 @@ p_screening_augmented <-
     l = 7
   ) 
 
-# p_screening_augmented %>% gtable_show_layout()
-# p_screening %>% ggplotGrob %>% gtable_show_layout()
 grid.newpage()
 p_screening_augmented %>% grid.draw()
 
-# p_screening_augmented %>% .$layout
-
-# grid.ls()
-# 
-# pushViewport(viewport(layout.pos.col = 2:3, layout.pos.row = 3))
-# grid.rect(gp = gpar(col = "grey"))
-
-
-  
-# .$layout %>% %>% 
-  # filter(name %>% str_detect('^strip-t'))
-
-
-
-gtable_add_grob(
-  grobs = textGrob(
-    label = 'Ciao',
-    gp = gpar(fontsize = base_size)
-  ),
-  t = 7,
-  l = 5
-  ) %>% # .$layout
-  grid.draw()
-
-
-
-
-
-
-
-
-p_scr_t <- 
-  p_screening %>%
-  ggplotGrob() %>% 
-  gtable_add_rows(heights = unit(1, 'cm'), pos = 6) %>%
-  gtable_add_grob(
-    rect,
-    t = 1,
-    b = 13,
-    l = 1,
-    r = 9,
-    z = Inf
-  )
-  # gtable_add_grob(
-  #   textGrob('ciao', gp = gpar(col = 'red', fontsize = 30)),
-  #   t = 7,
-  #   l = 8,
-  #   # b = 7,
-  #   # r = 5, 
-  #   z = Inf)
-
-grid.draw(p_scr_t)
-
-p_scr_t$layout
-
-
-rect <- rectGrob(gp = gpar(fill = "#00000080"))
-tab <- gtable(unit(rep(1, 3), "null"), unit(rep(1, 3), "null"))
-tab <- gtable_add_grob(tab, rect, t = 1, l = 1, r = 3)
-tab <- gtable_add_grob(tab, rect, t = 1, b = 3, l = 1)
-tab <- gtable_add_grob(tab, rect, t = 1, b = 3, l = 3)
