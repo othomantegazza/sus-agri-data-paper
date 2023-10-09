@@ -220,12 +220,24 @@ es_by_fpid_grob <-
 
 viz2_gtable <- 
   gtable() %>% 
+  # padding
+  gtable_add_rows(
+    heights = unit(.2, 'cm')
+  ) %>% 
   gtable_add_rows(
     heights = impact_id_grob %>% 
       gtable_height() %>% .[1]
   ) %>% 
   gtable_add_rows(
     heights = unit(1, 'null')
+  ) %>% 
+  # padding
+  gtable_add_rows(
+    heights = unit(.2, 'cm')
+  ) %>% 
+  # padding
+  gtable_add_cols(
+    widths = unit(.2, 'cm')
   ) %>% 
   gtable_add_cols(
     widths = fpid_grob %>% 
@@ -241,10 +253,19 @@ viz2_gtable <-
   gtable_add_cols(
     widths =  es_by_fpid_grob %>% 
       gtable_width()
+  ) %>% 
+  # padding
+  gtable_add_cols(
+    widths = unit(.2, 'cm')
   ) 
   
-
 viz2_gtable %>% gtable_show_layout()
+
+viz2 <- 
+  viz2_gtable %>% 
+  gtable_add_grob(
+    grobs = fpid_grob 
+  )
 
 grid.newpage()
 viz2 %>% grid.draw()
@@ -502,7 +523,7 @@ p_screening_augmented <-
   gtable_filter(
     pattern = c('panel|axis-l-1')
     ) %>% 
-  # add back padding
+  # add padding
   gtable_add_cols(
     widths = unit(.2, 'cm'),
     pos = 0
