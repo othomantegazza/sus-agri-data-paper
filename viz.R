@@ -57,7 +57,8 @@ matrix_ordered <-
   pull(impact_matrix)
 
 
-synthesis %>% 
+impact_matrix_by_fpid <- 
+  synthesis %>% 
   count(fpid, impact_matrix) %>% 
   ggplot() +
   aes(x = impact_matrix %>% 
@@ -119,11 +120,27 @@ synthesis %>%
     )
   )
 
-pico_cat_results %>% 
-  count(fpid, sort = T) %>% 
+size_by_fpid <- 
+  pico_cat_results %>% 
+  count(
+    fpid,
+    sort = T) %>% 
+  mutate(
+    type = 'Effect Sizes'
+  ) %>% 
+  bind_rows(
+    synthesis %>% 
+      count(fpid,
+            sort = T) %>% 
+      mutate(
+        type = 'MAs by FPID'
+      )
+  ) %>% 
   ggplot() +
   aes(x = n,
-      y = fpid) +
+      y = fpid %>% factor(
+        levels = fpid_ordered) %>%
+        fct_rev()) +
   geom_col(
     fill = 'white',
     colour = 'black',
@@ -142,6 +159,12 @@ pico_cat_results %>%
     xintercept = 0,
     size = line_width
   ) + 
+  facet_grid(
+    . ~ type,
+    scales = 'free_x',
+    space = 'free_x',
+    # labeller = label_wrap_gen(width = 12)
+  ) +
   labs(
     x = NULL,
     y = NULL
@@ -160,6 +183,71 @@ pico_cat_results %>%
     strip.text = element_blank()
   )
 
+fpid_grob <- 
+  impact_matrix_by_fpid %>% 
+  ggplotGrob() %>% 
+  gtable_filter('axis-l')
+
+impact_by_fpid_grob <- 
+  impact_matrix_by_fpid %>% 
+  ggplotGrob() %>% 
+  gtable_filter('panel')
+
+impact_id_grob <- 
+  impact_matrix_by_fpid %>% 
+  ggplotGrob() %>% 
+  gtable_filter('axis-t')
+
+mas_by_fpid_grob <- 
+  size_by_fpid %>% 
+  ggplotGrob() %>% 
+  gtable_filter('panel-1-2')
+
+# mas_by_fpid_grob_width <- 
+#   mas_by_fpid_grob %>% 
+#   gtable_width()
+
+es_by_fpid_grob <- 
+  size_by_fpid %>% 
+  ggplotGrob() %>% 
+  gtable_filter('panel-1-1')
+
+# es_by_fpid_grob_width <- 
+#   es_by_fpid_grob %>% 
+#   gtable_width()
+
+# es_by_fpid_grob %>% gtable_show_layout()
+
+viz2_gtable <- 
+  gtable() %>% 
+  gtable_add_rows(
+    heights = impact_id_grob %>% 
+      gtable_height() %>% .[1]
+  ) %>% 
+  gtable_add_rows(
+    heights = unit(1, 'null')
+  ) %>% 
+  gtable_add_cols(
+    widths = fpid_grob %>% 
+      gtable_width()
+  ) %>% 
+  gtable_add_cols(
+    widths =  mas_by_fpid_grob %>% 
+      gtable_width()
+  ) %>% 
+  gtable_add_cols(
+    widths =  unit(1000, 'null')
+  ) %>% 
+  gtable_add_cols(
+    widths =  es_by_fpid_grob %>% 
+      gtable_width()
+  ) 
+  
+
+viz2_gtable %>% gtable_show_layout()
+
+grid.newpage()
+viz2 %>% grid.draw()
 
 # VIZ SCREEN ----------------------------------------------------
 
