@@ -248,9 +248,6 @@ build_p2 <- function(synthesis) {
       widths = unit(.2, 'cm')
     ) 
   
-  viz2_gtable %>%
-    gtable_show_layout()
-  
   viz2 <- 
     viz2_gtable %>% 
     gtable_add_grob(
