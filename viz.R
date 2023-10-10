@@ -241,39 +241,19 @@ lay_head <- function(head_text,
       heights = unit(1, 'null')
     ) %>% 
     gtable_add_grob(
-      grobs = hline_grob,
-      t = 1,
-      l = 1
-    ) %>% 
-    gtable_add_grob(
-      grobs = head_grob,
-      t = 1,
-      l = 2
-    ) %>% gtable_add_grob(
-      grobs = hline_grob,
-      t = 1,
-      l = 3
-    )
+      grobs = gList(hline_grob, head_grob, hline_grob),
+      t = rep(1, 3),
+      l = 1:3)
     
   return(diag)
 }
 
-# tst <- lay_head(head_text = 'MAs [n]') 
-# 
-# tst %>% gtable_show_layout()
-# grid.newpage()
-# tst %>% grid.draw()
+tst <- lay_head(head_text = 'MAs [n]') 
 
 es_by_fpid_grob <- 
   size_by_fpid %>% 
   ggplotGrob() %>% 
   gtable_filter('panel-1-1')
-
-# es_by_fpid_grob_width <- 
-#   es_by_fpid_grob %>% 
-#   gtable_width()
-
-# es_by_fpid_grob %>% gtable_show_layout()
 
 viz2_gtable <- 
   gtable() %>% 
@@ -321,11 +301,6 @@ viz2_gtable <-
   
 viz2_gtable %>%
   gtable_show_layout()
-
-lay_head(
-  text ='MAs [n]'
-)
-
 
 viz2 <- 
   viz2_gtable %>% 
