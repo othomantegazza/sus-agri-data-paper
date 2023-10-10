@@ -1,6 +1,6 @@
 {
   "G": {
-    "ma_metadata": {
+    "5_ma_list": {
       "unique_identifiers": [
         "doi"
       ],
@@ -27,7 +27,88 @@
         }
       ]
     },
-    "synthesis": {
+    "6_ma_quality_assessment": {
+      "unique_identifiers": [
+        "doi",
+        "fpid",
+        "impact_matrix"
+      ],
+      "columns": [
+        {
+          "colname": "doi",
+          "type": "character"
+        },
+        {
+          "colname": "fpid",
+          "type": "character"
+        },
+        {
+          "colname": "impact_matrix",
+          "type": "character"
+        },
+        {
+          "colname": "list_of_std",
+          "type": "logical"
+        },
+        {
+          "colname": "ma_specified_objective",
+          "type": "logical"
+        },
+        {
+          "colname": "search_databases",
+          "type": "logical"
+        },
+        {
+          "colname": "search_string",
+          "type": "logical"
+        },
+        {
+          "colname": "nb_std_per_step",
+          "type": "logical"
+        },
+        {
+          "colname": "quantitative_results_described",
+          "type": "logical"
+        },
+        {
+          "colname": "statistical_methods_described",
+          "type": "logical"
+        },
+        {
+          "colname": "individual_effect_sizes",
+          "type": "logical"
+        },
+        {
+          "colname": "individual_std_weighted",
+          "type": "logical"
+        },
+        {
+          "colname": "dataset_available",
+          "type": "logical"
+        },
+        {
+          "colname": "confidence_intervals",
+          "type": "logical"
+        },
+        {
+          "colname": "method_of_data_extraction",
+          "type": "logical"
+        },
+        {
+          "colname": "heterogeneity_of_results_analyzed",
+          "type": "logical"
+        },
+        {
+          "colname": "funding_sources_mentioned",
+          "type": "logical"
+        },
+        {
+          "colname": "publication_bias_analyzed",
+          "type": "logical"
+        }
+      ]
+    },
+    "7_ma_synthesis": {
       "unique_identifiers": [
         "doi",
         "fpid",
@@ -200,88 +281,7 @@
         }
       ]
     },
-    "quality_metrics": {
-      "unique_identifiers": [
-        "doi",
-        "fpid",
-        "impact_matrix"
-      ],
-      "columns": [
-        {
-          "colname": "doi",
-          "type": "character"
-        },
-        {
-          "colname": "fpid",
-          "type": "character"
-        },
-        {
-          "colname": "impact_matrix",
-          "type": "character"
-        },
-        {
-          "colname": "list_of_std",
-          "type": "logical"
-        },
-        {
-          "colname": "ma_specified_objective",
-          "type": "logical"
-        },
-        {
-          "colname": "search_databases",
-          "type": "logical"
-        },
-        {
-          "colname": "search_string",
-          "type": "logical"
-        },
-        {
-          "colname": "nb_std_per_step",
-          "type": "logical"
-        },
-        {
-          "colname": "quantitative_results_described",
-          "type": "logical"
-        },
-        {
-          "colname": "statistical_methods_described",
-          "type": "logical"
-        },
-        {
-          "colname": "individual_effect_sizes",
-          "type": "logical"
-        },
-        {
-          "colname": "individual_std_weighted",
-          "type": "logical"
-        },
-        {
-          "colname": "dataset_available",
-          "type": "logical"
-        },
-        {
-          "colname": "confidence_intervals",
-          "type": "logical"
-        },
-        {
-          "colname": "method_of_data_extraction",
-          "type": "logical"
-        },
-        {
-          "colname": "heterogeneity_of_results_analyzed",
-          "type": "logical"
-        },
-        {
-          "colname": "funding_sources_mentioned",
-          "type": "logical"
-        },
-        {
-          "colname": "publication_bias_analyzed",
-          "type": "logical"
-        }
-      ]
-    },
-    "pico_combinations": {
+    "8_pico_combinations": {
       "unique_identifiers": [
         "doi",
         "fpid",
@@ -332,7 +332,7 @@
     }
   },
   "I": {
-    "pico_cat_result": {
+    "9_pico_cat_result": {
       "unique_identifiers": [
         "doi",
         "fpid",
