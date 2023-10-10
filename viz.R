@@ -248,8 +248,6 @@ lay_head <- function(head_text,
   return(diag)
 }
 
-tst <- lay_head(head_text = 'MAs [n]') 
-
 es_by_fpid_grob <- 
   size_by_fpid %>% 
   ggplotGrob() %>% 
@@ -305,51 +303,35 @@ viz2_gtable %>%
 viz2 <- 
   viz2_gtable %>% 
   gtable_add_grob(
-    grobs = fpid_grob,
-    t = 4,
-    l = 2
-  ) %>% 
-  gtable_add_grob(
-    grobs = mas_by_fpid_grob,
-    t = 4,
-    l = 3
-  ) %>% 
-  gtable_add_grob(
-    grobs = impact_by_fpid_grob,
-    t = 4,
-    l = 4
-  ) %>% 
+    grobs = gList(
+      fpid_grob,
+      mas_by_fpid_grob,
+      impact_by_fpid_grob,
+      es_by_fpid_grob
+      ),
+    t = rep(4, 4),
+    l = 2:5
+  ) %>%
   gtable_add_grob(
     grobs = impact_id_grob,
     t = 3,
     l = 4
   ) %>% 
   gtable_add_grob(
-    grobs = es_by_fpid_grob,
-    t = 4,
-    l = 5
-  ) %>% 
-  gtable_add_grob(
-    grobs = lay_head(
-      'MAs [n]'
+    grobs = gList(
+      lay_head(
+        'MAs [n]',
+      ),
+      lay_head(
+        'Impacts [n]'
+      ),
+      lay_head(
+        'Effect Sizes [n]'
+      )
     ),
-    t = 2,
-    l = 3
-  ) %>% 
-  gtable_add_grob(
-    grobs = lay_head(
-      'Impacts [n]'
-    ),
-    t = 2,
-    l = 4
-  ) %>% 
-  gtable_add_grob(
-    grobs = lay_head(
-      'Effect Sizes [n]'
-    ),
-    t = 2,
-    l = 5
-  ) 
+    t = rep(2, 3),
+    l = 3:5
+ ) 
 
 
 grid.newpage()
