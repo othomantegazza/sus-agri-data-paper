@@ -42,14 +42,13 @@ screening_status <-
 
 # make figures --------------------------------------------------
 
-status_by_fpid <- 
+systematic_screening <- 
   screening %>% 
   select(
-    Search,
-    Source_of_search,
+    # Search,
+    # Source_of_search,
     DOI,
     FPID,
-    Paper.reviewer,
     Status
   ) %>% 
   mutate(Status = Status %>% {
@@ -61,15 +60,24 @@ status_by_fpid <-
     )
   })
 
-status_by_fpid_DUPL <- 
-  status_by_fpid %>% 
-  extract_duplicated_rows(id_cols = c('DOI', 'FPID'))
+systematic_screening_clean <- 
+  systematic_screening %>% 
+  distinct(DOI, FPID, .keep_all = T) 
 
-warning("Removing randomly duplicated rows in Screening Results")
+systematic_screening_clean %>% 
+  write_csv('data/output/4-systematic-screening.csv')
+
+systematic_screening_DUPL <- 
+  systematic_screening %>% 
+  extract_duplicated_rows(id_cols = c('DOI', 'FPID')) %>% 
+  filter(! is.na(DOI)) %>%
+  write_csv('data/output/4-systematic-screening-DUPL.csv')
+
+warning("Dropping randomly ", nrow(status_by_fpid_DUPL), " duplicated rows in Screening Results")
 
 status_by_fpid_clean <- 
   status_by_fpid %>% 
-  distinct(DOI, FPID, .keep_all = T) %>% 
+  # distinct(DOI, FPID, .keep_all = T) %>% 
   mutate(Status = Status %>% toupper()) %>% 
   summarise(
     n = n(),
@@ -83,3 +91,4 @@ status_by_fpid_clean %>%
   write_csv(
     'data/output/status-by-fpid.csv'
   )
+
