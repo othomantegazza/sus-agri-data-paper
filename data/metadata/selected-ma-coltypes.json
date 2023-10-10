@@ -203,7 +203,8 @@
     "quality_metrics": {
       "unique_identifiers": [
         "doi",
-        "fpid"
+        "fpid",
+        "impact_matrix"
       ],
       "columns": [
         {
@@ -212,6 +213,10 @@
         },
         {
           "colname": "fpid",
+          "type": "character"
+        },
+        {
+          "colname": "impact_matrix",
           "type": "character"
         },
         {
