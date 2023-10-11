@@ -1,6 +1,9 @@
-{
-  "5_ma_list": {
-    "info_type": ["G"],
+[
+  {
+    "name": "5_ma_list",
+    "info_type": [
+      "G"
+    ],
     "unique_identifiers": [
       "doi"
     ],
@@ -27,8 +30,11 @@
       }
     ]
   },
-  "6_ma_quality_assessment": {
-    "info_type": ["G"],
+  {
+    "name": "6_ma_quality_assessment",
+    "info_type": [
+      "G"
+    ],
     "unique_identifiers": [
       "doi",
       "fpid",
@@ -109,8 +115,11 @@
       }
     ]
   },
-  "7_ma_synthesis": {
-    "info_type": ["G"],
+  {
+    "name": "7_ma_synthesis",
+    "info_type": [
+      "G"
+    ],
     "unique_identifiers": [
       "doi",
       "fpid",
@@ -283,8 +292,11 @@
       }
     ]
   },
-  "8_pico_combinations": {
-    "info_type": ["G"],
+  {
+    "name": "8_pico_combinations",
+    "info_type": [
+      "G"
+    ],
     "unique_identifiers": [
       "doi",
       "fpid",
@@ -333,8 +345,11 @@
       }
     ]
   },
-  "9_pico_cat_result": {
-    "info_type": ["I"],
+  {
+    "name": "9_pico_cat_result", 
+    "info_type": [
+      "I"
+    ],
     "unique_identifiers": [
       "doi",
       "fpid",
@@ -410,4 +425,4 @@
       }
     ]
   }
-}
+]
