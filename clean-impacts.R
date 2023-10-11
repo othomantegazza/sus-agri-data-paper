@@ -11,6 +11,7 @@ library(glue)
 library(purrr)
 library(jsonlite)
 library(skimr)
+library(here)
 
 # Functions -----------------------------------------------------
 
@@ -22,15 +23,18 @@ list.files(
 
 # Read selected paper data ---------------------------------------
 
-# impacts_primary_keys <- c('doi', 'fpid', 'impact_matrix')
-
 impacts <-
   read_csv(
     'data/MerFPs_Impacts.csv'
   ) 
 
-problems(impacts)
-  
+impacts %>% 
+  slice(
+    impacts %>%
+      problems() %>% 
+      pull(row)
+  )
+
 impacts <- 
   impacts %>%   
   clean_names()
@@ -42,7 +46,64 @@ metadata <-
     'data/metadata/selected-ma-coltypes.json',
     simplifyVector = T,
   ) %>%
-  as_tibble()
+  as_tibble() %>% 
+  rename(line_type =info_type)
+
+
+# ---------------------------------------------------------------
+
+clean_impacts <- function(
+    impacts,
+    name,
+    line_type,
+    unique_identifiers,
+    columns
+) {
+  
+  impacts <- 
+    impacts %>%
+    filter(
+      info_type == line_type
+    ) %>% 
+    select(
+      all_of(
+        columns$colname
+      )
+    ) %>% 
+    distinct()
+  
+  impacts %>% 
+    extract_duplicated_rows(
+      id_cols = unique_identifiers
+    ) %>% 
+    write_csv(
+      here(
+        'data',
+        'output',
+        paste0(name, '-DUPL', '.csv')
+      )
+    )
+  
+  impacts %>% 
+    write_csv(
+      here(
+        'data',
+        'output',
+        paste0(name, '.csv')
+      )
+    )
+  
+  return('NULL')
+}
+
+metadata %>% 
+  mutate(
+    impacts = impacts %>% 
+      list()
+  ) %>% 
+  pwalk(
+    clean_impacts
+  )
 
 # paper metadata ------------------------------------------------
 
@@ -96,7 +157,7 @@ stopifnot(
   )
 )
 
-# ┣ extract json with unique keys ---------------------------------
+# ┣ extract json with unique keys ------------------------------
 
 primary_keys_combinations <- 
   impacts %>% 
@@ -118,13 +179,7 @@ primary_keys_combinations %>%
     'data/output/selected-paper-primary-keys.csv'
   )
 
-# paper synthesis --------------------------------------
-
-# synthesis_colnames <-
-#   read_json(
-#     'data/metadata/selected-ma-synthesis.json',
-#     simplifyVector = T
-#   )
+# paper synthesis ----------------------------------------------
 
 synthesis_coerced_cols <- 
   c(
