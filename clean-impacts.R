@@ -33,40 +33,20 @@ problems(impacts)
   
 impacts <- 
   impacts %>%   
-  clean_names() # %>% 
-  # group_by(
-  #   across(
-  #     all_of(impacts_primary_keys)
-  #   )
-  # )  %>% 
-  # fill(
-  #   scale,
-  #   data_in_europe,
-  #   nb_of_papers,
-  #   .direction = "downup"
-  # ) %>%
-  # ungroup()
-
-# papers <- 
-#   impacts %>% 
-#   filter(info_type == 'G')
-# 
-# paper_details <- 
-#   impacts %>% 
-#   filter(info_type %in% c('I', 'S'))
-
+  clean_names()
 
 # read column metadata ------------------------------------------
 
 metadata <- 
   read_json(
     'data/metadata/selected-ma-coltypes.json',
-    simplifyVector = T
-  )
+    simplifyVector = T,
+  ) %>%
+  as_tibble()
 
 # paper metadata ------------------------------------------------
 
-ma_metadata <- 
+ma_list <- 
   impacts %>% 
   filter(info_type == "G") %>% 
   select(
