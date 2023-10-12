@@ -43,7 +43,7 @@ impacts <-
 
 metadata <- 
   read_json(
-    'data/metadata/selected-ma-coltypes.json',
+    'data/metadata/impacts-metadata.json',
     simplifyVector = T,
   ) %>%
   as_tibble() %>% 
