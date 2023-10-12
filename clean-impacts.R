@@ -84,6 +84,34 @@ clean_impacts <- function(
       )
     )
   
+  types_check <- 
+    impacts %>% {
+      tibble(
+        colname = colnames(.),
+        type_detected = map_chr(., class)
+      )
+    } %>% 
+    full_join(
+      columns,
+      by = 'colname'
+    ) %>% 
+    mutate(
+      types_match = 
+        type_detected == type
+    )
+  
+  if(nrow(types_check) > 0) {
+    warning(
+      'mismatched types in',
+      name,
+      ':\n- ',
+      types_check %>% 
+        filter( ! types_match ) %>% 
+        pull(colname) %>% 
+        paste(., collapse = '\n- ')
+    )
+  }
+  
   impacts %>% 
     write_csv(
       here(
