@@ -103,6 +103,9 @@ clean_impacts <- function(
       ! types_match 
     )
   
+  impacts_clean <- 
+    impacts
+  
   if(nrow(types_check) > 0) {
     warning(
       'mismatched types in ',
@@ -124,22 +127,36 @@ clean_impacts <- function(
         target_type == 'logical'
       ) {
         
-        impacts[, i] <- 
-          impacts[, i,  drop = T] %>% 
+        impacts_clean[, i] <- 
+          impacts_clean[, i,  drop = T] %>% 
           as("numeric") %>%
           as(target_type)
         
       } else {
         
-        impacts[, i] <- 
-          impacts[, i,  drop = T] %>% 
+        impacts_clean[, i] <- 
+          impacts_clean[, i,  drop = T] %>% 
           as(target_type)
         
       }
     }
   }
   
-  impacts %>% 
+  impacts_clean %>% 
+    filter_all(
+      any_vars(
+        is.na(.)
+      )
+    ) %>% 
+    write_csv(
+      here(
+        'data',
+        'output',
+        paste0(name, 'MISSING-DATA', '.csv')
+      )
+    )
+  
+  impacts_clean %>% 
     write_csv(
       here(
         'data',
