@@ -112,6 +112,31 @@ clean_impacts <- function(
         pull(colname) %>% 
         paste(., collapse = '\n- ')
     )
+    
+    for(i in types_check$colname) {
+      
+      target_type <- 
+        types_check %>% 
+        filter(colname == i) %>% 
+        pull(type)
+      
+      if(
+        target_type == 'logical'
+      ) {
+        
+        impacts[, i] <- 
+          impacts[, i,  drop = T] %>% 
+          as("numeric") %>%
+          as(target_type)
+        
+      } else {
+        
+        impacts[, i] <- 
+          impacts[, i,  drop = T] %>% 
+          as(target_type)
+        
+      }
+    }
   }
   
   impacts %>% 
@@ -123,7 +148,7 @@ clean_impacts <- function(
       )
     )
   
-  return('NULL')
+  return(NULL)
 }
 
 metadata %>% 
