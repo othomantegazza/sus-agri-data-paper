@@ -98,15 +98,17 @@ clean_impacts <- function(
     mutate(
       types_match = 
         type_detected == type
+    ) %>% 
+    filter(
+      ! types_match 
     )
   
   if(nrow(types_check) > 0) {
     warning(
-      'mismatched types in',
+      'mismatched types in ',
       name,
       ':\n- ',
       types_check %>% 
-        filter( ! types_match ) %>% 
         pull(colname) %>% 
         paste(., collapse = '\n- ')
     )
