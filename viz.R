@@ -28,12 +28,12 @@ list.files(
 
 synthesis <- 
   read_csv(
-    'data/output/selected-paper-synthesis.csv'
+    'data/output/7_ma_synthesis.csv'
   )
 
 pico_cat_results <- 
   read_csv(
-    'data/output/pico-cat-results.csv'
+    'data/output/8_pico_combinations.csv'
   )
 
 status_by_fpid <-   
