@@ -4,10 +4,8 @@ data/*.xlsx
 data/*.pdf
 data/output/*.json
 
-
 # output
-img/**.svg
-img/**.png
+viz
 
 # Mac stuff
 **.DS_Store

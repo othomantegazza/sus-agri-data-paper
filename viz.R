@@ -41,15 +41,24 @@ status_by_fpid <-
     'data/output/status-by-fpid.csv'
     )
 
-
 # VIZ -----------------------------------------------------------
-
-# 
 
 p1 <- build_p1(status_by_fpid)
 
+jpeg(filename = "viz/p1.jpeg", 
+     width = a4_width, 
+     height = a4_height*.75, 
+     units = unit_type,
+     res = 200)
 grid.newpage(); p1 %>% grid.draw()
+dev.off()
 
 p2 <- build_p2(synthesis)
 
+jpeg(filename = "viz/p2.jpeg", 
+     height  = a4_width, 
+     width = a4_height, 
+     units = unit_type,
+     res = 200)
 grid.newpage(); p2 %>% grid.draw()
+dev.off()

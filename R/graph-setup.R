@@ -20,6 +20,8 @@ library(gridtext)
 
 unit_type <- 'mm'
 line_width <- 1.2
+a4_width <- 210
+a4_height <- 297
 width <- 150
 height <- width
 base_size <- 10
