@@ -152,7 +152,7 @@ clean_impacts <- function(
       here(
         'data',
         'output',
-        paste0(name, 'MISSING-DATA', '.csv')
+        paste0(name, '-MISSING-DATA', '.csv')
       )
     )
   
