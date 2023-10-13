@@ -36,6 +36,11 @@ pico_cat_results <-
     'data/output/8_pico_combinations.csv'
   )
 
+ma_list <- 
+  read_csv(
+    'data/output/5_ma_list.csv'
+  )
+
 status_by_fpid <-   
   read_csv(
     'data/output/status-by-fpid.csv'
@@ -61,4 +66,15 @@ jpeg(filename = "viz/p2.jpeg",
      units = unit_type,
      res = 200)
 grid.newpage(); p2 %>% grid.draw()
+dev.off()
+
+p3 <- build_p3(ma_list,
+               cutoff_year = 2021)
+
+jpeg(filename = "viz/p3.jpeg", 
+     height  = a4_height*.25, 
+     width = a4_width*.5, 
+     units = unit_type,
+     res = 200)
+p3
 dev.off()
