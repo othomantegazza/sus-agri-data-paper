@@ -24,8 +24,8 @@ list.files(
 # Read selected paper data ---------------------------------------
 
 impacts <-
-  read_csv(
-    'data/MerFPs_Impacts.csv'
+  read_excel(
+    'data/MerFPs_Impacts_20231017.xlsx'
   ) 
 
 impacts %>% 
