@@ -25,7 +25,7 @@ list.files(
 
 screening <- 
   read_excel(
-    'data/MerFPs_Screening_20230810.xlsx'
+    'data/MerFPs_Screening_20231017.xlsx'
   )
 
 screening %>% colnames()
@@ -51,21 +51,16 @@ systematic_screening <-
     FPID,
     Status
   ) %>% 
+  mutate(Status = Status %>% toupper()) %>% 
   mutate(Status = Status %>% {
     case_when(
       . == "LB" ~ "O",
+      . == "LB NOT IN EU" ~ "O",
       . == "Y" ~ "O",
       . == "G" ~ "R",
       TRUE ~ .
     )
   })
-
-systematic_screening_clean <- 
-  systematic_screening %>% 
-  distinct(DOI, FPID, .keep_all = T) 
-
-systematic_screening_clean %>% 
-  write_csv('data/output/4-systematic-screening.csv')
 
 systematic_screening_DUPL <- 
   systematic_screening %>% 
@@ -73,19 +68,28 @@ systematic_screening_DUPL <-
   filter(! is.na(DOI)) %>%
   write_csv('data/output/4-systematic-screening-DUPL.csv')
 
-warning("Dropping randomly ", nrow(status_by_fpid_DUPL), " duplicated rows in Screening Results")
+warning(
+  "Dropping randomly ", 
+  nrow(systematic_screening_DUPL) - length(unique(systematic_screening_DUPL$DOI)), 
+  " duplicated rows in Screening Results"
+)
 
-status_by_fpid_clean <- 
-  status_by_fpid %>% 
-  # distinct(DOI, FPID, .keep_all = T) %>% 
-  mutate(Status = Status %>% toupper()) %>% 
-  summarise(
-    n = n(),
-    .by = c(FPID, Status)
-  ) %>% 
-  filter(Status %in% names(screening_status)) %>% 
-  mutate(status_details = screening_status[Status],
-         .before = 'n') 
+systematic_screening_clean <- 
+  systematic_screening %>% 
+  distinct(DOI, FPID, .keep_all = T) %>% 
+  mutate(status_details = screening_status[Status]) 
+  
+systematic_screening_clean %>% 
+  write_csv('data/output/4-systematic-screening.csv')
+
+systematic_screening_clean %>% 
+  filter_all(
+    any_vars(
+      is.na(.)
+    )
+  ) %>% view()
+  write_csv('data/output/4-systematic-screening-MISSING-DATA.csv')
+
 
 status_by_fpid_clean %>%  
   write_csv(
