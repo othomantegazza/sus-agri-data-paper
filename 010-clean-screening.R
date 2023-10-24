@@ -91,8 +91,3 @@ systematic_screening_clean %>%
   write_csv('data/output/4-systematic-screening-MISSING-DATA.csv')
 
 
-status_by_fpid_clean %>%  
-  write_csv(
-    'data/output/status-by-fpid.csv'
-  )
-
