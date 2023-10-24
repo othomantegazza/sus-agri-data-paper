@@ -87,7 +87,7 @@ systematic_screening_clean %>%
     any_vars(
       is.na(.)
     )
-  ) %>% view()
+  ) %>% 
   write_csv('data/output/4-systematic-screening-MISSING-DATA.csv')
 
 
