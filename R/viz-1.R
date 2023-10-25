@@ -1,5 +1,20 @@
-build_p1 <- function(status_by_fpid)
+build_p1 <- function(screening)
 {
+  if(
+    any(
+      is.na(
+        screening$Status
+      )
+    )
+  ) {
+    warning("Dropping Papers with Missing Status")
+  }
+  
+  status_by_fpid <- 
+    screening %>% 
+    count(FPID, Status, status_details) %>% 
+    drop_na()
+  
   fpid_ordered_screening <- 
     status_by_fpid %>% 
     summarise(
@@ -83,8 +98,12 @@ build_p1 <- function(status_by_fpid)
   
   statuses <- 
     status_by_fpid %>% 
-    group_by(short_description) %>% 
+    group_by(Status, short_description) %>% 
     summarise(n = n %>% sum()) %>% 
+    ungroup() %>% 
+    arrange(Status) %>% 
+    mutate(n = cumsum(n)) %>% 
+    arrange(desc(Status)) %>% 
     mutate(discarded = c(NA, n[1:{n() - 1}]) - n) %>% 
     mutate(
       top_arrow = c(F, T, T),

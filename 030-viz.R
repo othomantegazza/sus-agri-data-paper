@@ -41,14 +41,14 @@ ma_list <-
     'data/output/5_ma_list.csv'
   )
 
-status_by_fpid <-   
+screening <-   
   read_csv(
-    'data/output/status-by-fpid.csv'
-    )
+    'data/output/4-systematic-screening.csv'
+  )
 
 # VIZ -----------------------------------------------------------
 
-p1 <- build_p1(status_by_fpid)
+p1 <- build_p1(screening)
 
 jpeg(filename = "viz/p1.jpeg", 
      width = a4_width, 
