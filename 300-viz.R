@@ -78,3 +78,5 @@ jpeg(filename = "viz/p3.jpeg",
      res = 200)
 p3
 dev.off()
+
+p4 <- build_p4(synthesis)
