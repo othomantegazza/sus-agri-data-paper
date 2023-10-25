@@ -26,14 +26,10 @@ list.files(
 
 # DATA ----------------------------------------------------------
 
-synthesis <- 
-  read_csv(
-    'data/output/7_ma_synthesis.csv'
-  )
 
-pico_cat_results <- 
+screening <-   
   read_csv(
-    'data/output/8_pico_combinations.csv'
+    'data/output/4-systematic-screening.csv'
   )
 
 ma_list <- 
@@ -41,10 +37,21 @@ ma_list <-
     'data/output/5_ma_list.csv'
   )
 
-screening <-   
+synthesis <- 
   read_csv(
-    'data/output/4-systematic-screening.csv'
+    'data/output/7_ma_synthesis.csv'
   )
+
+pico_combinations <- 
+  read_csv(
+    'data/output/8_pico_combinations.csv'
+  )
+
+pico_results <- 
+  read_csv(
+    'data/output/9_pico_cat_result.csv'
+  )
+
 
 # VIZ -----------------------------------------------------------
 
@@ -58,7 +65,7 @@ jpeg(filename = "viz/p1.jpeg",
 grid.newpage(); p1 %>% grid.draw()
 dev.off()
 
-p2 <- build_p2(synthesis)
+p2 <- build_p2(synthesis, pico_combinations)
 
 jpeg(filename = "viz/p2.jpeg", 
      height  = a4_width, 
@@ -79,4 +86,4 @@ jpeg(filename = "viz/p3.jpeg",
 p3
 dev.off()
 
-p4 <- build_p4(synthesis)
+p4 <- build_p4(synthesis, pico_results)

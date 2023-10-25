@@ -1,28 +1,31 @@
-bar_styles <-  geom_col(
-    fill = 'white',
-    colour = 'black',
-    size = line_width/2,
-    width = 1
-  ) 
-
-build_p4 <- function(synthesis,
+p4_basic <- function(synthesis,
+                     var_in,
                      text_offset = .01,
-                     y_offset = 5) {
-  browser()
-  
+                     y_offset = 20, 
+                     max_rows = 50) {
+
   to_plot <- 
     synthesis %>% 
-    count(impact_matrix,
-          sort = T)
+    rename(y_var = {{var_in}}) %>% 
+    count(y_var) %>% 
+    arrange(desc(n))
   
   max_x <- 
     to_plot$n %>% 
     max()
+
+  if(nrow(to_plot) > max_rows) {
+    to_plot <- 
+      to_plot %>% 
+      slice(1:max_rows)
+  }
   
-  to_plot %>% 
+
+  p <- 
+    to_plot %>% 
     ggplot() +
     aes(
-      y = impact_matrix %>% 
+      y = y_var %>% 
         as_factor() %>% 
         fct_rev,
       x = n
@@ -61,4 +64,24 @@ build_p4 <- function(synthesis,
       panel.spacing = unit(0, 'mm'),
       strip.text = element_blank()
     )
+  
+  return(p)
+}
+
+build_p4 <- function(synthesis, pico_results) {
+  browser() 
+  
+  p_fpid <- 
+    synthesis %>% 
+    select(doi, fpid) %>% 
+    distinct() %>% 
+    p4_basic(var_in = "fpid")
+  
+  p_impact <-
+    synthesis %>% 
+    p4_basic(var_in = "impact_matrix")
+  
+  p_metrics <- 
+    pico_results %>% 
+    p4_basic(var_in = "metric_matrix")
 }

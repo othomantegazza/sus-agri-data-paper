@@ -1,4 +1,5 @@
-build_p2 <- function(synthesis) {
+build_p2 <- function(synthesis,
+                     pico_combinations) {
   fpid_ordered <-  
     synthesis %>% 
     count(fpid,
@@ -73,7 +74,7 @@ build_p2 <- function(synthesis) {
     )
   
   size_by_fpid <- 
-    pico_cat_results %>% 
+    pico_combinations %>% 
     count(
       fpid,
       sort = T) %>% 
