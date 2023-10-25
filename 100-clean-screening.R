@@ -40,13 +40,11 @@ screening_status <-
     nm = names(.)
   )}
 
-# make figures --------------------------------------------------
+# extract screening statuses ------------------------------------
 
 systematic_screening <- 
   screening %>% 
   select(
-    # Search,
-    # Source_of_search,
     DOI,
     FPID,
     Status
@@ -61,6 +59,10 @@ systematic_screening <-
       TRUE ~ .
     )
   })
+
+systematic_screening <- 
+  systematic_screening %>% 
+  select(-Data_search)
 
 systematic_screening_DUPL <- 
   systematic_screening %>% 
@@ -90,4 +92,18 @@ systematic_screening_clean %>%
   ) %>% 
   write_csv('data/output/4-systematic-screening-MISSING-DATA.csv')
 
+
+
+# screening date ------------------------------------------------
+
+screening_dates <- 
+  screening %>% 
+  select(FPID, Source_of_search, Data_search) %>% 
+  mutate(
+    Data_search = Data_search %>%
+      as.numeric() %>% 
+      as.Date(origin = "1899-12-30")
+  ) %>% 
+  group_by_all() %>% 
+  count()
 

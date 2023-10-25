@@ -33,8 +33,16 @@ search_tab <-
 search_tab <-
   search_tab %>% 
   mutate(
-    Date.of.search.WOS = Date.of.search.WOS %>% 
-      as.numeric() %>% 
-      as.Date(origin = "1899-12-30")
+    across(
+      .cols = c("Date.of.search.WOS",
+                "Date.of.search.SCOPUS"),
+      .fns = ~as.numeric(.) %>% 
+        as.Date(origin = "1899-12-30")
     )
+  ) %>% 
+  count(
+    FPID,
+    Date
+  )
+
 
