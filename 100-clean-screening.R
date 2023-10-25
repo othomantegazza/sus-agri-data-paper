@@ -60,10 +60,6 @@ systematic_screening <-
     )
   })
 
-systematic_screening <- 
-  systematic_screening %>% 
-  select(-Data_search)
-
 systematic_screening_DUPL <- 
   systematic_screening %>% 
   extract_duplicated_rows(id_cols = c('DOI', 'FPID')) %>% 
@@ -98,7 +94,9 @@ systematic_screening_clean %>%
 
 screening_dates <- 
   screening %>% 
-  select(FPID, Source_of_search, Data_search) %>% 
+  select(FPID, 
+         Source_of_search, 
+         Data_search) %>% 
   mutate(
     Data_search = Data_search %>%
       as.numeric() %>% 
