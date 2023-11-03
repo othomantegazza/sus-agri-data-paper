@@ -12,6 +12,7 @@ library(purrr)
 library(jsonlite)
 library(skimr)
 library(here)
+# library(Diderot)
 
 # functions -----------------------------------------------------
 
@@ -47,7 +48,8 @@ systematic_screening <-
   select(
     DOI,
     FPID,
-    Status
+    Status,
+    Year
   ) %>% 
   mutate(Status = Status %>% toupper()) %>% 
   mutate(Status = Status %>% {
@@ -58,7 +60,9 @@ systematic_screening <-
       . == "G" ~ "R",
       TRUE ~ .
     )
-  })
+  }) %>% 
+  mutate(Year = Year %>% as.numeric()) %>% 
+  filter(Year > 1950)
 
 systematic_screening_DUPL <- 
   systematic_screening %>% 
@@ -102,6 +106,73 @@ screening_dates <-
       as.numeric() %>% 
       as.Date(origin = "1899-12-30")
   ) %>% 
-  group_by_all() %>% 
-  count()
+  group_by(FPID) %>% 
+  summarise(Data_search = Data_search %>% max(na.rm = T)) %>% 
+  mutate(Data_search = Data_search %>% {
+    case_when(
+      is.infinite(.) ~ NA,
+      TRUE ~ .
+    )
+  }) %>% 
+  arrange(Data_search) %>% 
+  mutate(part = rep(1:2, each = n()/2)) %>% 
+  nest(.by = part)
 
+
+
+# viz -----------------------------------------------------------
+
+systematic_screening_clean %>% 
+  mutate(
+    Year = Year %>% {
+      case_when(. <= 1998 ~ "1998 or before",
+                TRUE ~ as.character(.))
+    }
+  ) %>% 
+  filter(FPID %in% screening_dates$data[[2]]$FPID) %>% 
+  left_join(screening_dates$data[[2]]) %>% 
+  mutate(
+    FPID = paste(
+      Data_search, 
+      FPID %>% str_wrap(width = 20),
+      sep = "\n"
+    )
+  ) %>% 
+  count(FPID, Year) %>%
+  ggplot() +
+  aes(x = Year,
+      y = n) +
+  geom_col(
+    fill = 'white',
+    colour = 'black',
+    size = line_width/2,
+    width = 1
+  ) +
+  geom_hline(yintercept = 0) +
+  facet_wrap(
+    facets = "FPID",
+    ncol = 1, 
+    strip.position = "left"
+    # labeller = label_wrap_gen(width = 15)
+  ) +
+  labs(
+    x = NULL,
+    y = NULL
+  ) +
+  theme(
+    axis.line.y = element_blank(),
+    # panel.grid.major.x = element_blank(),
+    axis.line.x = element_blank(),
+    # axis.ticks.x = element_blank(),
+    axis.text.x = element_text(
+      angle = 45,
+      hjust = 1,
+      vjust = 1
+      ),
+    panel.spacing = unit(0, 'mm'),
+    strip.text.y.left = element_text(
+      angle = 0,
+      hjust = 1,
+      vjust = 0
+      )
+  )

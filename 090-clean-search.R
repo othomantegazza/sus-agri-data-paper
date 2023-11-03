@@ -39,10 +39,5 @@ search_tab <-
       .fns = ~as.numeric(.) %>% 
         as.Date(origin = "1899-12-30")
     )
-  ) %>% 
-  count(
-    FPID,
-    Date
-  )
-
+  ) 
 
