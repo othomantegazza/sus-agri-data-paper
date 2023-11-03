@@ -328,10 +328,6 @@
         "type": "character"
       },
       {
-        "colname": "metric_positive_effect",
-        "type": "character"
-      },
-      {
         "colname": "effect_size",
         "type": "character"
       },
@@ -351,8 +347,7 @@
       "fpid",
       "impact_matrix",
       "intervention_matrix",
-      "control_matrix",
-      "effect_size"
+      "control_matrix"
     ],
     "columns": [
       {
