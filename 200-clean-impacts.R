@@ -39,6 +39,42 @@ impacts <-
   impacts %>%   
   clean_names()
 
+
+# clean geo -----------------------------------------------------
+
+impacts <- 
+  impacts %>% 
+  mutate(scale = scale %>% str_to_lower()) %>% 
+  mutate(
+    geo_coverage = scale %>% {
+      case_when(
+        is.na(.) ~ "not reported",
+        str_detect(., "^not reported$") ~ "not reported",
+        str_detect(., "^not specified$") ~ "not reported",
+        str_detect(., "global") ~ "global",
+        str_detect(., "continental") ~ "continental pedo-climate",
+        str_detect(., "artic") ~ "artic region",
+        str_detect(., "tropic") ~ "tropical pedo-climate",
+        str_detect(., "medit") ~ "mediterranean pedo-climate",
+        str_detect(., "temper") ~ "temperate pedo-climate",
+        str_detect(., "^china$") ~ "china",
+        str_detect(., "^europe$") ~ "europe",
+        str_detect(., "^us$") ~ "united states",
+        # str_detect(., "^eu") ~ "europe",
+      )
+    }
+  )
+
+impacts %>% 
+  count(scale, geo_coverage, sort = T) %>% 
+  write_delim(
+    "data/output/geo-clean.csv",
+    delim = ";"
+  )
+
+impacts %>% 
+  summarise(.by = c(doi, fpid, impact_matrix, geo_coverage))
+
 # read column metadata ------------------------------------------
 
 metadata <- 
