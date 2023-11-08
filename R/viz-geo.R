@@ -1,5 +1,4 @@
 build_p_geo <- function(pico_combinations) {
-  browser()
   
   geo <- 
     pico_combinations %>% 
