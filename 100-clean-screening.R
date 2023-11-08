@@ -93,13 +93,10 @@ systematic_screening_clean %>%
   ) %>% 
   write_csv('data/output/4-systematic-screening-MISSING-DATA.csv')
 
-
-
 # screening date ------------------------------------------------
 
 screening_dates <- 
-  read_csv("data/output/3-search-dates.csv")
-
+  read_csv("data/output/03-search-dates.csv") 
 
 screening_dates <- 
   screening_dates %>% 
