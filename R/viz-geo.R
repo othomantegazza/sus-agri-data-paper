@@ -3,9 +3,11 @@ build_p_geo <- function(pico_combinations) {
   
   geo <- 
     pico_combinations %>% 
+    distinct(doi, geo_coverage) %>% 
     select(geo_coverage) %>% 
     mutate(geo_coverage = geo_coverage %>% str_split(pattern = ";")) %>% 
-    unnest(geo_coverage) %>% 
+    unnest(geo_coverage) %>%
+    mutate(geo_coverage = geo_coverage %>% str_trim()) %>% 
     count(geo_coverage, sort = T)
   
   p <- 
