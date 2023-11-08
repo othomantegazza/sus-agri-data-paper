@@ -42,35 +42,58 @@ impacts <-
 
 # clean geo -----------------------------------------------------
 
+# geo_dict <- 
+#   read_excel("data/metadata/geo-clean.xlsx") %>% 
+#   select(scale, geo_coverage) %>% 
+#   write_csv(
+#     "data/metadata/geo-clean.csv"
+#   )
+
+geo_dict <- 
+  read_csv(
+    "data/metadata/geo-clean.csv"
+  )
+
 impacts <- 
   impacts %>% 
   mutate(scale = scale %>% str_to_lower()) %>% 
-  mutate(
-    geo_coverage = scale %>% {
-      case_when(
-        is.na(.) ~ "not reported",
-        str_detect(., "^not reported$") ~ "not reported",
-        str_detect(., "^not specified$") ~ "not reported",
-        str_detect(., "global") ~ "global",
-        str_detect(., "continental") ~ "continental pedo-climate",
-        str_detect(., "artic") ~ "artic region",
-        str_detect(., "tropic") ~ "tropical pedo-climate",
-        str_detect(., "medit") ~ "mediterranean pedo-climate",
-        str_detect(., "temper") ~ "temperate pedo-climate",
-        str_detect(., "^china$") ~ "china",
-        str_detect(., "^europe$") ~ "europe",
-        str_detect(., "^us$") ~ "united states",
-        # str_detect(., "^eu") ~ "europe",
-      )
-    }
-  )
+  left_join(geo_dict) 
+
+# impacts <- 
+#   impacts %>% 
+#   mutate(scale = scale %>% str_to_lower()) %>% 
+#   mutate(
+#     geo_coverage = scale %>% {
+#       case_when(
+#         is.na(.) ~ "not reported",
+#         str_detect(., "^not reported$") ~ "not reported",
+#         str_detect(., "^not specified$") ~ "not reported",
+#         str_detect(., "global") ~ "global",
+#         str_detect(., "continental") ~ "continental pedo-climate",
+#         str_detect(., "artic") ~ "artic region",
+#         str_detect(., "tropic") ~ "tropical pedo-climate",
+#         str_detect(., "medit") ~ "mediterranean pedo-climate",
+#         str_detect(., "temper") ~ "temperate pedo-climate",
+#         str_detect(., "^china$") ~ "china",
+#         str_detect(., "^europe$") ~ "europe",
+#         str_detect(., "^us$") ~ "united states",
+#         # str_detect(., "^eu") ~ "europe",
+#       )
+#     }
+# )
 
 impacts %>% 
-  count(scale, geo_coverage, sort = T) %>% 
-  write_delim(
-    "data/output/geo-clean.csv",
-    delim = ";"
-  )
+  count(scale, geo_coverage) %>% 
+  mutate(geo_coverage = geo_coverage %>% str_split(pattern = ";")) %>% 
+  unnest(geo_coverage) %>% 
+  
+
+# impacts %>% 
+#   count(scale, geo_coverage, sort = T) %>% 
+#   write_delim(
+#     "data/output/geo-clean.csv",
+#     delim = ";"
+#   )
 
 impacts %>% 
   summarise(.by = c(doi, fpid, impact_matrix, geo_coverage))

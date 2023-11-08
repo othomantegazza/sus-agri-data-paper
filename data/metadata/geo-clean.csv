@@ -1,0 +1,133 @@
+scale,geo_coverage
+global,global
+china,china
+europe,europe
+global (including eu),global
+not reported,not reported
+africa,africa
+usa,united states
+,NA
+global (mediterranean climate),mediterranean pedo-climate
+not specified,not reported
+sub-saharan africa.,sub-saharan africa
+"global. major wine producing regions world-wide except asian countries, new zealand and argentina",global
+asia,asia
+humid and sub-humid tropics in all continents.,tropical pedo-climate
+global (mediterranean climates),mediterranean pedo-climate
+"global. irrigated land is present in many regions of the world, and the scientific literature selected represented a global data-set. the geographical distribution of the selected articles was as follows: north america (44%), europe (38%), asia (14%) and south america (4%). most data came from the european mediterranean basin (35%) and from the midwest of the united states (30%).",global
+north america,north america
+pampas,south america
+south asia,south asia
+"global (mediterranean climate). the authors analysed data from 57 publications that included data from 326 experiments and 1062 comparisons (table 2): 26 publications from a wider review of mediterranean farming practices (shackelford et al., 2017) and 31 publications from our new searches (see file s3 for a list of included publications and a modified prisma flow diagram). the data came from approximately 50 species or mixtures of cover crops, 12 food crops, and 5 countries: italy (24 publications), the united states of america (20 publications), spain (9 publications), france (2 publications), and greece (2 publications).",mediterranean pedo-climate
+global (temperate climate),temperate pedo-climate
+"global.  the majority of lca publications included in these analyses are from agricultural systems in europe, north america, and australia and new zealand (86% of systems are from these regions). systems from china (2%), japan (2%), the rest of asia (5%), south america (4%), and africa (4%) are much less common.",global
+sub-saharan africa,sub-saharan africa
+brazil,brasil
+canada,canada
+"eu nordic countries. denmark, sweden, finland and norway",scandinavia
+global (arid zones),arid pedo-climate
+global (not defined),global
+northern hemisphere,northern emisphere
+northwestern china,china
+sub-saharan africa covering an area from humid to semi-arid zones.,sub-saharan africa
+u,united states;europe
+"us, brasil, greece",united states;brasil
+usa and brazil,united states;brasil
+ethiopia,ethiopia
+europe and north america,europe;north america
+global (including europe),global
+global mainly asia,asia
+mediterranean agroecosystems,mediterranean pedo-climate
+mediterranean region,mediterranean pedo-climate
+mediterranean regions,mediterranean pedo-climate
+north america and europe,north america;europe
+"north america, europe, new zeland",north america;europe;new zealand
+united states,united states
+us,united states
+"america, europe",america;europe
+"asia, america, europe","asia,america,europe"
+"asia, australia, europe and north and south america",global
+china and africa,china;africa
+cold climatic countries,artic pedo-climate
+europe and northern america,europe;north america
+france,france
+global (21 countries),global
+global (artic area),artic pedo-climate
+"global (north america, africa and mediterranean regions)",global
+global. not specified.,global
+"global. of the 46 studies, 36 were conducted in north america, 6 in europe, 3 in asia, and 1 in south america. studies from the united states alone accounted for 72% of the total studies used for this review",global
+"global. tropical, arid, temperate, and snowy climates.",global
+"japan, egypt, australia, united states of america, china, israel, greece, chile",global
+kenya,kenya
+"limpopo river basin (botswana, mozambique, south africa and zimbabwe)",sub-saharan africa
+"mainly asia, north america, spain, uruguay",global
+"mainly asian countries. other countries include united states of america, brazil, australia, senegal, and ouganda.",global
+"north america, europe, asia and south america",global
+"semi-arid west africa (sudano-sahelian africa, including senegal, the gambia, mauritania, mali, burkina faso, northern benin, niger, nigeria, and northern cameroon)",west africa
+"south-east asia (cambodia, indonesia, philippines, thailand, and vietnam)",south asia
+southern africa.,sub-saharan africa
+"spain, turkey, china, ethiopia, the united states, india",global
+subsaharan africa (12 countries),sub-saharan africa
+temperate zone,temperate pedo-climate
+us and canada,north america
+usa and canada,north america
+"west africa (burkina faso, mali, niger, senegal)",west africa
+"africa, latin america and asia.",africa;latin america;asia
+agricultural regions in temperate climates,temperate pedo-climate
+"american midwest, canada, china, europe",north america;china;europe
+"asia, africa and latin america",africa;south america;asia
+"australia, europe, israel, turkey, united-states of america",global
+brazil and paraguay,south america
+brazilian atlantic forest.,brasil
+"burkina faso, mali, niger and senegal.",sub-saharan africa
+central and northern europe,europe
+"china, south korea, pakistan, canada",china;south korea;pakistan;canada
+continental usa,continental pedo-climate
+europe and mediterranean,mediterranean pedo-climate
+"europe, asia, north america",europe; asia; north america
+"europe, south africa, usa, australia",europe; south africa; united states; australia
+finland,finland
+germany,germany
+"global (africa, asia, australia, europe, latin america, and north america).",global
+"global (mostly located in northern, central, and southern america, africa, and asia).",global
+global (not including europe).,global
+"global (reported in the previous publication of the data, i.e. yu et al., 2015)",global
+"global, restricted to tropical climates.",global
+"global. 6 continents and 16 countries, ranging from temperate to tropical climatic zones. most of the studies were in asia and in tropical areas.",global
+"global. arid and semiarid (asa), lowland humid tropics (lht), mediterranean (med), temperate (tem). 30 countries (asia, africa, north america, latin america, and europe)",global
+"global. most publications (n = 27) were from the united states, followed by italy (n = 4), denmark (n = 3), and others in north america, europe, and oceania (n = 6).",global
+"global. most research occurred in the united states (n = 7), spain (n = 6), india (n = 5), and germany (n = 5).",global
+"global. the experimental sites were across asia, australia, europe and north and south america.",global
+"global. the majority of studies (39 out of 50) were conducted in countries of the european union. the largest number of studies was from spain (n = 17), followed by italy (n = 11), france (n = 10), the usa (n = 5), south africa (n = 4), and australia (n = 1), germany (n = 1) and turkey (n = 1).",global
+india,india
+indian tropics,india;tropical pedo-climate
+indo-gangetic plains,india
+japan,japan
+latitude 40° to 70°n,global
+loess plateau region (china),china
+mainly asia,asia
+"mainly asia, north america. spain, uruguay",asia;north america;spain;uruguay
+"mainly north america, one study in finland",north america
+mediterranean areas,mediterranean pedo-climate
+mediterranean basin.,mediterranean pedo-climate
+midwestern us,united states
+"north american areas between the 40th and 50th parallels, and european areas between the 45th and 60th parallels",north america
+north china plain,china
+oceanic or continental climates,continental pedo-climate
+ontario,united states
+"semi-arid west africa (sudano-sahelian africa, including senegal, the gambia, mauritania, mali, burkina faso, northern benin, niger, nigeria, and northern cameroon).",arid pedo-climate;west africa
+sub-saharan africa (ssa),sub-saharan africa
+sub-saharian africa,sub-saharan africa
+subsaharan africa,sub-saharan africa
+temperate and continental climatic areas,continental pedo-climate
+"temperate region, defined as latitude> 40° north or south (canada, france, turkey, uk and usa)",temperate pedo-climate
+"temperate region, defined as latitude> 40° north or south (canada, france, turkey, uk and usa).",temperate pedo-climate
+tropics in africa and asia.,tropical pedo-climate
+uk and ireland,united kingdom;ireland
+"united states of america, texas",united states
+us midwest,united states
+usa and mexico,united states;mexico
+"usa, mexico, spain, france, equatorial africa, india, china",global
+west africa,west africa
+"west, east and southern africa",africa
+"us and eu", united states; europe
