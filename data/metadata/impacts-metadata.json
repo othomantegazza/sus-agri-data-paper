@@ -316,6 +316,10 @@
         "type": "character"
       },
       {
+        "colname": "geo_coverage",
+        "type": "character"
+      },
+      {
         "colname": "intervention",
         "type": "character"
       },
