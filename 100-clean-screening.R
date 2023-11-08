@@ -205,3 +205,70 @@ p <-
 p %>% gtable_show_layout()
 
 grid.newpage();grid.draw(p)
+
+
+# 2nd version ---------------------------------------------------
+
+systematic_screening_clean %>% 
+  left_join(
+    screening_dates %>% unnest(cols = c(data)),
+    by = c("FPID" = "fpid")
+  ) %>% 
+  count(FPID, date_of_search, Year) %>% 
+  arrange(desc(date_of_search)) %>% 
+  mutate(
+    FPID = FPID %>% 
+      paste(date_of_search, sep = " - ") %>%
+      as_factor()
+  ) %>% 
+  ggplot() +
+  aes(x = Year,
+      y = FPID,
+      fill = n) +
+  geom_tile() +
+  geom_text(
+    aes(label = n,
+        colour = case_when(
+          n > 30 ~ 'white',
+          TRUE ~ 'black'
+        )
+    ),
+    size = text_size_plot,
+    show.legend = FALSE
+  ) +
+  labs(
+    x = NULL,
+    y = NULL
+  ) +
+  guides(
+    fill = 'none'
+  ) +
+  scale_x_discrete(
+    position = 'top'
+  ) +
+  scale_fill_viridis_c(
+    direction = -1,
+    option = 'G',
+    na.value = '#00000000',
+  ) +
+  scale_colour_manual(
+    values = c('white',
+               'black') %>% 
+      set_names()
+  ) +
+  theme(
+    axis.line = element_blank(),
+    axis.text.x.top = element_text(
+      angle = 90,
+      hjust = 0, 
+      vjust = .5
+    ),
+    axis.ticks = element_line(
+      size = line_width*.2
+    ),
+    panel.grid = element_line(
+      colour = 'black',
+      size = line_width*.1,
+      linetype = '11'
+    )
+  )
