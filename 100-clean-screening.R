@@ -98,50 +98,52 @@ systematic_screening_clean %>%
 # screening date ------------------------------------------------
 
 screening_dates <- 
-  screening %>% 
-  select(FPID, 
-         Source_of_search, 
-         Data_search) %>% 
-  mutate(
-    Data_search = Data_search %>%
-      as.numeric() %>% 
-      as.Date(origin = "1899-12-30")
-  ) %>% 
-  group_by(FPID) %>% 
-  summarise(Data_search = Data_search %>% max(na.rm = T)) %>% 
-  mutate(Data_search = Data_search %>% {
+  read_csv("data/output/3-search-dates.csv")
+
+
+screening_dates <- 
+  screening_dates %>% 
+  mutate(date_of_search = date_of_search %>% {
     case_when(
       is.infinite(.) ~ NA,
       TRUE ~ .
     )
   }) %>% 
-  arrange(Data_search) %>% 
+  arrange(date_of_search) %>% 
   mutate(part = rep(1:2, each = n()/2)) %>% 
   nest(.by = part)
 
-
+systematic_screening_clean <- 
+  systematic_screening_clean %>% 
+  mutate(
+    Year = Year %>% {
+      case_when(. <= 2004 ~ "< 2004",
+                TRUE ~ as.character(.))
+    }
+  ) %>% 
+  mutate(Year = as.factor(Year))
 
 # viz -----------------------------------------------------------
 
 plot_screening_year <- function(part) {
-  p <- 
+  p <-
     systematic_screening_clean %>% 
-    mutate(
-      Year = Year %>% {
-        case_when(. <= 2004 ~ "< 2004",
-                  TRUE ~ as.character(.))
-      }
+    filter(
+      FPID %in% screening_dates$data[[part]]$fpid
     ) %>% 
-    filter(FPID %in% screening_dates$data[[part]]$FPID) %>% 
-    left_join(screening_dates$data[[part]]) %>% 
+    left_join(
+      screening_dates$data[[part]],
+      by = c("FPID" = "fpid")
+    ) %>% 
     mutate(
       FPID = paste(
-        Data_search, 
+        date_of_search, 
         FPID %>% str_wrap(width = 20),
         sep = "\n"
       )
     ) %>% 
     count(FPID, Year) %>%
+    complete(FPID, Year, fill = list(n = 0)) %>% 
     ggplot() +
     aes(x = Year,
         y = n) +
@@ -151,7 +153,9 @@ plot_screening_year <- function(part) {
       size = line_width/2,
       width = 1
     ) +
-    geom_hline(yintercept = 0) +
+    geom_hline(yintercept = 0, 
+               # linewidth = 0,
+               colour = "white") +
     facet_wrap(
       facets = "FPID",
       ncol = 1, 
@@ -163,7 +167,8 @@ plot_screening_year <- function(part) {
       y = NULL
     ) +
     scale_y_continuous(position = "right",
-                       breaks = c(0, 50, 100)) +
+                       breaks = c(0, 50, 100), 
+                       limits = c(0, NA)) +
     theme(
       axis.line.y = element_blank(),
       # panel.grid.major.x = element_blank(),
@@ -183,8 +188,7 @@ plot_screening_year <- function(part) {
         hjust = 1,
         vjust = 0
       )
-    )
-  
+    ) 
   return(p)
 }
 

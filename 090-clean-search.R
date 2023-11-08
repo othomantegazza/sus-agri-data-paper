@@ -39,5 +39,25 @@ search_tab <-
       .fns = ~as.numeric(.) %>% 
         as.Date(origin = "1899-12-30")
     )
-  ) 
+  ) %>% 
+  clean_names()
 
+search_tab <-
+  search_tab %>% 
+  select(fpid, date_of_search_wos, date_of_search_scopus) %>% 
+  pivot_longer(cols = !fpid) %>% 
+  select(-name) %>% 
+  group_by(fpid) %>% 
+  summarise(
+    across(
+      .cols = everything(),
+      .fns = ~max(., na.rm = T)
+    )
+  ) %>% 
+  arrange(value) %>% 
+  rename(date_of_search = value)
+
+search_tab %>% 
+  write_csv(
+    "data/output/3-search-dates.csv"
+  )
