@@ -52,6 +52,9 @@ impacts <-
   mutate(scale = scale %>% str_to_lower()) %>% 
   left_join(geo_dict) 
 
+# impacts %>% 
+#   count(scale, geo_coverage)
+
 # read column metadata ------------------------------------------
 
 metadata <- 

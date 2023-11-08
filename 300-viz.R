@@ -55,6 +55,8 @@ pico_results <-
 
 # VIZ -----------------------------------------------------------
 
+p_geo <- build_p_geo(pico_combinations)
+
 p1 <- build_p1(screening)
 
 jpeg(filename = "viz/p1.jpeg", 

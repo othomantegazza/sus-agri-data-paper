@@ -45,7 +45,7 @@ north america and europe,north america;europe
 united states,united states
 us,united states
 "america, europe",america;europe
-"asia, america, europe","asia,america,europe"
+"asia, america, europe","asia;america;europe"
 "asia, australia, europe and north and south america",global
 china and africa,china;africa
 cold climatic countries,artic pedo-climate
