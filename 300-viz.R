@@ -26,6 +26,10 @@ list.files(
 
 # DATA ----------------------------------------------------------
 
+search_tab <- 
+  read_csv(
+    "data/output/03-search.csv"
+  )
 
 screening <-   
   read_csv(
@@ -52,10 +56,15 @@ pico_results <-
     'data/output/9_pico_cat_result.csv'
   )
 
-
 # VIZ -----------------------------------------------------------
 
 p_geo <- build_p_geo(pico_combinations)
+
+p_prisma <- 
+  build_p_prisma(
+    search_tab = search_tab, 
+    screening = screening
+  )
 
 p1 <- build_p1(screening)
 

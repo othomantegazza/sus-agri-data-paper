@@ -45,14 +45,14 @@ search_tab <-
 
 search_tab <- 
   search_tab %>% 
-  select(
+  transmute(
     fpid,
     x1,
-    nb_papers_scopus,
     date_of_search_scopus,
-    nb_papers_wos,
     date_of_search_wos,
-    nb_papers_after_merging
+    nb_papers_scopus = nb_papers_scopus %>% as.numeric(),
+    nb_papers_wos = nb_papers_wos %>% as.numeric(),
+    nb_papers_after_merging = nb_papers_after_merging %>% as.numeric()
   ) %>% 
   summarise(
     across(
