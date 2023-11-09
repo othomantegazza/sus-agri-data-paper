@@ -1,20 +1,15 @@
-# make_card <- function(
-#     n,
-#     text_label,
-#     title_size
-# ) {
-#   browser()
-#   textbox_grob(
-#     text = text_label, 
-#     x = 0,
-#     y = 1,
-#     hjust = 0,
-#     vjust = 1, 
-#     gp = gpar(
-#       fontsize = title_size
-#     ) 
-#   )  
-# }
+tgrob <- function(text, size) {
+  textbox_grob(
+    text = text, 
+    x = 0,
+    y = 1,
+    hjust = 0,
+    vjust = 1, 
+    gp = gpar(
+      fontsize = size
+    ) 
+  )
+}
 
 build_prisma_page <- function(
     fpid,                 
@@ -25,15 +20,22 @@ build_prisma_page <- function(
     R,
     ...
 ) {
-  browser()
   
   title_size <- 24
   body_size <- title_size/2
   
-  heights <- c(1, 2, 4, 8, 4, 1)
+  heights <- c(1, 2, 4, 4, 4, 4, 1)
   widths <- c(1, 13, 1)
   
   text_cell_width <- 5
+  
+  inner_widths <- unit(c(5, 3, 5), "cm")
+  inner_heights <- unit(c(title_size, title_size*2), "points")
+  
+  text_search <- 
+    "Records after querying the WOS and SCOPUS databases."
+  text_search_excluded <- 
+    "Records after removing duplicates from the two searches."
   
   # layouts -------------------------------------------------------
   
@@ -43,23 +45,37 @@ build_prisma_page <- function(
     gtable_add_cols(widths = unit(widths, "cm"))
   
   
-  search_layout <- 
+  search_layout <-  
     gtable() %>% 
     gtable_add_rows(
-      heights = unit(c(title_size, title_size*2), "points")
+      heights = inner_heights
       ) %>% 
     gtable_add_rows(
       heights = unit(1, "null")
     ) %>% 
-    gtable_add_cols(widths = unit(c(5, 3, 5), "cm"))
+    gtable_add_cols(widths = inner_widths)
   
-  search_layout %>% gtable_show_layout()
+  # search_layout %>% gtable_show_layout()
   
+  # screening_layout <- 
+  #   gtable() %>% 
+  #   gtable_add_rows(
+  #     heights = inner_heights
+  #   ) %>% 
+  #   gtable_add_rows(
+  #     heights = unit(1, "null")
+  #   ) %>% 
+  #   gtable_add_rows(
+  #     heights = inner_heights
+  #   ) %>% 
+  #   gtable_add_cols(widths = inner_widths)
+  
+  # screening_layout %>% gtable_show_layout()
   
   # arrows --------------------------------------------------------
   h_arrow <-
     linesGrob(
-      x = unit(c(0, .9), 'npc'),
+      x = unit(c(.05, .9), 'npc'),
       y = unit(rep(.9, 2), 'npc'),
       arrow = arrow(
         length = unit(.2, 'cm'),
@@ -69,73 +85,36 @@ build_prisma_page <- function(
       )
   )
   
+  v_arrow <-
+    linesGrob(
+      y = unit(c(1, .1), 'npc'),
+      x = unit(rep(.1, 2), 'npc'),
+      arrow = arrow(
+        length = unit(.2, 'cm'),
+        type = "open"
+      ),
+      gp = gpar(
+      )
+    )
 
   # title ---------------------------------------------------------
   
-  title <- textbox_grob(
-    text = fpid, 
-    x = 0,
-    y = 1,
-    hjust = 0,
-    vjust = 1, 
-    gp = gpar(
-      fontsize = title_size
-    ) 
-  )
+  title <- tgrob(fpid, title_size)
   
   # search --------------------------------------------------------
 
-  text_search <- "MAs after querying WOS and SCOPUS."
-  text_search_excluded <- 
-    "MAs after removing duplicates from the two searches."
-  
-  search_n <- 
-    textbox_grob(
-      text = papers_after_search, 
-      x = 0,
-      y = 1,
-      hjust = 0,
-      vjust = 1, 
-      gp = gpar(
-        fontsize = title_size
-      ) 
-  )
+  search_n <- tgrob(papers_after_search, title_size)
   
   search_excluded_n <- 
-    textbox_grob(
-      text = papers_after_search - papers_after_merging, 
-      x = 0,
-      y = 1,
-      hjust = 0,
-      vjust = 1, 
-      gp = gpar(
-        fontsize = title_size
-      ) 
-    )
+    tgrob(
+      papers_after_search - papers_after_merging,
+      title_size
+    ) 
   
-  search_text_grob <- 
-    textbox_grob(
-      text = text_search, 
-      x = 0,
-      y = 1,
-      hjust = 0,
-      vjust = 1, 
-      gp = gpar(
-        fontsize = body_size
-      ) 
-    )
+  search_text_grob <- tgrob(text_search, body_size)
   
   search_excluded_text_grob <- 
-    textbox_grob(
-      text = text_search_excluded, 
-      x = 0,
-      y = 1,
-      hjust = 0,
-      vjust = 1, 
-      gp = gpar(
-        fontsize = body_size
-      ) 
-    )
+    tgrob(text_search_excluded, body_size)
   
   search_diagr <- 
     search_layout %>% 
@@ -143,28 +122,83 @@ build_prisma_page <- function(
     gtable_add_grob(search_excluded_n, t = 1, l = 3) %>% 
     gtable_add_grob(search_text_grob, t = 2, l = 1) %>% 
     gtable_add_grob(h_arrow, t = 2, l = 2) %>% 
-    gtable_add_grob(search_excluded_text_grob, t = 2, l = 3)
+    gtable_add_grob(search_excluded_text_grob, t = 2, l = 3) %>% 
+    gtable_add_grob(v_arrow, t = 3, l = 1)
+    
   
+  # search_diagr %>% gtable_show_layout()
+  # search_diagr %>% grid.draw()
   
-  search_diagr %>% gtable_show_layout()
-  search_diagr %>% grid.draw()
+  # screening -----------------------------------------------------
   
-  # downloaded <- 
-  #   make_card(n = papers_after_search,
-  #             text_label = text_search,
-  #             title_size = title_size)
+  screened_n <- tgrob(B + O + R, title_size)
+  screened_n_text <- tgrob(
+    "Record Screened.", body_size
+  )
+  screened_excluded_n <- tgrob(B, title_size)
+  screened_excluded_n_text <- tgrob(
+    "Record excluded after screening.", body_size
+  )
+  
+  screening_diagr <- 
+    search_layout %>% 
+    gtable_add_grob(screened_n, t = 1, l = 1) %>% 
+    gtable_add_grob(screened_excluded_n, t = 1, l = 3) %>% 
+    gtable_add_grob(screened_n_text, t = 2, l = 1) %>% 
+    gtable_add_grob(h_arrow, t = 2, l = 2) %>% 
+    gtable_add_grob(screened_excluded_n_text, t = 2, l = 3) %>% 
+    gtable_add_grob(v_arrow, t = 3, l = 1)
+
+  # screening_diagr %>% gtable_show_layout()
+  # screening_diagr %>% grid.draw()
   
 
+  # elegibility ---------------------------------------------------
+  
+  elegibility_n <- tgrob(B + O, title_size)
+  elegibility_n_text <- tgrob(
+    "Record assessed for elegibility.", body_size
+  )
+  elegibility_excluded_n <- tgrob(O, title_size)
+  elegibility_excluded_n_text <- tgrob(
+    "Record excluded after elegibility assessment.", body_size
+  )
+  
+  elegibility_diagr <- 
+    search_layout %>% 
+    gtable_add_grob(elegibility_n, t = 1, l = 1) %>% 
+    gtable_add_grob(elegibility_excluded_n, t = 1, l = 3) %>% 
+    gtable_add_grob(elegibility_n_text, t = 2, l = 1) %>% 
+    gtable_add_grob(h_arrow, t = 2, l = 2) %>% 
+    gtable_add_grob(elegibility_excluded_n_text, t = 2, l = 3) %>% 
+    gtable_add_grob(v_arrow, t = 3, l = 1)
+  
+  
+  # included ------------------------------------------------------
+  
+  included_n <- tgrob(B, title_size)
+  included_n_text <- tgrob(
+    "Record included in the review.", body_size
+  )
+  
+  included_diagr <- 
+    search_layout %>% 
+    gtable_add_grob(included_n, t = 1, l = 1) %>% 
+    gtable_add_grob(included_n_text, t = 2, l = 1)
+  
   # all -----------------------------------------------------------
   
   diagr_out <- 
     diagr %>% 
     gtable_add_grob(title, t = 2, l = 2) %>% 
-    gtable_add_grob(search_diagr, t = 3, l = 2)
+    gtable_add_grob(search_diagr, t = 3, l = 2) %>% 
+    gtable_add_grob(screening_diagr, t = 4, l = 2) %>% 
+    gtable_add_grob(elegibility_diagr, t = 5, l = 2) %>% 
+    gtable_add_grob(included_diagr, t = 6, l = 2) 
   
-  grid.newpage()
-  diagr %>% gtable_show_layout()
-  diagr_out %>% grid.draw()
+  # grid.newpage()
+  # diagr %>% gtable_show_layout()
+  # diagr_out %>% grid.draw()
 }
   
 build_p_prisma <- function(search_tab,
@@ -198,6 +232,7 @@ build_p_prisma <- function(search_tab,
     )
   
   screening_gtable <- 
+    
     
   
   prisma_d %>% 
