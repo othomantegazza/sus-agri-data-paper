@@ -55,23 +55,6 @@ build_prisma_page <- function(
     ) %>% 
     gtable_add_cols(widths = inner_widths)
   
-  # search_layout %>% gtable_show_layout()
-  
-  # screening_layout <- 
-  #   gtable() %>% 
-  #   gtable_add_rows(
-  #     heights = inner_heights
-  #   ) %>% 
-  #   gtable_add_rows(
-  #     heights = unit(1, "null")
-  #   ) %>% 
-  #   gtable_add_rows(
-  #     heights = inner_heights
-  #   ) %>% 
-  #   gtable_add_cols(widths = inner_widths)
-  
-  # screening_layout %>% gtable_show_layout()
-  
   # arrows --------------------------------------------------------
   h_arrow <-
     linesGrob(
@@ -125,10 +108,7 @@ build_prisma_page <- function(
     gtable_add_grob(search_excluded_text_grob, t = 2, l = 3) %>% 
     gtable_add_grob(v_arrow, t = 3, l = 1)
     
-  
-  # search_diagr %>% gtable_show_layout()
-  # search_diagr %>% grid.draw()
-  
+
   # screening -----------------------------------------------------
   
   screened_n <- tgrob(B + O + R, title_size)
@@ -148,10 +128,6 @@ build_prisma_page <- function(
     gtable_add_grob(h_arrow, t = 2, l = 2) %>% 
     gtable_add_grob(screened_excluded_n_text, t = 2, l = 3) %>% 
     gtable_add_grob(v_arrow, t = 3, l = 1)
-
-  # screening_diagr %>% gtable_show_layout()
-  # screening_diagr %>% grid.draw()
-  
 
   # elegibility ---------------------------------------------------
   
@@ -195,15 +171,12 @@ build_prisma_page <- function(
     gtable_add_grob(screening_diagr, t = 4, l = 2) %>% 
     gtable_add_grob(elegibility_diagr, t = 5, l = 2) %>% 
     gtable_add_grob(included_diagr, t = 6, l = 2) 
-  
-  # grid.newpage()
-  # diagr %>% gtable_show_layout()
-  # diagr_out %>% grid.draw()
+
+  return(diagr_out)
 }
   
 build_p_prisma <- function(search_tab,
                            screening) {
-  # browser()
   
   search_tab <- 
     search_tab %>% 
@@ -231,13 +204,12 @@ build_p_prisma <- function(search_tab,
       )
     )
   
-  screening_gtable <- 
-    
-    
   
-  prisma_d %>% 
+  prisma_p <- 
+    prisma_d %>% 
     pmap(
       build_prisma_page
-      )
+    )
   
+  return(prisma_p)
 }

@@ -66,6 +66,17 @@ p_prisma <-
     screening = screening
   )
 
+grid.newpage()
+p_prisma[[1]] %>% gtable_show_layout()
+grid.draw(p_prisma[[1]])
+
+pdf("viz/prisma.pdf", paper = "a4")
+for(p in p_prisma) {
+  grid.newpage()
+  p %>% grid.draw()
+}
+dev.off()
+
 p1 <- build_p1(screening)
 
 jpeg(filename = "viz/p1.jpeg", 
