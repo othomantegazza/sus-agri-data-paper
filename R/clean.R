@@ -67,6 +67,7 @@ clean_imap <- function(
       here(
         'data',
         'output',
+        'diagnostics',
         paste0(name, '-DUPL', '.csv')
       )
     )
@@ -139,6 +140,7 @@ clean_imap <- function(
       here(
         'data',
         'output',
+        'diagnostics',
         paste0(name, '-MISSING-DATA', '.csv')
       )
     )
@@ -148,6 +150,7 @@ clean_imap <- function(
       here(
         'data',
         'output',
+        'imap',
         paste0(name, '.csv')
       )
     )

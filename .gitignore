@@ -1,6 +1,6 @@
 # data
 data/*.xlsx
-data/output/*.csv
+data/output/**
 data/old/*.csv
 data/old/*.xlsx
 data/*.pdf
