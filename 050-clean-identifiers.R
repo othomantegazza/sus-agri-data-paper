@@ -14,10 +14,26 @@ library(skimr)
 library(here)
 library(lubridate)
 
+
+# Functions -----------------------------------------------------
+
+list.files(
+  'R',
+  full.names = T
+) %>% 
+  walk(source)
+
+
+# data ----------------------------------------------------------
+
+
 defs <- 
   read_excel("data/MerFPs_DefinitionFP_20231017.xlsx") %>% 
   clean_names() %>% 
-  drop_na(text)
+  drop_na(text) %>% 
+  rename(type = x1)
+
+# metadata ------------------------------------------------------
 
 metadata <- 
   read_json(
@@ -26,9 +42,14 @@ metadata <-
   ) %>%
   as_tibble() %>% 
   rename(line_type = info_type) %>% 
-  filter(name == "01_fp_definitions") 
+  filter(name == "01_fp_definitions")
+
+# clean ---------------------------------------------------------
 
 metadata %>% 
-  clean_impacts()
+  mutate(df = defs %>% list()) %>% 
+  pwalk(
+    clean_imap
+  )
 
 

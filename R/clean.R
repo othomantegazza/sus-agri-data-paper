@@ -42,12 +42,16 @@ clean_imap <- function(
     columns
 ) {
   
+  if(length(line_type) > 0) {
+    df <- 
+      df %>%
+      filter(
+        info_type == line_type
+      )
+  }
   
-  df <- 
-    df %>%
-    filter(
-      info_type == line_type
-    ) %>% 
+  df <-
+    df %>% 
     select(
       all_of(
         columns$colname
