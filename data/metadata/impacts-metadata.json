@@ -1,6 +1,79 @@
 [
   {
-    "name": "5_ma_list",
+    "name": "01_fp_definitions",
+    "info_type": [
+      ""
+    ],
+    "unique_identifiers": [
+      "fpid",
+      "type"
+    ],
+    "columns": [
+      {
+        "colname": "fpid",
+        "type": "character"
+      },
+      {
+        "colname": "type",
+        "type": "character"
+      },
+      {
+        "colname": "text",
+        "type": "character"
+      },
+      {
+        "colname": "footnotes",
+        "type": "character"
+      }
+    ]
+  },
+  {
+    "name": "02_search_eq",
+    "info_type": [
+      ""
+    ],
+    "unique_identifiers": [
+      "fpid"
+    ],
+    "columns": [
+      {
+        "colname": "fpid",
+        "type": "character"
+      }
+    ]
+  },
+  {
+    "name": "03_search_criteria",
+    "info_type": [
+      ""
+    ],
+    "unique_identifiers": [
+      "fpid"
+    ],
+    "columns": [
+      {
+        "colname": "fpid",
+        "type": "character"
+      }
+    ]
+  },
+  {
+    "name": "04_screeening",
+    "info_type": [
+      ""
+    ],
+    "unique_identifiers": [
+      "fpid"
+    ],
+    "columns": [
+      {
+        "colname": "fpid",
+        "type": "character"
+      }
+    ]
+  },
+  {
+    "name": "05_ma_list",
     "info_type": [
       "G"
     ],
@@ -31,7 +104,7 @@
     ]
   },
   {
-    "name": "6_ma_quality_assessment",
+    "name": "06_ma_quality_assessment",
     "info_type": [
       "G"
     ],
@@ -116,7 +189,7 @@
     ]
   },
   {
-    "name": "7_ma_synthesis",
+    "name": "07_ma_synthesis",
     "info_type": [
       "G"
     ],
@@ -289,7 +362,7 @@
     ]
   },
   {
-    "name": "8_pico_combinations",
+    "name": "08_pico_combinations",
     "info_type": [
       "G"
     ],
@@ -342,7 +415,7 @@
     ]
   },
   {
-    "name": "9_pico_cat_result", 
+    "name": "09_pico_cat_results",
     "info_type": [
       "I"
     ],
@@ -416,6 +489,21 @@
       },
       {
         "colname": "results_level",
+        "type": "character"
+      }
+    ]
+  },
+  {
+    "name": "10_pico_num_results",
+    "info_type": [
+      ""
+    ],
+    "unique_identifiers": [
+      "fpid"
+    ],
+    "columns": [
+      {
+        "colname": "fpid",
         "type": "character"
       }
     ]
