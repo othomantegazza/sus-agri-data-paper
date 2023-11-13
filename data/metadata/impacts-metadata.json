@@ -75,11 +75,20 @@
     "name": "03_search_criteria",
     "info_type": [],
     "unique_identifiers": [
-      "fpid"
+      "fpid",
+      "used_for"
     ],
     "columns": [
       {
         "colname": "fpid",
+        "type": "character"
+      },
+      {
+        "colname": "used_for",
+        "type": "character"
+      },
+      {
+        "colname": "criteria",
         "type": "character"
       }
     ]
