@@ -1,8 +1,7 @@
 [
   {
     "name": "01_fp_definitions",
-    "info_type": [
-    ],
+    "info_type": [],
     "unique_identifiers": [
       "fpid",
       "type"
@@ -28,22 +27,53 @@
   },
   {
     "name": "02_search_eq",
-    "info_type": [
-    ],
+    "info_type": [],
     "unique_identifiers": [
-      "fpid"
+      "fpid",
+      "type"
     ],
     "columns": [
       {
         "colname": "fpid",
         "type": "character"
+      },
+      {
+        "colname": "type",
+        "type": "character"
+      },
+      {
+        "colname": "search_equations_wos",
+        "type": "character"
+      },
+      {
+        "colname": "nb_papers_wos",
+        "type": "numeric"
+      },
+      {
+        "colname": "date_of_search_wos",
+        "type": "Date"
+      },
+      {
+        "colname": "search_equations_scopus",
+        "type": "character"
+      },
+      {
+        "colname": "nb_papers_scopus",
+        "type": "numeric"
+      },
+      {
+        "colname": "date_of_search_scopus",
+        "type": "Date"
+      },
+      {
+        "colname": "nb_papers_after_merging",
+        "type": "numeric"
       }
     ]
   },
   {
     "name": "03_search_criteria",
-    "info_type": [
-    ],
+    "info_type": [],
     "unique_identifiers": [
       "fpid"
     ],
@@ -56,8 +86,7 @@
   },
   {
     "name": "04_screeening",
-    "info_type": [
-    ],
+    "info_type": [],
     "unique_identifiers": [
       "fpid"
     ],

@@ -32,27 +32,62 @@ search_tab <-
   clean_names()
   
 
+# read metadata -------------------------------------------------
+
+metadata <- 
+  read_json(
+    'data/metadata/impacts-metadata.json',
+    simplifyVector = T,
+  ) %>%
+  as_tibble() %>% 
+  rename(line_type = info_type) %>% 
+  filter(name == "02_search_eq")
+
+
+# clean ---------------------------------------------------------
+
 search_tab <-
   search_tab %>% 
-  mutate(
-    across(
-      .cols = c("date_of_search_wos",
-                "date_of_search_scopus"),
-      .fns = ~as.numeric(.) %>% 
-        as.Date(origin = "1899-12-30")
+    rename(type = x1) %>% 
+    mutate(
+      across(
+        .cols = c("date_of_search_wos",
+                  "date_of_search_scopus"),
+        .fns = ~as.numeric(.) %>% 
+          as.Date(origin = "1899-12-30")
+      )
+    ) %>% 
+    mutate(
+      across(
+        .cols = c(
+          "nb_papers_scopus",
+          "nb_papers_wos",
+          "nb_papers_after_merging"
+        ),
+        .fns = ~as.numeric(.)
+      )
     )
-  ) 
+  
+metadata %>% 
+  mutate(df = search_tab %>% list()) %>% 
+  pwalk(
+    clean_imap
+  )
 
-search_tab <- 
+
+# save additional assets ----------------------------------------
+
+
+search_tab <-
   search_tab %>% 
-  transmute(
+  select(
     fpid,
-    x1,
+    type,
     date_of_search_scopus,
     date_of_search_wos,
-    nb_papers_scopus = nb_papers_scopus %>% as.numeric(),
-    nb_papers_wos = nb_papers_wos %>% as.numeric(),
-    nb_papers_after_merging = nb_papers_after_merging %>% as.numeric()
+    nb_papers_scopus,
+    nb_papers_wos,
+    nb_papers_after_merging
   ) %>% 
   summarise(
     across(
@@ -70,7 +105,7 @@ search_tab <-
 
 search_tab %>% 
   write_csv(
-    "data/output/03-search.csv"
+    "data/output/03-search-summarised.csv"
   )
 
 search_dates <-
