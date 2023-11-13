@@ -28,9 +28,21 @@ list.files(
 screening <- 
   read_excel(
     'data/MerFPs_Screening_20231017.xlsx'
-  )
+  ) %>% 
+  clean_names()
 
-screening %>% colnames()
+
+# metadata ------------------------------------------------------
+
+metadata <- 
+  read_json(
+    'data/metadata/impacts-metadata.json',
+    simplifyVector = T,
+  ) %>%
+  as_tibble() %>% 
+  rename(line_type = info_type) %>% 
+  filter(name == "04_screeening")
+
 
 screening_status <-
   read_json(
@@ -44,16 +56,18 @@ screening_status <-
 
 # extract screening statuses ------------------------------------
 
-systematic_screening <- 
-  screening %>% 
+systematic_screening <-
+  screening %>%
   select(
-    DOI,
-    FPID,
-    Status,
-    Year
+    doi,
+    fpid,
+    status,
+    year,
+    abstract_reviewer,
+    paper_reviewer
   ) %>% 
-  mutate(Status = Status %>% toupper()) %>% 
-  mutate(Status = Status %>% {
+  mutate(status = status %>% toupper()) %>% 
+  mutate(status = status %>% {
     case_when(
       . == "LB" ~ "O",
       . == "LB NOT IN EU" ~ "O",
@@ -62,36 +76,43 @@ systematic_screening <-
       TRUE ~ .
     )
   }) %>% 
-  mutate(Year = Year %>% as.numeric()) %>% 
-  filter(Year > 1950)
+  mutate(year = year %>% as.numeric())
+  # filter(Year > 1950)
 
-systematic_screening_DUPL <- 
-  systematic_screening %>% 
-  extract_duplicated_rows(id_cols = c('DOI', 'FPID')) %>% 
-  filter(! is.na(DOI)) %>%
-  write_csv('data/output/4-systematic-screening-DUPL.csv')
+metadata %>% 
+  mutate(df = systematic_screening %>% list()) %>% 
+  pwalk(
+    clean_imap
+  )
 
-warning(
-  "Dropping randomly ", 
-  nrow(systematic_screening_DUPL) - length(unique(systematic_screening_DUPL$DOI)), 
-  " duplicated rows in Screening Results"
-)
 
-systematic_screening_clean <- 
-  systematic_screening %>% 
-  distinct(DOI, FPID, .keep_all = T) %>% 
-  mutate(status_details = screening_status[Status]) 
-  
-systematic_screening_clean %>% 
-  write_csv('data/output/4-systematic-screening.csv')
-
-systematic_screening_clean %>% 
-  filter_all(
-    any_vars(
-      is.na(.)
-    )
-  ) %>% 
-  write_csv('data/output/4-systematic-screening-MISSING-DATA.csv')
+# systematic_screening_DUPL <- 
+#   systematic_screening %>% 
+#   extract_duplicated_rows(id_cols = c('DOI', 'FPID')) %>% 
+#   filter(! is.na(DOI)) %>%
+#   write_csv('data/output/4-systematic-screening-DUPL.csv')
+# 
+# warning(
+#   "Dropping randomly ", 
+#   nrow(systematic_screening_DUPL) - length(unique(systematic_screening_DUPL$DOI)), 
+#   " duplicated rows in Screening Results"
+# )
+# 
+# systematic_screening_clean <- 
+#   systematic_screening %>% 
+#   distinct(DOI, FPID, .keep_all = T) %>% 
+#   mutate(status_details = screening_status[Status]) 
+#   
+# systematic_screening_clean %>% 
+#   write_csv('data/output/4-systematic-screening.csv')
+# 
+# systematic_screening_clean %>% 
+#   filter_all(
+#     any_vars(
+#       is.na(.)
+#     )
+#   ) %>% 
+#   write_csv('data/output/4-systematic-screening-MISSING-DATA.csv')
 
 # screening date ------------------------------------------------
 

@@ -97,11 +97,32 @@
     "name": "04_screeening",
     "info_type": [],
     "unique_identifiers": [
-      "fpid"
+      "fpid",
+      "doi"
     ],
     "columns": [
       {
         "colname": "fpid",
+        "type": "character"
+      },
+      {
+        "colname": "doi",
+        "type": "character"
+      },
+      {
+        "colname": "status",
+        "type": "character"
+      },
+      {
+        "colname": "year",
+        "type": "numeric"
+      },
+      {
+        "colname": "abstract_reviewer",
+        "type": "character"
+      },
+      {
+        "colname": "paper_reviewer",
         "type": "character"
       }
     ]
