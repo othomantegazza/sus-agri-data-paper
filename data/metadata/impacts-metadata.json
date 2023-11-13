@@ -186,6 +186,10 @@
         "type": "logical"
       },
       {
+        "colname": "selection_criteria_2",
+        "type": "logical"
+      },
+      {
         "colname": "ma_specified_objective",
         "type": "logical"
       },
@@ -275,10 +279,6 @@
         "type": "character"
       },
       {
-        "colname": "selection_criteria_2",
-        "type": "logical"
-      },
-      {
         "colname": "data_analysis",
         "type": "character"
       },
@@ -300,6 +300,26 @@
       },
       {
         "colname": "objective",
+        "type": "character"
+      },
+      {
+        "colname": "result_1",
+        "type": "character"
+      },
+      {
+        "colname": "result_2",
+        "type": "character"
+      },
+      {
+        "colname": "result_3",
+        "type": "character"
+      },
+      {
+        "colname": "result_4",
+        "type": "character"
+      },
+      {
+        "colname": "result_5",
         "type": "character"
       },
       {

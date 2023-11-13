@@ -26,7 +26,7 @@ list.files(
 impacts <-
   read_excel(
     'data/MerFPs_Impacts_20231017.xlsx'
-  ) 
+  )
 
 impacts %>% 
   slice(

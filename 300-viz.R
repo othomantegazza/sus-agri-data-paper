@@ -28,32 +28,32 @@ list.files(
 
 search_tab <- 
   read_csv(
-    "data/output/03-search.csv"
+    "data/output/03-search-summarised.csv"
   )
 
 screening <-   
   read_csv(
-    'data/output/4-systematic-screening.csv'
+    'data/output/imap/04_screeening.csv'
   )
 
 ma_list <- 
   read_csv(
-    'data/output/5_ma_list.csv'
+    'data/output/imap/05_ma_list.csv'
   )
 
 synthesis <- 
   read_csv(
-    'data/output/7_ma_synthesis.csv'
+    'data/output/imap/07_ma_synthesis.csv'
   )
 
 pico_combinations <- 
   read_csv(
-    'data/output/8_pico_combinations.csv'
+    'data/output/imap/08_pico_combinations.csv'
   )
 
 pico_results <- 
   read_csv(
-    'data/output/9_pico_cat_result.csv'
+    'data/output/imap/09_pico_cat_result.csv'
   )
 
 # VIZ -----------------------------------------------------------
