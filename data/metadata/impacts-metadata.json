@@ -116,6 +116,42 @@
       {
         "colname": "year",
         "type": "numeric"
+      },
+      {
+        "colname": "authors",
+        "type": "character"
+      },
+      {
+        "colname": "title",
+        "type": "character"
+      },
+      {
+        "colname": "abstract",
+        "type": "character"
+      },
+      {
+        "colname": "journal",
+        "type": "character"
+      },
+      {
+        "colname": "volume",
+        "type": "character"
+      },
+      {
+        "colname": "issue",
+        "type": "character"
+      },
+      {
+        "colname": "start_page",
+        "type": "character"
+      },
+      {
+        "colname": "end_page",
+        "type": "character"
+      },
+      {
+        "colname": "article_number",
+        "type": "character"
       }
     ]
   },

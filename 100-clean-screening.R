@@ -58,14 +58,14 @@ screening_status <-
 
 systematic_screening <-
   screening %>%
-  select(
-    doi,
-    fpid,
-    status,
-    year,
-    abstract_reviewer,
-    paper_reviewer
-  ) %>% 
+    # select(
+    #   doi,
+    #   fpid,
+    #   status,
+    #   year,
+    #   abstract_reviewer,
+    #   paper_reviewer
+    # ) %>% 
   mutate(status = status %>% toupper()) %>% 
   mutate(status = status %>% {
     case_when(
