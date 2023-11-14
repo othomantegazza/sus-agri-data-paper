@@ -303,46 +303,6 @@
         "type": "character"
       },
       {
-        "colname": "result_1",
-        "type": "character"
-      },
-      {
-        "colname": "result_2",
-        "type": "character"
-      },
-      {
-        "colname": "result_3",
-        "type": "character"
-      },
-      {
-        "colname": "result_4",
-        "type": "character"
-      },
-      {
-        "colname": "result_5",
-        "type": "character"
-      },
-      {
-        "colname": "population",
-        "type": "character"
-      },
-      {
-        "colname": "intervention",
-        "type": "character"
-      },
-      {
-        "colname": "control",
-        "type": "character"
-      },
-      {
-        "colname": "metric",
-        "type": "character"
-      },
-      {
-        "colname": "effect_size",
-        "type": "character"
-      },
-      {
         "colname": "result1",
         "type": "character"
       },
