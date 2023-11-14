@@ -31,6 +31,7 @@ colours_dia <- categorical_palette[2:3]
 colour_base <- '#3982a4'
 size_scale <- 2.8455
 text_size_plot <- base_size/size_scale
+ppi <- 300
 
 theme_set(
   theme_minimal(
