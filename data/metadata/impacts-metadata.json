@@ -396,7 +396,7 @@
       }
     ]
   },
-  {
+  { 
     "name": "08_pico_combinations",
     "info_type": [
       "G"
@@ -531,15 +531,138 @@
   {
     "name": "10_pico_num_results",
     "info_type": [
-      "I"
+      "I",
+      "S"
     ],
     "unique_identifiers": [
-      "fpid"
+      "doi",
+      "fpid",
+      "impact_matrix"
     ],
     "columns": [
       {
+        "colname": "doi",
+        "type": "character"
+      },
+      {
+        "colname": "info_type",
+        "type": "character"
+      },
+      {
         "colname": "fpid",
         "type": "character"
+      },
+      {
+        "colname": "impact_matrix",
+        "type": "character"
+      },
+      {
+        "colname": "intervention_fp_tier1",
+        "type": "character"
+      },
+      {
+        "colname": "intervention_fp_tier2",
+        "type": "character"
+      },
+      {
+        "colname": "intervention_fp_tier3",
+        "type": "character"
+      },
+      {
+        "colname": "intervention_fp_tier4",
+        "type": "character"
+      },
+      {
+        "colname": "intervention_fp_tier5",
+        "type": "character"
+      },
+      {
+        "colname": "intervention_fp_tier6",
+        "type": "character"
+      },
+      {
+        "colname": "metric_tier3",
+        "type": "character"
+      },
+      {
+        "colname": "metric_unit",
+        "type": "character"
+      },
+      {
+        "colname": "population_name1",
+        "type": "character"
+      },
+      {
+        "colname": "population_value1",
+        "type": "character"
+      },
+      {
+        "colname": "population_name2",
+        "type": "character"
+      },
+      {
+        "colname": "population_value2",
+        "type": "character"
+      },
+      {
+        "colname": "population_name3",
+        "type": "character"
+      },
+      {
+        "colname": "population_value3",
+        "type": "character"
+      },
+      {
+        "colname": "population_name4",
+        "type": "character"
+      },
+      {
+        "colname": "population_value4",
+        "type": "character"
+      },
+      {
+        "colname": "population_name5",
+        "type": "character"
+      },
+      {
+        "colname": "population_value5",
+        "type": "character"
+      },
+      {
+        "colname": "population_name6",
+        "type": "character"
+      },
+      {
+        "colname": "population_value6",
+        "type": "character"
+      },
+      {
+        "colname": "results_r_rtype",
+        "type": "character"
+      },
+      {
+        "colname": "results_mean",
+        "type": "numeric"
+      },
+      {
+        "colname": "results_ci_lo",
+        "type": "numeric"
+      },
+      {
+        "colname": "results_ci_up",
+        "type": "numeric"
+      },
+      {
+        "colname": "results_nb_of_trials",
+        "type": "numeric"
+      },
+      {
+        "colname": "results_nb_of_papers",
+        "type": "numeric"
+      },
+      {
+        "colname": "results_threshold",
+        "type": "numeric"
       }
     ]
   }

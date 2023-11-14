@@ -46,7 +46,7 @@ clean_imap <- function(
     df <- 
       df %>%
       filter(
-        info_type == line_type
+        info_type %in% line_type
       )
   }
   
