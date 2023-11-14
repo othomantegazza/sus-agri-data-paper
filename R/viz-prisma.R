@@ -188,10 +188,10 @@ build_p_prisma <- function(search_tab,
   
   screening <- 
     screening %>% 
-    count(FPID, Status) %>% 
+    count(fpid, status) %>% 
     drop_na() %>% 
     pivot_wider(
-      names_from = Status,
+      names_from = status,
       values_from = n
     )
   
@@ -200,7 +200,7 @@ build_p_prisma <- function(search_tab,
       search_tab,
       screening,
       by = c(
-        "fpid" = "FPID"
+        "fpid" = "fpid"
       )
     )
   

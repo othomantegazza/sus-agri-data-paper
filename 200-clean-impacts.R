@@ -75,8 +75,7 @@ metadata %>%
       "06_ma_quality_assessment",
       "07_ma_synthesis",
       "08_pico_combinations",
-      "09_pico_cat_results",
-      "10_pico_num_results"
+      "10_pico_cat_results"
     )
   ) %>% 
 mutate(
