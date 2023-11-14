@@ -182,7 +182,7 @@
         "type": "logical"
       },
       {
-        "colname": "selection_criteria_2",
+        "colname": "selection_criteria_reported",
         "type": "logical"
       },
       {

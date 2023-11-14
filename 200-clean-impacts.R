@@ -79,6 +79,12 @@ metadata <-
   rename(line_type =info_type)
 
 
+# improve column name -------------------------------------------
+
+impacts <- 
+  impacts %>% 
+  rename(selection_criteria_reported = selection_criteria_2)
+
 # clean all data and check types---------------------------------
 
 metadata %>% 
