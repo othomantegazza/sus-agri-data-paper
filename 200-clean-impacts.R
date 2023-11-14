@@ -55,6 +55,19 @@ impacts <-
 # impacts %>% 
 #   count(scale, geo_coverage)
 
+
+# clean metrics -------------------------------------------------
+
+metric_dict <- 
+  read_csv(
+    "data/metadata/metrics_standardized.csv"
+  )
+
+impacts <- 
+  impacts %>% 
+  left_join(metric_dict,
+            by = "metric")
+
 # read column metadata ------------------------------------------
 
 metadata <- 

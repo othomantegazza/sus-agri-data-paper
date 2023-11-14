@@ -8,17 +8,13 @@ Ammonia emissions,Ammonia emission from manure
 NH3,Ammonia emission from manure
 NH3 emission,Ammonia emission from manure
 NH3 emission factor,Ammonia emission from manure
-NH3 emissions,Ammonia emission from manure
 Ammonia-N loss,Ammonia emission from manure
 NH3_N,Ammonia emission from manure
 NH3 emission in terms of cumulative NH3-N losses as a proportion of the TN of the initial composting material,Ammonia emission from manure
 % change in NH3 volatilization,Ammonia emission from soil
-NH3 emissions,Ammonia emission from soil
 Cumulative NH3 losses (% N applied),Ammonia emission from soil
 NH3 volatilization (% of N applied),Ammonia emission from soil
 Mean NH3 volatilization rate (kg/ha),Ammonia emission from soil
-NH3 emission,Ammonia emission from soil
-NH3 emission factor,Ammonia emission from soil
 NH3 volatilization (cumulative emission during a cropping cycle or the entire growing season of a year),Ammonia emission from soil
 % of N applied lost as NH3,Ammonia emission from soil
 NH3 volatilization,Ammonia emission from soil
@@ -210,7 +206,6 @@ SOC sequestration rate (in Mg C ha−1 yr−1),Soil organic carbon sequestration
 SOC sequestration rates (Mg C /ha /year),Soil organic carbon sequestration rate
 SOC stability (the ratio of alkyl to O-alkyl groups and the total alkyl to aromatic ratio),Soil organic carbon stability
 C stock,Soil organic carbon stock
-aboveground biomass,Aboveground biomass carbon sequestration rate
 aboveground biomass (either woody or non-woody),Aboveground biomass
 Root C input,Carbon in root
 Root carbon pool,Carbon in root
@@ -295,7 +290,6 @@ Soil organic matter 15-40 cm,Soil organic matter 15-40 cm
 Percentage change in GHG emissions (CH4 and N2O emissions),Aggregated GHGs emission from soil
 "Land equivalent ratio (LER), relative land output (RLO) based upon gross energy and RLO based upon gross incomes",Land equivalent ratio
 Total LER (land equivalent ratio) and gross income (USD),Land equivalent ratio
-aboveground biomass,main crop yield (aboveground biomass)
 Absolute stability,Crop yield absolute stability
 Absolute stability ratio,Crop yield absolute stability
 Absolute stabilty (crop yield variability along 4 years),Crop yield absolute stability
@@ -315,7 +309,6 @@ Commercial yield,main crop yield
 crop grain yield,Main crop yield (grain)
 Crop productivity,main crop yield
 crop yield,main crop yield
-water use efficiency,water use efficiency
 Crop yield (%),main crop yield
 Crop yield (all crops),main crop yield
 Crop yield (CY),main crop yield
@@ -441,14 +434,12 @@ CH4 yield,Methane emission from enteric fermentation
 Dietary gross energy lost as CH4,Methane emission from enteric fermentation
 N2O emissions,Nitrous oxide emission from enteric fermentation
 CH4 emission,Methane emission from soil
-CH4 emission,Methane emission from manure
 CH4 emission during land application,Methane emission from manure
 CH4 emission during storage,Methane emission from manure
 CH4 emission from soil,Methane emission from soil
 CH4 emission in terms of cumulative CH4–C emission as a proportion of the total carbon (TC) of the initial composting material,Methane emission from manure
 CH4 emission per unit of area,Methane emission from soil
 CH4 emission per unit of product,Methane emission from soil (product based)
-CH4 emissions,Methane emission from soil
 Global warming potential,Global warming potential
 Carbon footprint,Global warming potential
 Land use,Agricultural land use (product based)
@@ -456,7 +447,6 @@ Faecal N excretions,Fecal N excretion
 Fecal N excretion,Fecal N excretion
 Manure N excretion,Total N excretion
 N excretion,Total N excretion
-CH4 emissions,Methane emission from manure
 "CH4 emissions (CH4 emissions,kg ha-1 y-1)",Methane emission from soil
 CH4 emissions in paddy rice,Methane emission from soil
 P excretion,Total P excretion
@@ -489,7 +479,6 @@ Cumulative N2O emissions,nitrous oxide emission from soil
 Mean of cumulative N2O emissions,nitrous oxide emission from soil
 N2O,Nitrous oxide emission from manure
 N2O emission,nitrous oxide emission from soil
-N2O emission,Nitrous oxide emission from manure
 N2O emission (cumulative emission during a cropping cycle or the entire growing season of a year),nitrous oxide emission from soil
 N2O emission (non-LCA approach) per unit of area,nitrous oxide emission from soil
 N2O emission (non-LCA approach) per unit of product,nitrous oxide emission from soil (product based)
@@ -497,13 +486,10 @@ N2O emission from soil,nitrous oxide emission from soil
 N2O emission in terms of cumulative N2O-N losses as a proportion of the TN of the initial composting material,Nitrous oxide emission from manure
 N2O emission per unit of area,nitrous oxide emission from soil
 N2O emission per unit of product,nitrous oxide emission from soil (product based)
-N2O emissions,nitrous oxide emission from soil
 Cumulative NO emission,Nitric oxide emission from soil
 NO emission,Nitric oxide emission from soil
 NO emissions,Nitric oxide emission from soil
-N2O emissions,Nitrous oxide emission from manure
 N2O emissions (Area-scaled ),Nitrous oxide emission from manure
-N2O emissions (Area-scaled ),nitrous oxide emission from soil
 "N2O emissions (N2O emissions,kg ha-1 y-1)",nitrous oxide emission from soil - annual rate
 N2O emissions (Yield-scaled),nitrous oxide emission from soil (yield scaled)
 N2O_N,Nitrous oxide emission from manure
@@ -528,7 +514,6 @@ N2O emissions during cash crop season and whole year,nitrous oxide emission from
 Total CO2-eq,Aggregated GHGs emission from manure
 Yield-scaled GWP,Aggregated GHGs emission from soil (yield scaled)
 N2O emissions during cover crop season,nitrous oxide emission from soil - cash crop season
-N2O emissions during cover crop season,nitrous oxide emission from soil - cover crop season
 N2O EF,Nitrous oxide emission from soil
 N2O EF av.,Nitrous oxide emission from soil
 N2O EF tot,Nitrous oxide emission from soil
@@ -549,17 +534,14 @@ GHG emissions per yield unit,Global warming potential
 herbaceous aboveground biomass yields,aboveground biomass (herbaceous)
 pasture hay,aboveground biomass (herbaceous)
 Plant yield,aboveground biomass (herbaceous)
-aboveground biomass,aboveground biomass (herbaceous)
 Aboveground biomass (AGB),aboveground biomass (herbaceous)
 AGB forbs,aboveground biomass (herbaceous)
 AGB grass,aboveground biomass (herbaceous)
-Biomass,aboveground biomass (herbaceous)
 Biomass (all vascular),aboveground biomass (herbaceous)
 Biomass (forbs),aboveground biomass (herbaceous)
 Biomass (grasses),aboveground biomass (herbaceous)
 Biomass (legumes),aboveground biomass (herbaceous)
 Biomass (sedges),aboveground biomass (herbaceous)
-Plant biomass,aboveground biomass (herbaceous)
 Yield (%),aboveground biomass (herbaceous)
 Above- and belowground biomass,aboveground biomass (herbaceous)
 Total biomass,aboveground biomass (herbaceous)
@@ -568,11 +550,9 @@ Above-ground net primary productiton,aboveground biomass
 Total vegetative cover,aboveground biomass
 Bare ground,ground cover
 "Bryophytes cover/abundance, biomass or productivity",aboveground biomass (herbaceous)
-Canopy height,herbaceous canopy height
 "Graminoids cover/abundance, biomass or productivity",aboveground biomass (herbaceous)
 "Herbs/forbs cover/abundance, biomass or productivity",aboveground biomass (herbaceous)
 "Lichens cover/abundance, biomass or productivity",lichens biomass
-Plant cover,ground cover
 "Woody plants cover/abundance, biomass or productivity",aboveground biomass (woody)
 Ground cover,ground cover
 Pasture production and quality,aboveground biomass (herbaceous)
@@ -624,7 +604,6 @@ Reactive nitrogen loss (kg N-eq ha-1 yr-1),Reactive nitrogen loss
 Body weight,Body weight
 Final body weight,Body weight
 Final live weight,Body weight
-Weight gain,Body weight
 Live weight,Body weight
 Weight loss of piglets at weaning,Body weight
 Carcass weight,Carcass weight
@@ -672,7 +651,6 @@ Nitrate leaching-scaled yield (NLSY),Nitrate leaching (yield scaled)
 Nitrate-N surface run-off,Nitrate run-off
 Runoff nitrate,Nitrate run-off
 Nitrate and ammmonium leaching,Inorganic nitrogen leaching
-Nitrate and ammmonium leaching,Nitrogen leaching
 Nitrogen leaching,Nitrogen leaching
 Nitrogen leaching loss,Nitrogen leaching
 Nitrogen leaching or Soil inorganic N content,Nitrogen leaching parameters
@@ -709,19 +687,13 @@ Phosphorous recovery,manure-phosphorous recovery
 Number of herbicide applications,Number of herbicide applications
 Pesticide use,Pesticide use
 Number of pesticide applications,Number of pesticide applications
-Nitrogen utilisation efficiency,Nitrogen use efficiency
-"Flower visitations, Seeds per plant",Pollinator visit rate
-Arbuscular mycorrhizal fungi (AMF) colonization of subsequent cash crop roots,Arbuscolar mycorrhizal fungi => Arbuscolar mycorrhizal fungi colonization
 Abundance and richness of crop pest natural enemies,Natural enemies abundance and richness
 Abundance of non-native plant species,non-native plant species abundance
-1) Soil fauna (SoilFauna); 2) fungal indicators (Fungal); 3) other microbial indicators (O-Microbial); 4) enzymatic assays (Enzyme); 5) microbial biomass carbon (MBC),Microbial biomass
 Aphid density,aphid density
 Arthropodes pests abundance,arthropode abundance
 Biocontrol,natural enemies parameters
-1) total phospholipid-derived fatty acid (PLFA); 2) microbial biomass C (MBC); 3) microbial biomass N and (MBN); 4) total bacteria; 5) total fungi; 6) fungi/bacteria ratio,Microbial biomass
 Biodiversity (non-native vascular plants),non-native plant species abundance
 "Biological control potential (predation rate, parasitism rate and soil-suppressiveness, that is, soil ability to suppress pathogens following their inoculation)",natural enemies parameters
-Soil microbial biomass,Microbial biomass
 Cob/ear/stalk/stemborer larvae abundance,Cob/ear/stalk/stemborer larvae abundance
 Cob/ear/stalk/stemborer parasitism,Cob/ear/stalk/stemborer parasitism
 Crop damage,crop damage
@@ -733,7 +705,6 @@ Exotic species abundance (%),non-native species abundance
 Foliar pest abundance,pests abundance (foliar)
 Foliar predator abudance,pests abundance (foliar)
 Food crop damage,crop damage
-Herbivore abundance,herbivore abundance
 Herbivore damage,herbivore damage
 Herbivore pests abundance,herbivore abundance
 "Natural enemies (abundance, diversity, predation/parasitism)",natural enemies parameters
@@ -749,10 +720,8 @@ Natural pest control service,Natural enemies abundance and richness
 "Parasitism (bacteria, fungi or viruses)","Parasitism (bacteria, fungi or viruses)"
 Pest abundance,pests abundance
 Pest and disease abundance,pests abundance
-% of sediment removal,% of sediment removal => Sediments retention
 Pest Arthropod herbivore abundance,arthropode herbivore abundance
 "Pest infestation (disease severity or incidence, pest abundance or pest density, weed soil cover, weed biomass or weed density)",Pests abundance
-"Pest infestation (disease severity or incidence, pest abundance or pest density, weed soil cover, weed biomass or weed density)",pests parameters
 "Pest-related parameters (Pest abundance, Damage per vine and plot)",pests parameters
 Pests,pests parameters
 "Pests (abundance, diversity, population growth, plant damage)",pests parameters
@@ -770,90 +739,62 @@ Soil-associated pest abundance,pests abundance (soil-associated)
 Striga hermonthica emergence,weed emergence (striga hermonthica)
 Total pest abundance,pests abundance
 Weed abundance,weed abundance
-1) Runoff reduction; 2) Soil loss reduction,1) Runoff reduction; 2) Soil loss reduction
-1) Runoff; 2) Soil loss,1) Runoff; 2) Soil loss
 Weed biomass,weed abundance
-1) Run-off; 2) Soil loss,1) Run-off; 2) Soil loss
-1) Soil total nitrogen; 2) Soil total phosphorous; 3) Soil total potassium;,1) Soil total N; 2) Soil total P; 3) Soil total K;
 weed biomass (WBIO),weed abundance
 Weed density,weed density
 weed density (WDEN),weed density
 Weed density or biomass,weed abundance
-Potentially mineralizable nitrogen (PMN),Potentially mineralizable N
 Weed diversity,weed diversity
 Weed incidence,weed abundance
-Soil nitrogen,Soil total N
 Weed suppression,weed suppression
 Weeds,weed abundance
 weeds abundance,weed abundance
 Wheat stripe rust intensity,disease incidence (wheat stripe rust intensity)
-Soil nitrogen content,Soil total N
-Soil total nitrogen stock,Soil total N
-1) Soil penetration resistance; 2) Soil structural stability;,1) penetration resistance; 2) structural stability;
-Cation exchange capacity,Cation exchange capacity
-soil porosity,porosity
-Soil water infiltration,water infiltration
 Grain NUE (calculated by dividing the difference in the grain N uptake between the treatments with and without fertilization by fertilizer N rate),Grain nitrogen use efficiency
 Crop nitrogen uptake,Crop nitrogen uptake
-Soil water infiltration rate,water infiltration rate
 Agronomic efficiency of nitrogen (AEN),Nitrogen use efficiency
 Crop total nitrogen,Crop nitrogen content
 Fertilizer N equivalent ratio (FNER),Nitrogen fertiliser equivalent ratio
-1) Soil available water (30 - 90 cm depth); 2) Soil available water (100-250 cm depth);,1) available water (30 - 90 cm depth); 2) available water (100-250 cm depth);
 "Crop recovery applied fertilizer N (i.e. % of N applied which is recovered by plant uptake, in shoot + root)",Nitrogen use efficiency
 Land Equivalent Ratio for P uptake (LERP),nitrogen equivalent ratio => Land equivalent ratio for P uptake
 "N concentration in plant tissue, plant N uptake, N recovery",crop nitrogen content => Crop nitrogen uptake
 N content,crop nitrogen content => Crop nitrogen uptake
-soil moisture content,water content
 N fertilizer equivalent ratio (NFER) and P fertilizer equivalent ratio (PFER),nitrogen equivalent ratio => nutrient equivalent ratio?  why 2 metrics?
-"Soil water budget parameters (Water stress integral, water loss, volumetric soil water content)","water budget parameters (Water stress integral, water loss, volumetric water content)"
 "Nitrogen response efficiency (NRE, ANPP response per unit N addition)",Nitrogen use efficiency
 Net effect on P uptake (NEP),=> Crop phosphorus uptake
 Nitrogen  uptake,Crop nitrogen uptake
 Nitrogen content in the aboveground biomass,crop nitrogen content => Crop nitrogen uptake
 Nitrogen fertilizer equivalent ratio,Nitrogen fertiliser equivalent ratio
-Nitrogen fertilizer equivalent ratio (FNER),Nitrogen fertiliser equivalent ratio
-Nitrogen fertilizer equivalent ratio (NFER) and phosphorus fertilizer equivalent ratio (PFER),Nitrogen fertiliser equivalent ratio
 Nitrogen partial factor productivity,Partial factor productivity of nitrogen
-Soil water content,water content
 Nitrogen partial factor productivity (NPFP),Partial factor productivity of nitrogen
-Soil water storage at succeeding crop planting 1) for the whole profile (SWSPT); 2) to a depth of 30 cm (SWSP30); 3) Precipitation soil-storage efficiency during the fallow period;,water storage at succeeding crop planting 1) for the whole profile (SWSPT); 2) to a depth of 30 cm (SWSP30); 3) Precipitation soil-storage efficiency during the fallow period;
-Water drainage,Water drainage
 Nitrogen use efficiency,Nitrogen use efficiency
 Nitrogen uptake,Crop nitrogen uptake
-"Water retained at field capacity, Soil porosity","Water retained at field capacity, porosity"
-Water-use efficiency by succeding cash crop,water use efficiency
 Nitrogen use efficiency (NUE),Nitrogen use efficiency
+Nitrogen utilisation efficiency,Nitrogen use efficiency
 NUE (in kg of dry matter (DM) per kg of N applied),Nitrogen use efficiency
 NUE (proportion of applied N fertilizer assimilated in the above-ground or harvested parts),Nitrogen use efficiency
-1) Bacterial count; 2) Fungi count; 3) Actinomycete count; 4) Total phospholipid fatty acids (PLFA) concentration (indicator of microbial biomass); 5) Phospholipid fatty acids (PLFA) concentration (indicator of microbial biomass) of bacteria; 6) Phospholipid fatty acids (PLFA) concentrations (indicator of microbial biomass) of fungi; 7) Phospholipid fatty acids (PLFA) concentrations (indicator of microbial biomass) of actinomycetes; 8) Phospholipid fatty acids (PLFA) concentrations (indicator of microbial biomass) of gram+ bacteria; 9) Phospholipid fatty acids (PLFA) concentrations (indicator of microbial biomass) of ratio fungi/bacteria; 10) Phospholipid fatty acids (PLFA) concentrations (indicator of microbial biomass) of ratio of gram+ to gram- bacteria; 11) Shanon index for fungi,Microbial biomass
 Nutrient use efficiency,Nitrogen use efficiency
 Nutrient content in above-ground biomass,crop nitrogen content => Crop nitrogen uptake
-1) Soil bacteria Shannon index; 2) Soil bacteria Chaol index; 3) Microbial biomass carbon,Microbial biomass
 Recovery efficiency of nitrogen (REN),Nitrogen use efficiency
 "P use efficiency (Land equivalent ratio for P uptake, LERP; Net effect  for P uptake, NEP)",phosphorous equivalent ratio => phosphorus use efficiency ?
 Partial factor productivity of applied nitrogen (i.e. the grain yield production per kilogram of nitrogen input in production),Partial factor productivity of nitrogen
-1) Soil microbial biomass C; 2) Soil microbial biomass N; 3) Soil urease activity,Microbial biomass
 Partial factor productivity of nitrogen (PFPN),Partial factor productivity of nitrogen
 Phosphorous fertilizer equivalent ratio,Phosphorous fertiliser equivalent ratio
 Phosphorous uptake,Crop phosphorous uptake
-"Phosphorus use efficiency (Land equivalent ratio for P uptake, LERP; Net effect for P uptake, NEP)",phosphorous equivalent ratio
 Plant N uptake,Plant nitrogen uptake
-Microbial biomass carbon,Microbial biomass carbon => Microbial abundance (biomass carbon)
 Plant nitrogen uptake,Plant nitrogen uptake
 Plant P concentration,Crop phosphorous content
 N recovery,nitrogen utilisation efficiency = Crop nitrogen uptake
 Silicon uptake,Crop silicon uptake
 "Soil-derived N acquisition for intecrop legumes, cereals and legumes + cereals compared to monoculture",Soil nitrogen uptake => Crop nitrogen uptake
 Soil-derived N acquisition in aboveground plant parts (kg ha-1),Soil nitrogen uptake => Crop nitrogen uptake
-Soil microbial biomass carbon (MBC),Microbial biomass carbon => Microbial abundance (biomass carbon)
 Total aboveground N uptake,Crop nitrogen uptake
 Total N uptake,Crop nitrogen uptake
-Soil microbial biomass nitrogen,Microbial biomass nitrogen => Microbial abundance (biomass nitrogen)
 Plastic film residues,Plastic film residues
 Bees abundance OR richness,Bees abundance OR richness
 Beetles abundance OR richness,Beetles abundance OR richness
 Crop pollination service,Crop pollination service
+"Flower visitations, Seeds per plant",Pollinator visit rate
 Pollinator visit rate,Pollinator visit rate
 pollinators abundance,Pollinators abundance
 Pollinator abundance,Pollinators abundance
@@ -862,41 +803,26 @@ Abundance of pollinators at the edge,Pollinators abundance (at the edge)
 Pollinator abundance in field edges adjacent to crops,Pollinators abundance (at the edge)
 Abundance of pollinators within the crop,Pollinators abundance (within the crop)
 Pollinator abundance in crop fields,Pollinators abundance (within the crop)
-1) Sediment generation; 2) Water runoff,1) Sediment generation; 2) Water runoff
 Abundance and richness of pollinators,Pollinators abundance and richness
-1) Soil erosion; 2) Surface run-off,1) Soil erosion; 2) Surface run-off
-1) Soil total N; 2) Soil total P; 3) Soil total K,1) Soil total N; 2) Soil total P; 3) Soil total K
-1) Soil total nitrogen 0-15 cm; 2) Soil total nitrogen 0-30 cm; 3) Soil total nitrogen 0-60 cm,1) Soil total N 0-15 cm; 2) Soil total N 0-30 cm; 3) Soil total N 0-60 cm
 Pollinator richness,Pollinators richness
 Pollinators species richness,Pollinators richness
 Pollinator richness in crop fields,Pollinators richness => pollinators richness (within the crop)
 PollinatorRichness,Pollinators richness
-1) Soil total nitrogen 0-15 cm; 2) Soil total nitrogen 15-40 cm; 3) Soil total phosphorus 0-15 cm; 4) Soil total phosphorus 15-40 cm; 5) Soil total potassium 0-15 cm; 6) Soil total potassium 15-40 cm,1) Soil total N 0-15 cm; 2) Soil total N 15-40 cm; 3) Soil total P 0-15 cm; 4) Soil total P 15-40 cm; 5) Soil total K 0-15 cm; 6) Soil total K 15-40 cm
 Richness of pollinators at the edge,Pollinators richness (at the edge)
 Pollinator richness in field edges adjacent to crops,Pollinators richness (at the edge)
-1) Total nitrogen; 2) Total phosphorus; 3) Total potassium,1) Total N; 2) Total P; 3) Total K
-Pollinator richness in field edges adjacent to crops,pollinators richness (within the crop) => Pollinators richness (at the edge)
 Richness of pollinators within the crop,Pollinators richness (within the crop)
-Pollinator richness in crop fields,Pollinators richness (within the crop)
 Unmanaged bee abundance,Unmanaged bee abundance
 Unmanaged bee richness,Unmanaged bee richness
-soil total nitrogen,soil total N
-Total nitrogen,Soil total N
 Resource depletion,Resource depletion (LCA approach)
-1) Bulk density; 2) Penetration resistance; 3) Geometric mean diameter of soil aggregates; 4) Mean weight diameter of soil aggregates; 5) Water-stable aggregate; 6) Total porosity; 7) Capillary porosity.,1) Bulk density; 2) Penetration resistance; 3) Geometric mean diameter of aggregates; 4) Mean weight diameter of aggregates; 5) Water-stable aggregate; 6) Total porosity; 7) Capillary porosity.
 Actinomycete count,Actinomycetes abundance
 Actinomycetes biomass,Actinomycetes abundance
 Soil Actinomycetes biomass,Actinomycetes abundance
 Soil actinomycetes,Actinomycetes abundance
-1) Bulk density; 2) Soil aggregation; 3) Soil porosity,1) Bulk density; 2) aggregation; 3) porosity
 Arbuscular mycorrhizal colonization,Arbuscolar mycorrhizal fungi => Arbuscolar mycorrhizal fungi colonization
-1) Soil Cation exchange capacity (CEC); 2) Soil porosity; 3) Soil bulk density,1) Cation exchange capacity (CEC); 2) porosity; 3) bulk density
-1) Topsoil bulk density change (%); 2) Subsoil bulk density change (%); 3) Soil penetration resistance,1) Topbulk density change (%); 2) Subbulk density change (%); 3) penetration resistance
 Arbuscular mycorrhizal fungi (AMF) abundance/colonization,Arbuscolar mycorrhizal fungi abundance
 Arbuscolar mycorrhizal fungi biomass,Arbuscolar mycorrhizal fungi abundance
 Arbuscular mycorrhizas fungal abundance,Arbuscolar mycorrhizal fungi abundance
 Soil arbuscular mycorrhiza fungi biomass,Arbuscolar mycorrhizal fungi abundance
-Arbuscular mycorrhizal colonization,Arbuscolar mycorrhizal fungi colonization
 AMF community composition,Arbuscolar mycorrhizal fungi community composition
 AMF Shannon index,Arbuscolar mycorrhizal fungi diversity
 AMF colonization of subsequent cash crop roots,Arbuscolar mycorrhizal fungi root colonization => Arbuscolar mycorrhizal fungi colonization
@@ -911,7 +837,6 @@ Soil bacterial biomass,Bacteria abundance
 Bacteria biomass,Bacteria abundance
 Bacteria community size,Bacteria abundance => Bacteria community size - @Ana?
 Soil bacteria biomass,Bacteria abundance
-Phospholipid fatty acids (PLFA) concentration (indicator of microbial biomass) of bacteria,bacteria abundance
 Soil bacteria,Bacteria abundance
 Soil bacteria Chaol index,Bacteria Chaol index
 Soil bacteria Shannon index,Bacteria diversity
@@ -948,8 +873,6 @@ Soil fungi,Fungi abundance
 Shanon index for fungi,Fungi diversity
 Soil fungal diversity,Fungi diversity
 Fungi richness,Fungi diversity
-Shanon index for fungi,Fungi shannon index
-Fungi richness,Fungi species richness
 Soil glycosidase activity,Soil glycosidase activity
 Gram negative biomass,Soil gram- bacteria abundance
 Soil Gram- biomass,Soil gram- bacteria abundance
@@ -962,7 +885,6 @@ Soil metabolic quotient (qCO2),Soil metabolic quotient
 soil microbial abundance,Microbial abundance
 Soil microbial biomass,Microbial abundance
 colony forming unit (CFU),Microbial abundance
-Bacterial count,Microbial abundance
 Soil total microbial biomass and microbial diversity,Microbial abundance
 "Soil total microbial biomass (Bacterial and fungal phospholipid fatty acids, PLFAs) and Fungi/bacteria ratio (F/B).",Microbial abundance
 Microbial biomass C (MBC),Microbes abundance => Microbial abundance (biomass carbon)
@@ -985,23 +907,9 @@ Soil microbial activity,Soil microbial activity
 Soil microbial activity (BG),Soil microbial activity
 soil microbial alpha-diversity,Microbial alpha-diversity
 soil microbial betha diversity,Microbial alpha-diversity
-soil microbial betha diversity,Microbial betha-diversity
-1) Soil saturated hydraulic; 2) Available water capacity.,1) saturated hydraulic; 2) Available water capacity.
-"Total aboveground N uptake, grain NUE",Grain nitrogen use efficiency
-"Microbial biomass C (MBC), and microbial biomass N (MBN)",Microbial biomass
-Soil fertilizer-derived N content,fertilizer-derived N
-Total soil P content,Soil total P
-1) Microbial biomass (PLFA); 2) microbial biomass carbon; 3) microbial biomass nitrogen,Microbial biomass
-1) Microbial biomass carbon; 2) fungal biomass; 3) bacterial biomass,Microbial biomass
-1) Microbial biomass carbon; 2) microbial biomass nitrogen,Microbial biomass
-1) Soil microbial biomass; 2) soil bacterial biomass; 3) soil fungal biomass,Microbial biomass
-Soil microbial biomass carbon,Microbial biomass carbon => Microbial abundance (biomass carbon)
-1) Soil loss; 2) Erosion-related parameters;,1) Soil loss; 2) erosion parameters;
-1) Soil N; 2) soil P,1) Soil N; 2) soil P
 Microbial carbon concentration,Microbial carbon => Microbial abundance (biomass carbon)
 Permanganate oxidizable C (POXC),Microbial carbon => Microbial abundance (biomass carbon)
 Soil microbial biomass carbon (MBC),Microbial carbon => Microbial abundance (biomass carbon)
-Microbial biomass carbon,Microbial carbon => Microbial abundance (biomass carbon)
 Soil microbial biomass carbon,Microbial carbon => Microbial abundance (biomass carbon)
 Microbial carbon biomass,Microbial carbon => Microbial abundance (biomass carbon)
 Microbial C,Microbial carbon => Microbial abundance (biomass carbon)
@@ -1016,7 +924,6 @@ Microbial diversity (Shannon’s diversity index),Microbial diversity
 Other microbial indicators (O-Microbial),Microbial indicators
 Microbial nitrogen concentration,Microbial nitrogen => Microbial abundance (biomass nitrogen)
 Soil microbial biomass nitrogen,Microbial nitrogen => Microbial abundance (biomass nitrogen)
-Microbial biomass nitrogen,Microbial nitrogen => Microbial abundance (biomass nitrogen)
 Microbial nitrogen biomass,Microbial nitrogen => Microbial abundance (biomass nitrogen)
 Microbial N,Microbial nitrogen => Microbial abundance (biomass nitrogen)
 Microbial biomass nitrogen (0-10 cm depht),Microbial nitrogen => Microbial abundance (biomass nitrogen)
@@ -1031,28 +938,18 @@ Nematode channel ratio,Nematode channel ratio
 Total nematode abundance,Nematodes abundance
 Abundance of omnivore-predators,Nematodes abundance
 Abundance of plant feeders,Nematodes abundance
-Enrichment index,Nematodes abundance
-Maturity index,Nematodes abundance
-Total density of nematodes,Nematodes density
 omnivore-predator nematode,Omnivore-predator nematode abundance
-Abundance of omnivore-predators,omnivore-predators abundance
-Abundance of omnivore-predators,Omnivore-predator nematode abundance
 Peroxidase,Peroxidase activity
 phosphatase activity,Phosphatase activity
 Phosphatase,Phosphatase activity
 ACP and ALP (phosphatase) activities,Phosphatase activity
-Biological nitrogen fixation (BNF),Biological N fixation
-Abundance of plant feeders,Plant feeders abundance
 plant-feeding nematodes,Plant feeding nematodes abundance
 Plant parasite index,Plant parasite index
-Plant parasite index,plant parasite index
-plant-feeding nematodes,Plant-feeding nematodes
 Fungi/bacteria ratio,Fungi/bacteria ratio
 Phospholipid fatty acids (PLFA) concentrations (indicator of microbial biomass) of ratio fungi/bacteria,Fungi/bacteria ratio
 Phospholipid fatty acids (PLFA) concentrations (indicator of microbial biomass) of ratio of gram+ to gram- bacteria,Ratio of gram+ to gram- bacteria
 Rhabditidae,Rhabditidae abundance
 Soil fertility,Soil fertility
-"Soil microbial quotient (MB-C/TSOC, total soil organic carbon)",Ratio microbial carbon to soil carbon
 Shannon diversity index,Species diversity
 Shannon's diversity,Species diversity
 Structure index,Structure index
@@ -1060,105 +957,48 @@ Taxonomy richness,Taxonomy richness
 Soil urease activity,Soil urease activity
 Urease,Soil urease activity
 β-glucosidase (BG),β-glucosidase activity
-Soil total N,Soil total N
-Soil water holding capacity,water holding capacity
-Arbuscular mycorrhizas (AM) fungal abundance,Arbuscolar mycorrhizal fungi => Arbuscolar mycorrhizal fungi abundance
-Root colonization by mycorrhizal fungi,Arbuscolar mycorrhizal fungi => Arbuscolar mycorrhizal fungi colonization
-1) Microbial biomass carbon (0-10 cm depht); 2) microbial biomass nitrogen (0-10 cm depht),Microbial biomass
-1) Soil nitrogen (N); 2) soil phosphorus (P),1) Soil N (N); 2) soil P (P)
-1) Soil nitrogen pool (SNP); 2) litter nitrogen pool (LNP),1) Soil N pool (SNP); 2) litter N pool (LNP)
-1) Soil total N; 2) soil total P,1) Soil total N; 2) soil total P
-1) Soil total nitrogen content; 2) soil total phosphorus,1) Soil total N content; 2) soil total P
-"1) Total nitrogen (TN) (0-10 cm, 10-30 cm); 2) phosphorous (P) (0-10 cm, 10-30 cm); 3) potasium (K) (0-10 cm, 10-30 cm)","1) Total N (TN) (0-10 cm, 10-30 cm); 2) P (P) (0-10 cm, 10-30 cm); 3) potasium (K) (0-10 cm, 10-30 cm)"
-Cation exchange capacity (CEC) (0-10 cm depht),Cation exchange capacity 0-10 cm
-water infiltration,water infiltration
-Soil moisture,moisture
-Water content (WC) (0-10 cm depht),Water content (WC) (0-10 cm depht)
-1) Soil loss; 2) Run-off,1) Soil loss; 2) Run-off
-1) Soil loss; 2) Run-off coefficient,1) Soil loss; 2) Run-off coefficient
-Pollinator abundance in field edges adjacent to crops,pollinators abundance (within the crop) => Pollinators abundance (at the edge)
-Pollinator abundance and richness in the field-edge flower plantings; Pollinator abundance and richness in the crops,Pollinators abundance and richness (at the edge)
 % of sediment removal,Soil loss => Sediments retention
-% of sediment removal,Soil runoff => Sediments retention
 Annual runoff,Annual run-off => Soil run-off
-Annual runoff,Annual run-off
-Annual runoff,Annual soil run-off => Soil run-off
 Annual soil loss,Annual soil loss => Soil loss
-Annual soil loss,Annual soil loss
-Annual soil loss and runoff,Annual soil loss and run-off
 Efficacy sediment mass retention,Efficacy sediment mass retention
 Erosion-related parameters: Water retention; Topsoil penetration resistance; Aggregate stability; Saturated hydraulic conductivity,Soil erosion parameters
 Run off reduction,Run-off reduction
-runoff,Run-off
-"Runoff coefficient, sediment concentration in runoff","Run-off coefficient, sediment concentration in runoff"
-Runoff quantity,Run-off quantity
-Run off reduction,Soil run-off => Run-off reduction
 runoff,Run-off => Soil run-off
-Run-off; sediment retention,Run-off; sediment retention
-Run-off; sediments,Run-off; sediments
-Run-off; soil erosion,Run-off; soil erosion
-Run-off; soil loss,Run-off; soil loss
-runoff,Soil run-off
-Sediment formation,Sediment formation
-"Soil nutrients (e.g., total N, total K, total P, available P, available K, NH4, and organic matter)","Soil nutrients (e.g., total N, total K, total P, available P, available K, NH4, and organic matter)"
-"Soil total nitrogen, phosphorus, and potassium concentrations","Soil total N, P, and K concentrations"
 Run-off,Run-off => Soil run-off
-"Sediment generation, water runoff, water infiltration","Sediment generation, water runoff, water infiltration"
-Run-off,Soil run-off
-Sediment production; run-off,Sediment production; run-off
 Sediment regulation,Sediment regulation
-Soil water recharge,water recharge
 Run-off coefficient,Run-off coefficient
 soil erosion,Soil erosion
-Run-off coefficient,Soil run-off => Run-off coefficient
 Runoff coefficient (fraction of rainfall that becomes runoff),Water run-off
 Runoff quantity,Run-off quantity => Soil run-off
-Runoff quantity,Soil run-off
 Run-off reduction,Run-off reduction
-1) Efficacy N mass retention; 2) efficacy P mass retention,1) Efficacy N mass retention; 2) efficacy P mass retention
 Soil erosion rates,Soil erosion rates
-1) Nitrogen removal efficiency; 2) Total phosforous removal efficiency,1) Nitrogen removal efficiency; 2) Total phosforous removal efficiency
-"soil erosion rates (erosion, runoff)","soil erosion rates (erosion, runoff)"
-"Soil erosion, run-off","Soil erosion, run-off"
 soil runoff/soil loss,Soil loss
-Run-off reduction,Soil run-off => Run-off reduction
 Sediment concentration in runoff,Sediment concentration in run-off
+Sediment formation,Sediment formation
 Sediment generation,Sediment generation
-Sediment generation,Sediment production
 soil loss,Soil loss
 Sediment production,Sediment production
 Sediment retention,Sediment retention
 Sediments,Sediment production
-Sediments,Sediments => Sediments production
-1) Outflow load of Total nitrogen (TN); 2) Outflow load of total phosphorus (TP),1) Outflow load of Total nitrogen (TN); 2) Outflow load of total phosphorus (TP)
-Efficacy pesticide mass retention,Efficacy pesticide mass retention
 Soil erosion,Soil erosion
 Soil erosion control and soil conservation,Soil erosion control and soil conservation
-Soil loss; run-off,Soil loss; run-off
-Soil losses,Soil losses
-soil erosion,Soil runoff
 soil runoff,Soil runoff
 Soil loss reduction,Soil loss => Soil loss reduction
-N removal,N removal
-soil runoff,soil runoff
-Nutrients mitigation power,Nutrients mitigation power
 Soil losses,Soil loss
 Soil sediment interception,Sediment retention => Soil sediment interception
-soil runoff/soil loss,soil runoff/soil loss
-Soil sediment interception,Soil sediment interception
 Extractable Ca,Extractable Ca
 Extractable K,Extractable K
 Extractable Mg,Extractable Mg
 Extractable P,Extractable P
 nitrogen in soil macroaggragates (> 0.25 mm),N in soil macroaggragates (> 0.25 mm)
 soil fertility/nutrient cycling parameters,soil fertility/nutrient cycling parameters
+Soil nitrogen,Soil total N
 soil phosphorous,Soil total P
 soil total nitrogen,Soil total N
 Total N,Soil total N
 "Abiotic nutrients (Al, B, Cr, Fe, Mg, P, Pb, S, Se, Zn)","Abiotic nutrients (Al, B, Cr, Fe, Mg, P, Pb, S, Se, Zn)"
 Biological nitrogen fixation (BNF),Biological nitrogen fixation
 "Dinitrogen (N2) fixation mesured at the plant level (%Ndfa ) and considering the area (Ndfa, kg/ha)",Biological nitrogen fixation
-Dinitrogen (N2) fixation and Soil-derived N acquisition,DiN (N2) fixation and Soil-derived N acquisition
 Olsen phosphorus,Extractable phosphorus
 Litter nitrogen pool,Litter total nitrogen
 Microbial N immobilization,Microbial nitrogen immobilization
@@ -1171,28 +1011,15 @@ Soil TN concentration,Soil total N concentration => Soil total nitrogen
 N stock,Soil total nitrogen
 Soil N,Soil total nitrogen
 Soil N stock,Soil total nitrogen
-Soil nitrogen,Soil total nitrogen
 Soil nitrogen content,Soil total nitrogen
 Soil nitrogen pool,Soil total nitrogen
 Soil TK concentration,Soil total nitrogen
 Soil total N,Soil total nitrogen
 Soil total N stock,Soil total nitrogen
-soil total nitrogen,Soil total nitrogen
-"soil total nitrogen, soil phosphrous","soil total N, soil phosphrous"
-"Total N, Extractable P, Extractable K, Extractable Mg, Extractable Ca","Total N, Extractable P, Extractable K, Extractable Mg, Extractable Ca"
-Pesticide mitigation power,Pesticide mitigation power
-Reduction of acute ecotoxicity,Reduction of acute ecotoxicity
-"Run-off of sediment, nutrient or faecal bacteria","Run-off of sediment, nutrient or faecal bacteria"
-Total nitrogen (TN),Total nitrogen (TN)
 Soil total nitrogen content,Soil total nitrogen
 Soil total potassium 0-15 cm,Soil total nitrogen
 Soil total potassium 15-40 cm,Soil total nitrogen
 Total nitrogen,Soil total nitrogen
-"Biocontrol (i.e., pest herbivore abundance, pest predator abundance and plant damage)",natural enemies parameters
-"Disease incidence (was calculated at the replicate level as the number of infected leaves in the plot divided by the number of surveyed leaves in the plot, and then averaged over replicates; presence of wilting symptoms on the plant was recorded)",Disease incidence
-1) Land Equivalent Ratio for P uptake (LERP); 2) Net effect on P uptake (NEP),nitrogen equivalent ratio
-1) Nitrogen fertilizer equivalent ratio; 2) Phosphorous fertilizer equivalent ratio,nitrogen equivalent ratio
-Total nitrogen concentration,Soil total nitrogen
 Total nitrogen in soil,Soil total nitrogen
 Total soil nitrogen,Soil total nitrogen
 Total soil nitrogen (TN),Soil total nitrogen
@@ -1203,22 +1030,16 @@ Soil total nitrogen 0-60,Soil total nitrogen 0-60 cm
 TN (10-30 cm depth),Soil total nitrogen 10-30 cm
 Soil total nitrogen 15-40 cm,Soil total nitrogen 15-40 cm
 Soil P,Soil total phosphorus
-soil phosphorous,Soil total phosphorus
 Soil total P,Soil total phosphorus
 Soil slope erosion,Soil slope erosion
-Total nitrogen concentration,Soil total N concentration
 Soil total phosphorous,Soil total phosphorus
 Soil total phosphorus,Soil total phosphorus
 Soil TP concentration,Soil total phosphorus
-Total soil nitrogen,Soil total N
-Infiltration rate,water infiltration rate
 Total phosphorus,Soil total phosphorus
 Total soil P content,Soil total phosphorus
 P (0-10 cm depth),Soil total phosphorus 0-10 cm
 Soil total phosphorus 0-15 cm,Soil total phosphorus 0-15 cm
 P (10-30 cm depth),Soil total phosphorus 10-30 cm
-1) Soil available water (top 30 cm soil depth); 2) Soil available water (deep soil layer),1) available water (top 30 cm depth); 2) available water (deep layer)
-soil moisture content,moisture content
 Soil total phosphorus 15-40 cm,Soil total phosphorus 15-40 cm
 Soil K,Soil total potassium
 Soil potassium,Soil total potassium
@@ -1226,67 +1047,55 @@ Soil total K,Soil total potassium
 Soil total potassium,Soil total potassium
 Total potassium,Soil total potassium
 K (0-10 cm depth),Soil total potassium 0-10 cm
-1) Colony forming unit (CFU); 2) Microbial biomass carbon (MBC); 3) Microbial biomass nitrogen; 4) Extracellular enzyme activity for carbon acquisition; 5) Extracellular enzyme activity for nitrogen acquisition; 6) Extracellular enzyme activity for potassium acquisition; 7) Soil microbial alpha-diversity; 8) Soil microbial betha diversity; 9) Soil microbial structure,Microbial biomass
-1) Soil microbial biomass carbon (MBC); 2) Extracellular enzyme activity (EEA),Microbial biomass
 Surface run-off,Soil run-off => Surface run-off
-Salinity,Salinity
 "Stock of Nitrogen, Phosphorous and Sulfur in soil (kg m-2)","Stock of N, P and Sulfur in soil"
-"Stock of Nitrogen, Phosphorous and Sulfur in soil (kg m-2)","Stock of N, P and Sulfur in soil (kg m-2)"
 infiltration rates,water infiltration rate
 initial infiltration rate,water infiltration rate
 Soil bulk density,bulk density
 soil macroaggregates,macroaggregates
+soil porosity,porosity
 steady-state infiltration rate,water infiltration rate
 water infiltration capacity,water infiltration
 water infiltration rate,water infiltration rate
 water infiltration rates,water infiltration rate
 Bulk density,Soil bulk density
 Capillary porosity,Capillary porosity
+Cation exchange capacity,Cation exchange capacity
 CEC (0-10 cm depht),Cation exchange capacity 0-10 cm
 Geometric mean diameter of soil aggregates,Geometric mean diameter of aggregates
-Geometric mean diameter of soil aggregates,Geometric mean diameter of soil aggregates
 Soil water infiltration,Soil water infiltration
 water infiltration,Soil water infiltration
 Mean weight diameter,Mean weight diameter of soil aggregates
 mean weight diameter of aggregates,Mean weight diameter of soil aggregates
 Mean weight diameter of soil aggregates,Mean weight diameter of soil aggregates
 Penetration resistance,Soil penetration resistance
+Salinity,Salinity
 saturated hydraulic conductivity,Saturated hydraulic conductivity
 Soil aggregation,Soil aggregation
-Soil bulk density,Soil bulk density
 Soil cation exchange capacity (CEC),Soil cation exchange capacity
 Soil exchangeable sodium percentage,Soil exchangeable sodium
 Soil penetration resistance,Soil penetration resistance
-1) Precipitation storage efficiency (PSE); 2) Soil water storage at wheat planting (SWSp),1) Precipitation storage efficiency (PSE); 2) water storage at wheat planting (SWSp)
-1) Soil water retention (before sowing); 2) Soil water retention (harvest),1) water retention (before sowing); 2) water retention (harvest)
 Soil pH,Soil pH
-soil porosity,Soil porosity
 Soil structural stability,Soil structural stability
 Infiltration rate,Soil water infiltration rate
-Water content,Water content
-1) Blue water availability (VWA); 2) Global stress-weighted water footprint per unit of output energy (WFo); 3) Global stress-weighted water footprint per unit of net economic return (WFe),1) Blue water availability (VWA); 2) Global stress-weighted water footprint per unit of output energy (WFo); 3) Global stress-weighted water footprint per unit of net economic return (WFe)
-1) Water consumption; 2) Water use efficiency (WUE),water use efficiency
 Subsoil bulk density change (%),Subsoil bulk density change
 Topsoil bulk density change (%),Topsoil bulk density change
-Water Use efficiency;,water use efficiency
 Total porosity,Total porosity
+Water drainage,Water drainage
 Infiltration rate in soils,Soil water infiltration rate
 Soil water infiltration rate,Soil water infiltration rate
-steady-state infiltration rate,Soil water infiltration rate
 Water-stable aggregate,Water-stable soil aggregates
-Water use efficiency (WUE),water use efficiency
-"Water use efficiency (WUE, the biomass or grain yield per unit of water used by crops)",water use efficiency
 Soil cation exchange capacity,cation exchange capacity
 "Soil aggregation (percentage of water-stable aggregates (WSA), mean weight diameter (MWD) or gravimetric mean diameter (GMD) by different sieving methods)","aggregation (percentage of water-stable aggregates (WSA), mean weight diameter (MWD) or gravimetric mean diameter (GMD) by different sieving methods)"
 Soil total porosity,porosity
 Total soil porosity,porosity
 Soil aggregate stability,aggregate stability
-Soil pH,pH
 Soil available nutrients,available nutrients
 Soil Ca ion,Ca ion
 Soil Na ion,Na ion
 Soil Mg ion,Mg ion
 Soil K ion,K ion
+soil moisture content,water content
 Available water capacity,Available water capacity => Available water holding capacity
 available water content (AWC),Soil available water
 Available water holding capacity (AWC),Available water holding capacity
@@ -1296,45 +1105,27 @@ permanent wilting point (PWP),Permanent wilting point
 Plant available water content (AW),Available water content => Soil available water
 Precipitation soil-storage efficiency during the fallow period,Precipitation storage efficiency
 Precipitation storage efficiency (PSE),Precipitation storage efficiency
-Soil available water,Soil available water
 soil available water (100-250 cm depth),Soil available water 100 - 250 cm
 soil available water (30 - 90 cm depth),Soil available water 30 - 90 cm
 Soil available water (deep soil layer),Soil available water (deep soil layer)
 Soil available water (top 30 cm soil depth),Soil available water 0 - 30 cm
 Soil moisture,water content => Soil water content
-soil moisture content,water content => Soil water content
 Soil saturated hydraulic,Soil saturated hydraulic
 "Soil water budget parameters (Water stress integral, water loss, volumetric soil water content)","Soil water budget parameters (Water stress integral, water loss, volumetric water content)"
 Soil water content,water content => Soil water content
-"Soil microbial biomass C (Cmic) and nitrogen (Nmic), and the microbial quotient (qMIC, Cmic-to-organic C ratio)",Microbial biomass
-Surface run-off,Surface run-off
 Water runoff,Water run-off
-Water runoff,Soil water retention (before sowing)
-Water runoff,Soil water retention (harvest)
 soil water content (SWC),water content => Soil water content
-N stock,Soil total N
 Soil water content retained at field capacity (FC),Water retained at field capacity
 Soil water content retained at field capacity (FC) (fine textured soils),Water retained at field capacity (fine textured soils)
 "Soil water content: measured in spring, when the cover crop was suppressed or anytime thereafter, but before the food crop was planted",water content => Soil water content
 Soil water holding capacity,Soil water holding capacity
-Soil N stock,Soil total N
-Soil nutrients,Soil nutrients
 Soil water recharge,water recharge => Soil water rechange
 Soil water retention (before sowing),Soil water retention (before sowing)
-Soil water retention (before sowing),Soil water retention (harvest)
 Soil water retention (harvest),Soil water retention (harvest)
 Soil water storage at succeeding crop planting for the 30 cm topsoil,Soil water content 0 - 30 cm
 Soil water storage at succeeding crop planting for the whole soil profile,Soil water storage (whole profile)
-Soil water storage at succeeding crop planting for the whole soil profile,water content => Soil water content
-Aggregate size and stability,Aggregate size and stability
-Infiltration rate in soils,water infiltration rate
-Soil physical quality,physical quality
-Available water capacity,Available water capacity
-field capacity water content,field capacity water content
 Soil water storage at wheat planting,Soil water retention (at sowing)
-Soil water storage at wheat planting,water retention (before sowing) => Soil water content (before sowing)
 Water content,water content => Soil water content
-Water drainage,Water drainage => Soil water drainage
 Water retained at field capacity,Water retained at field capacity
 WC (0-10 cm depht),Soil water content 0 -10 cm
 Wilting point,Wilting point
@@ -1345,11 +1136,16 @@ Global stress-weighted water footprint per unit of output energy (WFo),Global st
 "The gray water footprint (GWF, defined as the volume of freshwater required to assimilate the pollutant load in terms of the natural background concentration and existing ambient water quality standards). GWFp in this study refers to the N load introduced by both leaching and runoff to produce one unit product, and was define as the sum of per product leaching gray water footprint (GWFp_L) and per product runoff gray water footprint (GWFp_R).","The gray water footprint (GWF, defined as the volume of freshwater required to assimilate the pollutant load in terms of the natural background concentration and existing ambient water quality standards). GWFp in this study refers to the N load introduced by both leaching and runoff to produce one unit product, and was define as the sum of per product leaching gray water footprint (GWFp_L) and per product runoff gray water footprint (GWFp_R)."
 Efficacy N mass retention,Efficacy N mass retention
 Efficacy P mass retention,Efficacy P mass retention
+Efficacy pesticide mass retention,Efficacy pesticide mass retention
+N removal,N removal
+"Run-off of sediment, nutrient or faecal bacteria","Run-off of sediment, nutrient or faecal bacteria"
+Pesticide mitigation power,Pesticide mitigation power
+Nutrients mitigation power,Nutrients mitigation power
 Total nitrogen (TN),N removal
 Nitrogen removal efficiency,N removal
+Reduction of acute ecotoxicity,Reduction of acute ecotoxicity
 Total phosforous removal efficiency,P removal
 Total phosphorus (TP),P removal
-"Biotic abundance, biotic richness of functional groups (Pollinators)",Pollinators abundance and richness
 Water purification,Water purification
 Nitrate removal efficiency from drainage water,Nitrate removal efficiency from drainage water
 Phosphorus removal efficiency from drainage water,Phosphorus removal efficiency from drainage water
@@ -1362,21 +1158,15 @@ Leaf water use efficiency,leaf water use efficiency => Water use efficiency (lea
 Water consumption,Water consumption
 Waper productivity,water productivity => Water use efficiency
 Water productivity,water productivity => Water use efficiency
-Microbial N immobilization,Microbial N immobilization
 Water productivity (WP),water productivity => Water use efficiency
-Mineralisation of native soil N,Mineralisation of native soil N
 "Water productivity (WP, yield/crop evapotranspiration or yield/total water applied by irrigation and rainfall)",water productivity => Water use efficiency
 Water inputs,Water supply
-Olsen phosphorus,Extractable P
 Water supply,Water supply
 Irrigation water amount,Water supply (irrigation)
 Water use,Water supply => Water consumption
 water use (mm /ha),Water supply => Water consumption
 Plant water use efficiency,Water use efficiency
-crop yield,Crop yield
-Disease incidence (in probability scale),Disease incidence
 water use efficiency,Water use efficiency
-"Weed abundance (biomass, cover, density, frequency, survival or percent control)",weed abundance
 Water use efficiency (WUE),Water use efficiency
 "Water use efficiency (WUE, the biomass or grain yield per unit of water used by crops)",Water use efficiency
 WUE,Water use efficiency
