@@ -391,7 +391,8 @@
       "fpid",
       "impact_matrix",
       "intervention_matrix",
-      "control_matrix"
+      "control_matrix",
+      "metric_std"
     ],
     "columns": [
       {
@@ -428,6 +429,10 @@
       },
       {
         "colname": "metric_matrix",
+        "type": "character"
+      },
+      {
+        "colname": "metric_std",
         "type": "character"
       },
       {
