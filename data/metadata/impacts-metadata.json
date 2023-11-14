@@ -147,6 +147,10 @@
       {
         "colname": "reference",
         "type": "character"
+      },
+      {
+        "colname": "type",
+        "type": "character"
       }
     ]
   },
