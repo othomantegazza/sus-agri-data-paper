@@ -1,28 +1,31 @@
-build_p1 <- function(screening)
+build_p_screening <- function(
+    screening,
+    fill_color = "white"
+)
 {
   if(
     any(
       is.na(
-        screening$Status
+        screening$status
       )
     )
   ) {
-    warning("Dropping Papers with Missing Status")
+    warning("Dropping Papers with Missing status")
   }
   
   status_by_fpid <- 
     screening %>% 
-    count(FPID, Status, status_details) %>% 
+    count(fpid, status, status_details) %>% 
     drop_na()
   
   fpid_ordered_screening <- 
     status_by_fpid %>% 
     summarise(
       n = n %>% sum(na.rm = T),
-      .by = FPID
+      .by = fpid
     ) %>% 
     arrange(desc(n)) %>% 
-    pull(FPID) 
+    pull(fpid) 
   
   screening_levels <- 
     c(
@@ -34,7 +37,7 @@ build_p1 <- function(screening)
   status_by_fpid <- 
     status_by_fpid %>% 
     mutate(
-      short_description = Status %>% {
+      short_description = status %>% {
         case_when(. == 'R' ~ screening_levels[1],
                   . == 'O' ~ screening_levels[2],
                   . == 'B' ~ screening_levels[3]
@@ -45,24 +48,24 @@ build_p1 <- function(screening)
   
   p_screening <- 
     status_by_fpid %>% 
-    arrange(FPID, Status) %>% 
+    arrange(fpid, status) %>% 
     mutate(tot_before_step = n %>% cumsum(),
-           .by = FPID) %>% 
+           .by = fpid) %>% 
     ggplot() +
     aes(
       x = tot_before_step,
-      y = FPID %>%
+      y = fpid %>%
         factor(levels = fpid_ordered_screening) %>%
         fct_rev()) +
     geom_col(
-      fill = 'white',
+      fill = fill_color,
       colour = 'black',
       size = line_width/2,
       width = 1
     ) +
     geom_text(
       aes(
-        x = tot_before_step + 20,
+        x = tot_before_step + 10,
         label = tot_before_step
       ),
       size = text_size_plot,
@@ -98,12 +101,12 @@ build_p1 <- function(screening)
   
   statuses <- 
     status_by_fpid %>% 
-    group_by(Status, short_description) %>% 
+    group_by(status, short_description) %>% 
     summarise(n = n %>% sum()) %>% 
     ungroup() %>% 
-    arrange(Status) %>% 
+    arrange(status) %>% 
     mutate(n = cumsum(n)) %>% 
-    arrange(desc(Status)) %>% 
+    arrange(desc(status)) %>% 
     mutate(discarded = c(NA, n[1:{n() - 1}]) - n) %>% 
     mutate(
       top_arrow = c(F, T, T),
@@ -188,7 +191,7 @@ build_p1 <- function(screening)
           hjust = 0,
           vjust = 0,
           gp = gp,
-          box_gp = gpar(fill = 'white',
+          box_gp = gpar(fill = "white",
                         col = '#00000000')
         )
       

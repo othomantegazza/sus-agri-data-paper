@@ -23,6 +23,20 @@ list.files(
 ) %>% 
   walk(source)
 
+
+# metadata ------------------------------------------------------
+
+statuses <- 
+  read_json(
+    "data/metadata/screening-status.json"
+  ) %>% 
+  {
+    tibble(
+      status = names(.),
+      status_details = unlist(.)
+    )
+  }
+
 # DATA ----------------------------------------------------------
 
 search_tab <- 
@@ -33,7 +47,10 @@ search_tab <-
 screening <-   
   read_csv(
     'data/output/imap/04_screeening.csv'
-  )
+  ) %>% 
+  left_join(
+    statuses
+  ) 
 
 ma_list <- 
   read_csv(
@@ -60,7 +77,11 @@ pico_results <-
 
 # |- plot geographic coverage -----------------------------------
 
-p_geo <- build_p_geo(pico_combinations, fill_color = fill_color)
+p_geo <- 
+  build_p_geo(
+    pico_combinations, 
+    fill_color = fill_color
+  )
 
 jpeg(filename = "viz/p-geo.jpeg", 
      width = a4_width/2, 
@@ -89,15 +110,24 @@ dev.off()
 
 # |- Plot Screening Results -------------------------------------
 
-p1 <- build_p1(screening)
+p_screening <- 
+  build_p_screening(
+    screening,
+    fill_color = fill_color
+  )
 
-jpeg(filename = "viz/p1.jpeg", 
+jpeg(filename = "viz/p-screening.jpeg", 
      width = a4_width, 
-     height = a4_height*.75, 
+     height = a4_height*.65, 
      units = unit_type,
      res = ppi)
-grid.newpage(); p1 %>% grid.draw()
+grid.newpage()
+p_screening %>% grid.draw()
 dev.off()
+
+
+# |- plot pico combinations ----------------------------------------
+
 
 p2 <- build_p2(synthesis, pico_combinations)
 
