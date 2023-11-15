@@ -1,5 +1,7 @@
-build_p2 <- function(synthesis,
-                     pico_combinations) {
+build_p_impacts_fpid <- function(
+    synthesis,
+    pico_combinations
+) {
   fpid_ordered <-  
     synthesis %>% 
     count(fpid,

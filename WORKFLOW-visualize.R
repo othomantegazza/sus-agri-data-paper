@@ -108,6 +108,11 @@ for(p in p_prisma) {
 }
 dev.off()
 
+
+# |- plot papers screened by year ----------------------------------
+
+
+
 # |- Plot Screening Results -------------------------------------
 
 p_screening <- 
@@ -126,18 +131,23 @@ p_screening %>% grid.draw()
 dev.off()
 
 
-# |- plot pico combinations ----------------------------------------
+# |- plot impacts by fpid -------------------------------------
 
+p2 <- 
+  build_p_impacts_fpid(
+    synthesis,
+    pico_combinations
+  )
 
-p2 <- build_p2(synthesis, pico_combinations)
-
-jpeg(filename = "viz/p2.jpeg", 
+jpeg(filename = "viz/p-impacts-by-fpid.jpeg", 
      height  = a4_width, 
      width = a4_height, 
      units = unit_type,
      res = ppi)
 grid.newpage(); p2 %>% grid.draw()
 dev.off()
+
+
 
 p3 <- build_p3(ma_list,
                cutoff_year = 2021)
