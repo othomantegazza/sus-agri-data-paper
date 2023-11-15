@@ -50,7 +50,11 @@ screening <-
   ) %>% 
   left_join(
     statuses
-  ) 
+  ) %>% 
+  mutate(year)
+
+screening_dates <-
+  read_csv("data/output/03-search-dates.csv")
 
 ma_list <- 
   read_csv(
@@ -109,9 +113,20 @@ for(p in p_prisma) {
 dev.off()
 
 
-# |- plot papers screened by year ----------------------------------
+# |- plot papers screened by search and publ year ---------------
 
+p_screening_by_year <- build_p_screening_by_year(
+  screening = screening,
+  screening_dates = screening_dates
+)
 
+jpeg(filename = "viz/p-screening-years.jpeg", 
+     width = a4_width, 
+     height = a4_height/2, 
+     units = unit_type,
+     res = ppi)
+p_screening_by_year
+dev.off()
 
 # |- Plot Screening Results -------------------------------------
 
