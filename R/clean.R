@@ -41,7 +41,6 @@ clean_imap <- function(
     unique_identifiers,
     columns
 ) {
-  
   if(length(line_type) > 0) {
     df <- 
       df %>%
@@ -146,6 +145,10 @@ clean_imap <- function(
     )
   
   df_clean %>% 
+    distinct(
+      pick(all_of(unique_identifiers)),
+      .keep_all = T
+      ) %>% 
     write_csv(
       here(
         'data',
