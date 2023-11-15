@@ -10,7 +10,6 @@ library(janitor)
 library(glue)
 library(purrr)
 library(jsonlite)
-library(skimr)
 library(paletteer)
 library(grid)
 library(gtable)
@@ -53,7 +52,7 @@ pico_combinations <-
 
 pico_results <- 
   read_csv(
-    'data/output/imap/09_pico_cat_results.csv'
+    'data/output/imap/10_pico_cat_results.csv'
   )
 
 # VIZ -----------------------------------------------------------
