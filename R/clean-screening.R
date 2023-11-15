@@ -13,7 +13,6 @@ library(jsonlite)
 library(skimr)
 library(here)
 library(gtable)
-# library(Diderot)
 
 # functions -----------------------------------------------------
 
@@ -58,14 +57,6 @@ screening_status <-
 
 systematic_screening <-
   screening %>%
-    # select(
-    #   doi,
-    #   fpid,
-    #   status,
-    #   year,
-    #   abstract_reviewer,
-    #   paper_reviewer
-    # ) %>% 
   mutate(status = status %>% toupper()) %>% 
   mutate(status = status %>% {
     case_when(
@@ -77,7 +68,6 @@ systematic_screening <-
     )
   }) %>% 
   mutate(year = year %>% as.numeric())
-  # filter(Year > 1950)
 
 metadata %>% 
   mutate(df = systematic_screening %>% list()) %>% 

@@ -14,7 +14,6 @@ library(skimr)
 library(here)
 library(lubridate)
 
-
 # Functions -----------------------------------------------------
 
 list.files(
@@ -23,9 +22,7 @@ list.files(
 ) %>% 
   walk(source)
 
-
 # data ----------------------------------------------------------
-
 
 defs <- 
   read_excel("data/MerFPs_DefinitionFP_20231017.xlsx") %>% 
