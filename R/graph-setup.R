@@ -27,7 +27,7 @@ width <- 150
 height <- width
 base_size <- 10
 categorical_palette <- paletteer_d("futurevisions::atomic_blue")
-fill_color <- "#F2EBBB"
+fill_color <- "#fcfcea"
 colours_dia <- categorical_palette[2:3]
 # colour_base <- categorical_palette[2]
 colour_base <- '#3982a4'
