@@ -73,17 +73,14 @@ build_p_screening_by_year <- function(
     ) +
     theme(
       axis.line = element_blank(),
-      axis.text.x = element_text(hjust = .5,
-                                 vjust = .5,
-                                 colour = "black",
-                                 size = base_size*text_scaler),
       axis.text.y = element_text(vjust = 0.5,
                                  colour = "black",
                                  size = base_size*text_scaler),
       axis.text.x.top = element_text(
         angle = 90,
         hjust = 0,
-        vjust = .5
+        vjust = .5,
+        size = base_size*text_scaler
       ),
       axis.ticks = element_line(
         size = line_width*.2
