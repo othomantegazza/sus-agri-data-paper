@@ -1,8 +1,12 @@
 build_p_screening <- function(
     screening,
-    fill_color = "white"
+    fill_color = "white",
+    text_scaler = .9
 )
 {
+  text_size_plot <- text_size_plot*text_scaler
+  base_size <- base_size*text_scaler
+  
   if(
     any(
       is.na(
@@ -91,6 +95,9 @@ build_p_screening <- function(
     ) +
     theme(
       axis.line.y = element_blank(),
+      axis.text.y = element_text(vjust = 0.5,
+                                 colour = "black",
+                                 size = base_size),
       panel.grid.major.x = element_blank(),
       axis.line.x = element_blank(),
       axis.ticks.x = element_blank(),
@@ -127,8 +134,8 @@ build_p_screening <- function(
     top_text = T,
     ...
   ) {
-    hs <- c(2, .2, 1, 2.2, .2)
-    ws <- c(2, 1, .5)
+    hs <- c(2, .2, 1, 2, .2)
+    ws <- c(1.7, 1, .2)
     
     diagr <- 
       gtable() %>% 
@@ -156,7 +163,6 @@ build_p_screening <- function(
       gtable_add_cols(
         widths = unit(ws[3], "cm")
       )
-    
     # bottom text
     btxt <- 
       textbox_grob(
