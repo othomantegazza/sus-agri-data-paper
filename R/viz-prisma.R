@@ -21,15 +21,41 @@ build_prisma_page <- function(
     ...
 ) {
   
-  title_size <- 24
+  title_size <- 35
   body_size <- title_size/2
   
-  heights <- c(1, 2, 4, 4, 4, 4, 1)
-  widths <- c(1, 13, 1)
+  heights <- 
+    c(1, 2, 4, 4, 4, 4, 1) %>% 
+    {
+      scales::rescale(
+        .,
+        to = c(0, a4_height/10),
+        from = c(0, sum(.))
+      )
+    }
+  
+  widths <- 
+    c(1, 13, 1) %>% 
+    {
+      scales::rescale(
+        .,
+        to = c(0, a4_width/10),
+        from = c(0, sum(.))
+      )
+    }
   
   text_cell_width <- 5
   
-  inner_widths <- unit(c(5, 3, 5), "cm")
+  inner_widths <- 
+    c(5, 3, 5) %>% {
+      scales::rescale(
+        .,
+        to = c(0, widths[2]),
+        from = c(0, sum(.))
+      )
+    }
+  
+  inner_widths <- unit(inner_widths, "cm")
   inner_heights <- unit(c(title_size, title_size*2), "points")
   
   text_search <- 

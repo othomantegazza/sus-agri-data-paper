@@ -19,6 +19,7 @@ library(gridtext)
 # GRAPH SETUP ---------------------------------------------------
 
 unit_type <- 'mm'
+mm_to_in <- 0.0393701
 line_width <- 1.2
 a4_width <- 210
 a4_height <- 297
@@ -26,6 +27,7 @@ width <- 150
 height <- width
 base_size <- 10
 categorical_palette <- paletteer_d("futurevisions::atomic_blue")
+fill_color <- "#F2EBBB"
 colours_dia <- categorical_palette[2:3]
 # colour_base <- categorical_palette[2]
 colour_base <- '#3982a4'

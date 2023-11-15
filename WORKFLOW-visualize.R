@@ -60,7 +60,7 @@ pico_results <-
 
 # |- plot geographic coverage -----------------------------------
 
-p_geo <- build_p_geo(pico_combinations)
+p_geo <- build_p_geo(pico_combinations, fill_color = fill_color)
 
 jpeg(filename = "viz/p-geo.jpeg", 
      width = a4_width/2, 
@@ -77,12 +77,10 @@ p_prisma <-
     search_tab = search_tab, 
     screening = screening
   )
-# 
-# grid.newpage()
-# p_prisma[[1]] %>% gtable_show_layout()
-# grid.draw(p_prisma[[1]])
 
-pdf("viz/prisma.pdf", paper = "a4")
+pdf("viz/prisma.pdf",
+    width = a4_width*mm_to_in,
+    height = a4_height*mm_to_in)
 for(p in p_prisma) {
   grid.newpage()
   p %>% grid.draw()
