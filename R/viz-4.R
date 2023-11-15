@@ -75,7 +75,18 @@ build_p4 <- function(synthesis, pico_results) {
     synthesis %>% 
     select(doi, fpid) %>% 
     distinct() %>% 
-    p4_basic(var_in = "fpid")
+    p4_basic(var_in = "fpid") %>% 
+    ggplotGrob() 
+  
+  tst <- 
+  p_fpid %>% 
+    gtable_filter('panel') %>% .$grob 
+    grid.draw()
+  
+  p_fpid %>% 
+    gtable_filter('axis-l') %>% 
+    # gtable_show_layout()
+    grid.draw()
   
   p_impact <-
     synthesis %>% 
