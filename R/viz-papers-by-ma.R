@@ -2,8 +2,13 @@ build_papers_by_ma <- function(
     synthesis,
     papers_by_metanalysis_binwidth = 25
 ) {
+  synthesis <- 
+    synthesis %>% 
+    distinct(doi, nb_of_papers)
+  
   median_papers_by_metanalysis <- 
     synthesis %>% 
+    distinct(doi, nb_of_papers) %>% 
     pull(nb_of_papers) %>% 
     median(na.rm = T)
   

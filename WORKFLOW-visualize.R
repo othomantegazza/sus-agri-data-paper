@@ -217,4 +217,4 @@ jpeg(filename = "viz/p3.jpeg",
 p3
 dev.off()
 
-p4 <- build_p4(synthesis, pico_results)
+# p4 <- build_p4(synthesis, pico_results)
