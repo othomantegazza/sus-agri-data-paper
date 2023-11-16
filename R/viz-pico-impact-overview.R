@@ -1,7 +1,6 @@
 build_pico_impact_overview <- function(
     pico_results
 ) {
-  browser()
   pairwise_comparisons <- 
     pico_results %>% 
     count(impact_matrix, sort = T) %>% 
