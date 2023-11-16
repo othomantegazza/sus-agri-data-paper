@@ -154,11 +154,25 @@ p_papers_by_ma <-
   )
 
 jpeg(filename = "viz/p-papers-by-ma.jpeg", 
-     height  = a4_width/2, 
-     width = a4_height/2, 
+     height  = a4_height*.25, 
+     width = a4_width*.5, 
      units = unit_type,
      res = ppi)
 grid.newpage(); p_papers_by_ma %>% grid.draw()
+dev.off()
+
+
+# plot pico overview --------------------------------------------
+
+p_pico_overview <- 
+  build_pico_overview(pico_results)
+
+jpeg(filename = "viz/p-pico-overview.jpeg", 
+     height  = a4_height*.6, 
+     width = a4_width, 
+     units = unit_type,
+     res = ppi)
+grid.newpage(); p_pico_overview %>% grid.draw()
 dev.off()
 
 # |- plot impacts by fpid -------------------------------------
@@ -176,6 +190,7 @@ jpeg(filename = "viz/p-impacts-by-fpid.jpeg",
      res = ppi)
 grid.newpage(); p_impacts_fpid %>% grid.draw()
 dev.off()
+
 
 
 
