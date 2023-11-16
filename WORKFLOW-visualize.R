@@ -146,9 +146,24 @@ p_screening %>% grid.draw()
 dev.off()
 
 
+# |- plot papers by metanalyses -------------------------------
+
+p_papers_by_ma <- 
+  build_papers_by_ma(
+    synthesis = synthesis
+  )
+
+jpeg(filename = "viz/p-papers-by-ma.jpeg", 
+     height  = a4_width/2, 
+     width = a4_height/2, 
+     units = unit_type,
+     res = ppi)
+grid.newpage(); p_papers_by_ma %>% grid.draw()
+dev.off()
+
 # |- plot impacts by fpid -------------------------------------
 
-p2 <- 
+p_impacts_fpid <- 
   build_p_impacts_fpid(
     synthesis,
     pico_combinations
@@ -159,7 +174,7 @@ jpeg(filename = "viz/p-impacts-by-fpid.jpeg",
      width = a4_height, 
      units = unit_type,
      res = ppi)
-grid.newpage(); p2 %>% grid.draw()
+grid.newpage(); p_impacts_fpid %>% grid.draw()
 dev.off()
 
 
