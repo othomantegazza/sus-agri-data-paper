@@ -1,21 +1,3 @@
-library(dplyr)
-library(tibble)
-library(tidyr)
-library(ggplot2)
-library(forcats)
-library(stringr)
-library(readxl)
-library(readr)
-library(janitor)
-library(glue)
-library(purrr)
-library(jsonlite)
-library(skimr)
-library(paletteer)
-library(grid)
-library(gtable)
-library(gridtext)
-
 # GRAPH SETUP ---------------------------------------------------
 
 unit_type <- 'mm'
