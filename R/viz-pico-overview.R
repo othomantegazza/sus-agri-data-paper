@@ -3,7 +3,15 @@ build_pico_overview <- function(
 ) {
   pairwise_comparisons <- 
     pico_results %>% 
-    count(fpid, sort = T) %>% 
+    distinct(
+      fpid,
+      intervention_matrix,
+      control_matrix
+    ) %>% 
+    count(
+      fpid,
+      sort = T
+    ) %>% 
     rename(n_pairwise_comparisons = n) 
   
   metrics <- 
@@ -12,7 +20,6 @@ build_pico_overview <- function(
     count(fpid, sort = T) %>% 
     rename(n_metrics = n)
 
-  
   p <-
     pairwise_comparisons %>% 
     left_join(metrics) %>% 
@@ -32,7 +39,7 @@ build_pico_overview <- function(
     ) +
     labs(x = "Pairwise Comparisons Extracted [n]",
          y = "Farming Practice",
-         size = "Unique Classes of Metrics Extracted [n]") +
+         size = "Unique Metrics Extracted [n]") +
     scale_radius(range = c(0, 15)) +
     scale_x_continuous(
       limits = c(0, NA),

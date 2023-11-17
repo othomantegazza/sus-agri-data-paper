@@ -1,9 +1,22 @@
 build_pico_impact_overview <- function(
     pico_results
 ) {
+  # pairwise_comparisons <- 
+  #   pico_results %>% 
+  #   count(impact_matrix, sort = T) %>% 
+  #   rename(n_pairwise_comparisons = n) 
+  
   pairwise_comparisons <- 
     pico_results %>% 
-    count(impact_matrix, sort = T) %>% 
+    distinct(
+      impact_matrix,
+      intervention_matrix,
+      control_matrix
+    ) %>% 
+    count(
+      impact_matrix,
+      sort = T
+    ) %>% 
     rename(n_pairwise_comparisons = n) 
   
   metrics <- 
@@ -34,7 +47,7 @@ build_pico_impact_overview <- function(
     ) +
     labs(x = "Pairwise Comparisons Extracted [n]",
          y = "Impact Measured",
-         size = "Unique Classes of Metrics Extracted [n]") +
+         size = "Unique of Metrics Extracted [n]") +
     scale_radius(range = c(0, 15)) +
     scale_x_continuous(
       limits = c(0, NA),
