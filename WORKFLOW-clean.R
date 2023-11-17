@@ -45,6 +45,10 @@ clean_extract_standard_metric(
   sheet = 'harmonisation'
 )
 
+clean_extract_factors(
+  "data/MerFPs_Impacts_20231017.xlsx"
+)
+
 clean_impacts(
   'data/MerFPs_Impacts_20231017.xlsx'
 )

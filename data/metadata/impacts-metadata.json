@@ -417,6 +417,44 @@
       }
     ]
   },
+  { 
+    "name": "09_factors",
+    "info_type": [
+      "G"
+    ],
+    "unique_identifiers": [
+      "doi",
+      "fpid",
+      "impact_matrix",
+      "factor_nb"
+    ],
+    "columns": [
+      {
+        "colname": "doi",
+        "type": "character"
+      },
+      {
+        "colname": "fpid",
+        "type": "character"
+      },
+      {
+        "colname": "impact_matrix",
+        "type": "character"
+      },
+      {
+        "colname": "factor_nb",
+        "type": "numeric"
+      },
+      {
+        "colname": "factor_id",
+        "type": "character"
+      },
+      {
+        "colname": "factor_direction",
+        "type": "character"
+      }
+    ]
+  },
   {
     "name": "10_pico_cat_results",
     "info_type": [
