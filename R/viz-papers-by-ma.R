@@ -51,6 +51,9 @@ build_papers_by_ma <- function(
     ) +
     scale_y_continuous(
       expand = expansion(mult = c(0, .1))
+    ) +
+    theme(
+      axis.line = element_line(linewidth = line_width/2)
     )
   
   return(p)
