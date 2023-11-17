@@ -11,6 +11,7 @@ library(glue)
 library(purrr)
 library(jsonlite)
 library(here)
+library(paletteer)
 library(lubridate)
 
 # functions -----------------------------------------------------
