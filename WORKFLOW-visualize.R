@@ -14,6 +14,7 @@ library(paletteer)
 library(grid)
 library(gtable)
 library(gridtext)
+library(lubridate)
 
 # Functions -----------------------------------------------------
 
@@ -54,7 +55,13 @@ screening <-
   mutate(year)
 
 screening_dates <-
-  read_csv("data/output/03-search-dates.csv")
+  read_csv("data/output/03-search-dates.csv") %>% 
+  mutate(
+    across(
+      date_of_search,
+      lubridate::as_date
+    )
+  )
 
 ma_list <- 
   read_csv(

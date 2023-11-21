@@ -1,41 +1,45 @@
 build_p_screening_by_year <- function(
     screening,
     screening_dates,
-    text_scaler = .8
+    text_scaler = .8,
+    cutoff_year = 2004
 ) {
+  browser()
   screening_dates <-
     screening_dates %>%
-    mutate(date_of_search = date_of_search %>% {
-      case_when(
-        is.infinite(.) ~ NA,
-        TRUE ~ .
-      )
-    }) %>%
     arrange(date_of_search)
   
   screening <-
     screening %>%
     mutate(
       year = year %>% {
-        case_when(. <= 2004 ~ "< 2004",
-                  TRUE ~ as.character(.))
+        case_when(. <= cutoff_year ~ cutoff_year,
+                  TRUE ~ .)
       }
-    ) %>%
-    mutate(year = as.factor(year))
-  
-  p <- 
-    screening %>%
+    ) %>% 
+    count(fpid,  year) %>% 
     left_join(
       screening_dates,
       by = "fpid"
     ) %>% 
-    count(fpid, date_of_search, year) %>%
-    arrange(desc(date_of_search)) %>%
     mutate(
-      fpid = fpid %>%
-        paste(date_of_search, sep = " - ") %>%
-        as_factor()
-    ) %>%
+      is_year_of_search = case_when(
+        year(date_of_search) == year ~ TRUE,
+        TRUE ~ FALSE
+      )
+    ) %>% 
+    mutate(year = year %>% {
+      case_when(. <= cutoff_year ~ paste(cutoff_year, "or earlier"),
+                TRUE ~ as.character(.))
+    }) %>% 
+    arrange(year) %>% 
+    mutate(year = as_factor(year)) %>% 
+    arrange(date_of_search) %>% 
+    mutate(fpid = fpid %>% as_factor() %>% fct_rev()) %>% 
+    drop_na(n)
+  
+  p <-
+    screening %>%
     ggplot() +
     aes(x = year,
         y = fpid,
