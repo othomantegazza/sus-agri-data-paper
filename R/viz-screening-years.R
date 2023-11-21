@@ -5,6 +5,9 @@ build_p_screening_by_year <- function(
     cutoff_year = 2004,
     highlight_colour = "#e50de1"
 ) {
+  text_size_plot <- text_size_plot*text_scaler
+  base_size <- base_size*text_scaler
+  
   screening_dates <-
     screening_dates %>%
     arrange(date_of_search)

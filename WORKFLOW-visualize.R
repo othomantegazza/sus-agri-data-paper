@@ -133,7 +133,7 @@ jpeg(filename = "viz/p-screening-years.jpeg",
      height = a4_height/2, 
      units = unit_type,
      res = ppi)
-p_screening_by_year
+p_screening_by_year %>% grid.draw()
 dev.off()
 
 # |- Plot Screening Results -------------------------------------
