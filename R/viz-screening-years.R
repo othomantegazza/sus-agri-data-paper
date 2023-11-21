@@ -2,9 +2,9 @@ build_p_screening_by_year <- function(
     screening,
     screening_dates,
     text_scaler = .8,
-    cutoff_year = 2004
+    cutoff_year = 2004,
+    highlight_colour = "#e50de1"
 ) {
-  browser()
   screening_dates <-
     screening_dates %>%
     arrange(date_of_search)
@@ -36,7 +36,7 @@ build_p_screening_by_year <- function(
     mutate(year = as_factor(year)) %>% 
     arrange(date_of_search) %>% 
     mutate(fpid = fpid %>% as_factor() %>% fct_rev()) %>% 
-    drop_na(n)
+    drop_na(year)
   
   p <-
     screening %>%
@@ -44,7 +44,18 @@ build_p_screening_by_year <- function(
     aes(x = year,
         y = fpid,
         fill = n) +
-    geom_tile() +
+    geom_tile(
+      aes(colour = is_year_of_search),
+      size = .8,
+      show.legend = FALSE
+    ) +
+    scale_colour_manual(
+      values = c(
+        '#FFFFFF00',
+        highlight_colour
+      )
+    ) +
+    new_scale_color() +
     geom_text(
       aes(label = n,
           colour = case_when(

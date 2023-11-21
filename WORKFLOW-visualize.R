@@ -15,6 +15,7 @@ library(grid)
 library(gtable)
 library(gridtext)
 library(lubridate)
+library(ggnewscale)
 
 # Functions -----------------------------------------------------
 
