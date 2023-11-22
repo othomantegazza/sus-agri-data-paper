@@ -5,6 +5,7 @@ build_p_screening_by_year <- function(
     cutoff_year = 2004,
     highlight_colour = "#e50de1"
 ) {
+  # browser()
   text_size_plot <- text_size_plot*text_scaler
   base_size <- base_size*text_scaler
   
@@ -66,7 +67,7 @@ build_p_screening_by_year <- function(
             TRUE ~ 'black'
           )
       ),
-      size = text_size_plot*text_scaler,
+      size = text_size_plot,
       show.legend = FALSE
     ) +
     labs(
@@ -93,12 +94,12 @@ build_p_screening_by_year <- function(
       axis.line = element_blank(),
       axis.text.y = element_text(vjust = 0.5,
                                  colour = "black",
-                                 size = base_size*text_scaler),
+                                 size = base_size),
       axis.text.x.top = element_text(
-        angle = 90,
-        hjust = 0,
+        angle = 270,
+        hjust = 1,
         vjust = .5,
-        size = base_size*text_scaler
+        size = base_size
       ),
       axis.ticks = element_line(
         size = line_width*.2
@@ -110,7 +111,95 @@ build_p_screening_by_year <- function(
       )
     )
   
-  return(p)
+  p_minimal <- 
+    p %>% 
+    ggplotGrob() %>% 
+    gtable_filter(pattern = "panel|axis|background") %>% 
+    gtable_add_cols(
+      widths = unit(0.13, "null"),
+      pos = 4
+      ) 
+
+  p_table <-
+    screening %>% 
+    distinct(fpid, date_of_search) %>% 
+    ggplot() +
+    aes(x = 1,
+        y = fpid) +
+    geom_text(
+      aes(label = date_of_search),
+      size = text_size_plot,
+      hjust = 1,
+    ) +
+    scale_x_continuous(
+      limits = c(0, 1),
+      expand = expansion(0)
+    ) +
+    theme(panel.grid = element_blank())
+  
+  p_table_minimal <- 
+    p_table %>% 
+    ggplotGrob() %>% 
+    gtable_filter(pattern = "panel")
+  
+  p_table_grob <- 
+    p_table_minimal %>% 
+    .$grob %>% 
+    .[[1]]
+  
+  text_fpid <- 
+    textbox_grob(
+      text = "Farming Practice:",
+      x = 1,
+      y = 0,
+      hjust = 1,
+      halign = 1,
+      vjust = 0,
+      gp =gpar(
+        fontsize = base_size,
+        fontface = "italic"
+      )
+    )
+  
+  text_date <- 
+    textbox_grob(
+      text = "Search<br>Date:",
+      x = 1,
+      y = 0,
+      hjust = 1,
+      halign = 1,
+      vjust = 0,
+      gp =gpar(
+        fontsize = base_size,
+        fontface = "italic"
+      )
+    )
+  
+  text_year <- 
+    textbox_grob(
+      text = "Meta-analysis publication year",
+      x = 1,
+      hjust = 1,
+      halign = 1,
+      y = .55,
+      vjust = .5,
+      # valign = .4,
+      gp =gpar(
+        fontsize = base_size,
+        fontface = "italic"
+      )
+    )
+  
+  p_out <- 
+    p_minimal %>% 
+    gtable_add_grob(text_fpid, t = 6, l = 4) %>% 
+    gtable_add_grob(text_date, t = 6, l = 5) %>% 
+    gtable_add_grob(text_year, t = 6, l = 6) %>% 
+    gtable_add_grob(p_table_grob, t = 7, l = 5)
+  
+  # grid.draw(p_out)
+  
+  return(p_out)
 }
 
 
