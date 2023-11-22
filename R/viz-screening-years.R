@@ -5,9 +5,15 @@ build_p_screening_by_year <- function(
     cutoff_year = 2004,
     highlight_colour = "#e50de1"
 ) {
-  # browser()
+  browser()
   text_size_plot <- text_size_plot*text_scaler
   base_size <- base_size*text_scaler
+  scale_fill_in_use <- 
+    scale_fill_viridis_c(
+      direction = -1,
+      option = 'G',
+      na.value = '#00000000',
+    )
   
   screening_dates <-
     screening_dates %>%
@@ -41,13 +47,33 @@ build_p_screening_by_year <- function(
     arrange(date_of_search) %>% 
     mutate(fpid = fpid %>% as_factor() %>% fct_rev()) %>% 
     drop_na(year)
-  
+
   p <-
     screening %>%
     ggplot() +
     aes(x = year,
         y = fpid,
-        fill = n) +
+        fill = n)
+  
+  p_legend <- 
+    p + 
+    geom_tile() +
+    scale_fill_in_use +
+    labs(fill = "Number of Meta-analyses retrieved")
+  
+  p_legend <-
+    p_legend %>% 
+    ggplotGrob() %>% 
+    gtable_filter("guide") %>% 
+    .$grob %>% 
+    .[[1]] %>% 
+    gtable_filter("guide") %>% 
+    .$grob %>% 
+    .[[1]]
+  
+  
+  p <- 
+    p +
     geom_tile(
       aes(colour = is_year_of_search),
       size = .8,
@@ -80,11 +106,7 @@ build_p_screening_by_year <- function(
     scale_x_discrete(
       position = 'top'
     ) +
-    scale_fill_viridis_c(
-      direction = -1,
-      option = 'G',
-      na.value = '#00000000',
-    ) +
+    scale_fill_in_use +
     scale_colour_manual(
       values = c('white',
                  'black') %>%
@@ -195,9 +217,10 @@ build_p_screening_by_year <- function(
     gtable_add_grob(text_fpid, t = 6, l = 4) %>% 
     gtable_add_grob(text_date, t = 6, l = 5) %>% 
     gtable_add_grob(text_year, t = 6, l = 6) %>% 
-    gtable_add_grob(p_table_grob, t = 7, l = 5)
+    gtable_add_grob(p_table_grob, t = 7, l = 5) %>% 
+    gtable_add_grob(p_legend, t = 6, l = 4, z = 2)
   
-  # grid.draw(p_out)
+  grid.draw(p_out)
   
   return(p_out)
 }

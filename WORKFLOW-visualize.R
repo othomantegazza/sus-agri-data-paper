@@ -16,6 +16,7 @@ library(gtable)
 library(gridtext)
 library(lubridate)
 library(ggnewscale)
+library(cowplot)
 
 # Functions -----------------------------------------------------
 
