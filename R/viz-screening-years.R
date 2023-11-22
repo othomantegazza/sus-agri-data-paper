@@ -5,7 +5,7 @@ build_p_screening_by_year <- function(
     cutoff_year = 2004,
     highlight_colour = "#e50de1"
 ) {
-  browser()
+  # browser()
   text_size_plot <- text_size_plot*text_scaler
   base_size <- base_size*text_scaler
   scale_fill_in_use <- 
@@ -13,6 +13,12 @@ build_p_screening_by_year <- function(
       direction = -1,
       option = 'G',
       na.value = '#00000000',
+      guide = guide_colourbar(
+        direction = "horizontal",
+        title.position = "top",
+        barwidth = unit(5, "cm"),
+        barheight = unit(.3, "cm")
+      )
     )
   
   screening_dates <-
@@ -55,11 +61,17 @@ build_p_screening_by_year <- function(
         y = fpid,
         fill = n)
   
-  p_legend <- 
+  p_legend <-
     p + 
     geom_tile() +
     scale_fill_in_use +
-    labs(fill = "Number of Meta-analyses retrieved")
+    labs(fill = "Number of meta-analyses retrieved") +
+    theme(
+      legend.text = element_text(size = base_size),
+      legend.title = element_text(size = base_size,
+                                  vjust = 1),
+      legend.position = "top"
+    )
   
   p_legend <-
     p_legend %>% 
@@ -69,7 +81,8 @@ build_p_screening_by_year <- function(
     .[[1]] %>% 
     gtable_filter("guide") %>% 
     .$grob %>% 
-    .[[1]]
+    .[[1]] %>% 
+    gtable_filter("bar|label|ti") 
   
   
   p <- 
@@ -169,20 +182,47 @@ build_p_screening_by_year <- function(
     .$grob %>% 
     .[[1]]
   
-  text_fpid <- 
+  text_fpid <-  
     textbox_grob(
       text = "Farming Practice:",
-      x = 1,
-      y = 0,
-      hjust = 1,
+      height = unit(1, "npc"),
       halign = 1,
-      vjust = 0,
+      valign = 0,
       gp =gpar(
         fontsize = base_size,
         fontface = "italic"
+      ),
+      box_gp = gpar(
+        fill = "#FFFFFF00",
+        col = "#FFFFFF00"
       )
     )
   
+  p_legend_2 <-
+    gtable() %>%
+    gtable_add_rows(
+      heights = p_legend %>% gtable_height(),
+      pos = 1
+    ) %>% 
+    gtable_add_rows(
+      heights = unit(1, "null"),
+      pos = 2
+    ) %>% 
+    gtable_add_cols(
+      widths = unit(1, "null"),
+      pos = 1
+    ) %>% 
+    gtable_add_cols(
+      widths = p_legend %>% gtable_width(),
+      pos = 2
+    ) %>%
+    gtable_add_grob(
+      p_legend, t = 1, b = 1, l = 2, r = 2
+    ) %>% 
+    gtable_add_grob(
+      text_fpid, t = 2, b = 2, l = 2, r = 2
+    ) 
+
   text_date <- 
     textbox_grob(
       text = "Search<br>Date:",
@@ -205,7 +245,6 @@ build_p_screening_by_year <- function(
       halign = 1,
       y = .55,
       vjust = .5,
-      # valign = .4,
       gp =gpar(
         fontsize = base_size,
         fontface = "italic"
@@ -214,13 +253,14 @@ build_p_screening_by_year <- function(
   
   p_out <- 
     p_minimal %>% 
-    gtable_add_grob(text_fpid, t = 6, l = 4) %>% 
     gtable_add_grob(text_date, t = 6, l = 5) %>% 
     gtable_add_grob(text_year, t = 6, l = 6) %>% 
     gtable_add_grob(p_table_grob, t = 7, l = 5) %>% 
-    gtable_add_grob(p_legend, t = 6, l = 4, z = 2)
+    gtable_add_grob(p_legend_2, t = 6, l = 4, z = 2) 
+    
+    
   
-  grid.draw(p_out)
+  # grid.draw(p_out)
   
   return(p_out)
 }

@@ -131,7 +131,7 @@ p_screening_by_year <- build_p_screening_by_year(
 
 jpeg(filename = "viz/p-screening-years.jpeg", 
      width = a4_width, 
-     height = a4_height/2, 
+     height = a4_height*.6, 
      units = unit_type,
      res = ppi)
 p_screening_by_year %>% grid.draw()
