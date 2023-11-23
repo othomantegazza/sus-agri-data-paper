@@ -33,9 +33,9 @@ build_p_screening <- function(
   
   screening_levels <- 
     c(
-      'After Web Search',
-      'After Reading Abstract',
-      'After Reading Full Text'
+      'From WOS and or Scopus searches: retrieved ',
+      'After Reading Abstract: retained ',
+      'After Reading Full Text: retained '
     )
   
   status_by_fpid <- 
@@ -118,7 +118,9 @@ build_p_screening <- function(
     mutate(
       top_arrow = c(F, T, T),
       right_arrow = c(T, T, F),
-      top_text = top_arrow
+      top_text = top_arrow,
+      text_height = c(3, 2, 2),
+      text_widths = c(2.5, 1.7, 1.7) 
     )
   
   gp <- gpar(
@@ -132,10 +134,12 @@ build_p_screening <- function(
     top_arrow = T,
     right_arrow = T,
     top_text = T,
+    text_height = 2,
+    text_widths = 1.7,
     ...
   ) {
-    hs <- c(2, .2, 1, 2, .2)
-    ws <- c(1.7, 1, .2)
+    hs <- c(2, .2, 1, text_height, .2)
+    ws <- c(text_widths, 1, .2)
     
     diagr <- 
       gtable() %>% 
@@ -163,11 +167,12 @@ build_p_screening <- function(
       gtable_add_cols(
         widths = unit(ws[3], "cm")
       )
+    
     # bottom text
     btxt <- 
       textbox_grob(
         text = paste(
-          short_description, ': retained ', n, ' MAs', sep = ''
+          short_description, n, ' MAs', sep = ''
         ),
         x = unit(0, "npc"),
         y = unit(0, "npc"),
