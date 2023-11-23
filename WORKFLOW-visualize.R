@@ -87,41 +87,6 @@ pico_results <-
 
 # VIZ -----------------------------------------------------------
 
-
-# |- plot geographic coverage -----------------------------------
-
-p_geo <- 
-  build_p_geo(
-    pico_combinations, 
-    fill_color = fill_color
-  )
-
-jpeg(filename = "viz/p-geo.jpeg", 
-     width = a4_width/2, 
-     height = a4_height/2, 
-     units = unit_type,
-     res = ppi)
-grid.newpage(); p_geo %>% grid.draw()
-dev.off()
-
-# |- Prisma Statements for each FPID ----------------------------
-
-p_prisma <- 
-  build_p_prisma(
-    search_tab = search_tab, 
-    screening = screening
-  )
-
-pdf("viz/prisma.pdf",
-    width = a4_width*mm_to_in,
-    height = a4_height*mm_to_in)
-for(p in p_prisma) {
-  grid.newpage()
-  p %>% grid.draw()
-}
-dev.off()
-
-
 # |- plot papers screened by search and publ year ---------------
 
 p_screening_by_year <- build_p_screening_by_year(
@@ -154,7 +119,6 @@ grid.newpage()
 p_screening %>% grid.draw()
 dev.off()
 
-
 # |- plot papers by metanalyses -------------------------------
 
 p_papers_by_ma <- 
@@ -170,8 +134,23 @@ jpeg(filename = "viz/p-papers-by-ma.jpeg",
 grid.newpage(); p_papers_by_ma %>% grid.draw()
 dev.off()
 
+# |- plot geographic coverage -----------------------------------
 
-# plot pico overview --------------------------------------------
+p_geo <- 
+  build_p_geo(
+    pico_combinations, 
+    fill_color = fill_color
+  )
+
+jpeg(filename = "viz/p-geo.jpeg", 
+     width = a4_width/2, 
+     height = a4_height/2, 
+     units = unit_type,
+     res = ppi)
+grid.newpage(); p_geo %>% grid.draw()
+dev.off()
+
+# |- plot pico overview --------------------------------------------
 
 p_pico_overview <- 
   build_pico_overview(pico_results)
@@ -184,7 +163,7 @@ jpeg(filename = "viz/p-pico-overview.jpeg",
 grid.newpage(); p_pico_overview %>% grid.draw()
 dev.off()
 
-# plot pico overview by impact ---------------------------------
+# |- plot pico overview by impact ---------------------------------
 
 p_pico_impact_overview <- 
   build_pico_impact_overview(pico_results)
@@ -214,16 +193,22 @@ jpeg(filename = "viz/p-impacts-by-fpid.jpeg",
 grid.newpage(); p_impacts_fpid %>% grid.draw()
 dev.off()
 
+# |- Prisma Statements for each FPID ----------------------------
 
-p3 <- build_p3(ma_list,
-               cutoff_year = 2021)
+p_prisma <- 
+  build_p_prisma(
+    search_tab = search_tab, 
+    screening = screening
+  )
 
-jpeg(filename = "viz/p3.jpeg", 
-     height  = a4_height*.25, 
-     width = a4_width*.5, 
-     units = unit_type,
-     res = ppi)
-p3
+pdf("viz/prisma.pdf",
+    width = a4_width*mm_to_in,
+    height = a4_height*mm_to_in)
+for(p in p_prisma) {
+  grid.newpage()
+  p %>% grid.draw()
+}
 dev.off()
+
 
 # p4 <- build_p4(synthesis, pico_results)
