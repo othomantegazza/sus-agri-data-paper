@@ -119,6 +119,23 @@ grid.newpage()
 p_screening %>% grid.draw()
 dev.off()
 
+# |- plot year of selected papers ------------------------------
+
+p_selected_years <- 
+  build_selected_years(
+    ma_list,
+    screening_dates = screening_dates
+  )
+
+jpeg(filename = "viz/p-selected-years.jpeg", 
+     height  = a4_height*.3, 
+     width = a4_width*.5, 
+     units = unit_type,
+     res = ppi)
+p_selected_years
+dev.off()
+
+
 # |- plot papers by metanalyses -------------------------------
 
 p_papers_by_ma <- 

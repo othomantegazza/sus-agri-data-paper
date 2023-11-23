@@ -1,5 +1,15 @@
-build_p3 <- function(ma_list,
-                     cutoff_year = 2021) {
+build_selected_years <- function(
+    ma_list,
+    screening_dates
+) {
+  line_width <- line_width/2
+  
+  cutoff_year <- 
+    screening_dates %>% 
+    pull(date_of_search) %>% 
+    min(na.rm = T) %>% 
+    year()
+  
   ma_list <-  
     ma_list %>% 
     mutate(
@@ -17,9 +27,9 @@ build_p3 <- function(ma_list,
         linetype = ongoing) +
     geom_histogram(
       binwidth = 1,
-      fill = 'white',
+      fill = fill_color,
       colour = 'black',
-      size = line_width/2,
+      size = line_width,
     ) +
     scale_linetype_manual(
       values = c(
@@ -29,7 +39,8 @@ build_p3 <- function(ma_list,
     ) +
     labs(
       linetype = 'Collection status',
-      y = 'Number of MAs'
+      x = "Publication year",
+      y = 'Selected meta-analysis'
     ) +
     scale_x_continuous(
       expand = expansion(0)
