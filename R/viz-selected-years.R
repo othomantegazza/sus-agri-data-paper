@@ -1,9 +1,10 @@
 build_selected_years <- function(
     ma_list,
-    screening_dates
+    screening_dates,
+    text_shrink_plot = .8
 ) {
   line_width <- line_width/2
-  text_size_plot <- text_size_plot*.8
+  text_size_plot <- text_size_plot*text_shrink_plot
   
   cutoff_date <- 
     screening_dates %>% 
@@ -64,7 +65,7 @@ build_selected_years <- function(
       x = cutoff_position + 1.2,
       hjust = 0,
       size = text_size_plot,
-      lineheight = .8
+      lineheight = lineheight
     ) +
     annotate(
       geom = "text",

@@ -17,6 +17,7 @@ library(gridtext)
 library(lubridate)
 library(ggnewscale)
 library(cowplot)
+library(santoku)
 
 # Functions -----------------------------------------------------
 
@@ -136,7 +137,7 @@ p_selected_years
 dev.off()
 
 
-# |- plot papers by metanalyses -------------------------------
+# |- plot papers by meta analyses -------------------------------
 
 p_papers_by_ma <- 
   build_papers_by_ma(
@@ -144,11 +145,11 @@ p_papers_by_ma <-
   )
 
 jpeg(filename = "viz/p-papers-by-ma.jpeg", 
-     height  = a4_height*.25, 
+     height  = a4_height*.3, 
      width = a4_width*.5, 
      units = unit_type,
      res = ppi)
-grid.newpage(); p_papers_by_ma %>% grid.draw()
+p_papers_by_ma
 dev.off()
 
 # |- plot geographic coverage -----------------------------------

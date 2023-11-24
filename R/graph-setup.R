@@ -16,6 +16,7 @@ colour_base <- '#3982a4'
 size_scale <- 2.8455
 text_size_plot <- base_size/size_scale
 ppi <- 300
+lineheight <- .8
 
 theme_set(
   theme_minimal(
