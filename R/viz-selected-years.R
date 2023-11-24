@@ -15,23 +15,12 @@ build_selected_years <- function(
     ((cutoff_date %>% ceiling_date(unit = "years") - 1) %>% yday()) 
   
   cutoff_position <- cutoff_position + year(cutoff_date)
-  
-  # ma_list <-  
-  #   ma_list %>% 
-  #   mutate(
-  #     ongoing = if_else(
-  #       condition = year >= cutoff_year,
-  #       true = 'ongoing',
-  #       false = 'done'
-  #     )
-  #   )
-  
+
   p <-
     ma_list %>% 
     ggplot() +
     aes(
       x = year,
-      # linetype = ongoing
     ) +
     geom_histogram(
       binwidth = 1,
@@ -93,12 +82,6 @@ build_selected_years <- function(
       hjust = 1,
       size = text_size_plot
     ) +
-    # scale_linetype_manual(
-    #   values = c(
-    #     done = 'solid',
-    #     ongoing = '22'
-    #   )
-    # ) +
     labs(
       linetype = 'Collection status',
       x = "Publication year",
