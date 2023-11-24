@@ -13,7 +13,8 @@ build_p_geo <- function(pico_combinations,
     mutate(
       geo_coverage = geo_coverage %>% str_trim()
     ) %>% 
-    count(geo_coverage, sort = T)
+    count(geo_coverage, sort = T) %>% 
+    mutate(geo_coverage = geo_coverage %>% str_to_title())
   
   p <- 
     geo %>% 
@@ -35,7 +36,7 @@ build_p_geo <- function(pico_combinations,
       expand = expansion(mult = c(0, x_expansion)),
       position = "top"
     ) +
-    labs(x = "Papers [n]",
+    labs(x = "Selected meta-analyses",
          y = "Geographical Coverage") +
     theme(
       axis.line.x = element_blank(),

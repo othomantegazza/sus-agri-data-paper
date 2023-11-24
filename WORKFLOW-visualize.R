@@ -161,8 +161,8 @@ p_geo <-
   )
 
 jpeg(filename = "viz/p-geo.jpeg", 
-     width = a4_width/2, 
-     height = a4_height/2, 
+     width = a4_width*.5, 
+     height = a4_height*.6, 
      units = unit_type,
      res = ppi)
 grid.newpage(); p_geo %>% grid.draw()
