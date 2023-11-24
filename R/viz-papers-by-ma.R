@@ -1,6 +1,6 @@
 build_papers_by_ma <- function(
     synthesis,
-    papers_by_metanalysis_binwidth = 20,
+    papers_by_metanalysis_binwidth = 30,
     text_shrink_plot = .8
 ) {
   line_width <- line_width/2
@@ -41,7 +41,7 @@ build_papers_by_ma <- function(
       colour = "black",
       size = text_size_plot,
       hjust = 0,
-      vjust = .5,
+      vjust = 0,
       label = glue(' ←')
     ) +
     annotate(
