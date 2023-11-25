@@ -5,7 +5,9 @@ build_p_screening_by_year <- function(
     cutoff_year = 2004,
     highlight_colour = "#e50de1"
 ) {
-  # browser()
+  
+
+  # define scales and vars ----------------------------------------
   text_size_plot <- text_size_plot*text_scaler
   base_size <- base_size*text_scaler
   scale_fill_in_use <- 
@@ -21,6 +23,8 @@ build_p_screening_by_year <- function(
       )
     )
   
+
+  # prepare data -----------------------------------------------------
   screening_dates <-
     screening_dates %>%
     arrange(date_of_search)
@@ -54,13 +58,16 @@ build_p_screening_by_year <- function(
     mutate(fpid = fpid %>% as_factor() %>% fct_rev()) %>% 
     drop_na(year)
 
+
+  # define base plot ----------------------------------------
   p <-
     screening %>%
     ggplot() +
     aes(x = year,
         y = fpid,
         fill = n)
-  
+ 
+  # legend guide --------------------------------------------------
   p_legend <-
     p + 
     geom_tile() +
@@ -84,7 +91,7 @@ build_p_screening_by_year <- function(
     .[[1]] %>% 
     gtable_filter("bar|label|ti") 
   
-  
+  # main plot -----------------------------------------------------
   p <- 
     p +
     geom_tile(
@@ -146,6 +153,8 @@ build_p_screening_by_year <- function(
       )
     )
   
+
+  # extract essential gtable from main ----------------------------
   p_minimal <- 
     p %>% 
     ggplotGrob() %>% 
@@ -155,6 +164,8 @@ build_p_screening_by_year <- function(
       pos = 4
       ) 
 
+
+  # define table --------------------------------------------------
   p_table <-
     screening %>% 
     distinct(fpid, date_of_search) %>% 
@@ -182,6 +193,8 @@ build_p_screening_by_year <- function(
     .$grob %>% 
     .[[1]]
   
+
+  # text labels ---------------------------------------------------
   text_fpid <-  
     textbox_grob(
       text = "Farming Practice:",
@@ -251,16 +264,14 @@ build_p_screening_by_year <- function(
       )
     )
   
+
+  # put everything ------------------------------------------------
   p_out <- 
     p_minimal %>% 
     gtable_add_grob(text_date, t = 6, l = 5) %>% 
     gtable_add_grob(text_year, t = 6, l = 6) %>% 
     gtable_add_grob(p_table_grob, t = 7, l = 5) %>% 
     gtable_add_grob(p_legend_2, t = 6, l = 4, z = 2) 
-    
-    
-  
-  # grid.draw(p_out)
   
   return(p_out)
 }
