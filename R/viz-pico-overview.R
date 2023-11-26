@@ -9,8 +9,14 @@ build_pico_overview <- function(
     ylab = "Farming Practice",
     sizelab = "Unique Metrics Extracted [n]"
 ) {
-  # browser()
+  browser()
+  
+  # Setup ---------------------------------------------------------
+  
   line_width <- line_width / 2
+
+  # Count pairwise comparisons ---------------------------------
+
   pairwise_comparisons <- 
     pico_results %>% 
     distinct(
@@ -24,12 +30,20 @@ build_pico_overview <- function(
     ) %>% 
     rename(n_pairwise_comparisons = n) 
   
+  # Count metrics --------------------------------------------------
+  
   metrics <- 
     pico_results %>% 
     distinct(fpid, metric_std) %>% 
     count(fpid, sort = T) %>% 
     rename(n_metrics = n)
 
+  # Count experiments ---------------------------------------------
+  
+  
+  
+  # Draft main plot -------------------------------------------------
+  
   p <-
     pairwise_comparisons %>% 
     left_join(metrics) %>% 
@@ -62,6 +76,8 @@ build_pico_overview <- function(
     theme(axis.line.x = element_blank(),
           axis.line.y = element_blank())
   
+  # extract legend and plot grob ----------------------------------
+  
   size_guide <- 
     p %>% 
     get_legend()
@@ -72,6 +88,8 @@ build_pico_overview <- function(
     gtable_filter(pattern = "panel|axis|xlab-t")
   
   p_grob %>% gtable_show_layout()
+  
+  # put it all together -------------------------------------------
   
   p_out <- 
     p_grob %>% 
