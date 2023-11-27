@@ -7,7 +7,7 @@ build_pico_overview <- function(
     xlab = "Unique intervention-comparator pairs extracted",
     ylab = "Farming Practice extracted",
     table_lab = "Results of statistical tests extracted",
-    sizelab = "Unique outcome metrics"
+    sizelab = "Unique outcome metrics extracted:"
 ) {
   # browser()
   # Setup ---------------------------------------------------------
@@ -106,7 +106,8 @@ build_pico_overview <- function(
     geom_point(
       aes(size = n_metrics),
       shape = 21,
-      fill = "#FFFFFF00"
+      # fill = "#FFFFFF00",
+      fill = alpha(fill_color, .7)
     ) +
     geom_point(
       size = .5,
@@ -136,10 +137,11 @@ build_pico_overview <- function(
         face = "italic",
         hjust = 1
       ),
-      axis.ticks.x.top = element_line(
-        linewidth = line_width/2
-      ),
-      axis.text.x.top = element_text(hjust = 0),
+      # axis.ticks.x.top = element_line(
+      #   linewidth = line_width/2
+      # ),
+      axis.ticks.x.top = element_blank(),
+      # axis.text.x.top = element_text(hjust = 0),
       legend.background = element_rect(
         colour = "white",
         fill = "white"
@@ -194,8 +196,8 @@ build_pico_overview <- function(
       l = 2
     ) 
 
-  size_table %>% gtable_show_layout()
-  size_table %>% grid.draw()
+  # size_table %>% gtable_show_layout()
+  # size_table %>% grid.draw()
   
   # extract plot grob ---------------------------------------------
 
@@ -282,8 +284,8 @@ build_pico_overview <- function(
     )
     
   
-  p_out %>% gtable_show_layout()
-  p_out %>% grid.draw()
+  # p_out %>% gtable_show_layout()
+  # p_out %>% grid.draw()
   
   return(p_out)  
 }
