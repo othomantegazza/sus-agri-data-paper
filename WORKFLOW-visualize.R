@@ -128,7 +128,7 @@ p_selected_years <-
     screening_dates = screening_dates
   )
 
-jpeg(filename = "viz/p-selected-years.jpeg", 
+jpeg(filename = "viz/p-selected-years.jpeg",
      height  = a4_height*.3, 
      width = a4_width*.5, 
      units = unit_type,
@@ -171,7 +171,9 @@ dev.off()
 # |- plot pico overview --------------------------------------------
 
 p_pico_overview <- 
-  build_pico_overview(pico_results)
+  build_pico_overview(
+    pico_results
+  )
 
 jpeg(filename = "viz/p-pico-overview.jpeg", 
      height  = a4_height*.6, 
@@ -184,7 +186,11 @@ dev.off()
 # |- plot pico overview by impact ---------------------------------
 
 p_pico_impact_overview <- 
-  build_pico_impact_overview(pico_results)
+  build_pico_overview(
+    pico_results,
+    id_col = impact_matrix,
+    ylab = "Impact category extracted"
+  )
 
 jpeg(filename = "viz/p-pico-impact-overview.jpeg", 
      height  = a4_height*.6, 

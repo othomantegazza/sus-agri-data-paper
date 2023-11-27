@@ -1,5 +1,6 @@
 build_pico_overview <- function(
     pico_results,
+    id_col = fpid,
     table_col_width = unit(2, "cm"),
     omargin = unit(.5, "cm"),
     labels_height = unit(2, "cm"),
@@ -7,10 +8,13 @@ build_pico_overview <- function(
     xlab = "Unique intervention-comparator pairs extracted",
     ylab = "Farming Practice extracted",
     table_lab = "Results of statistical tests extracted",
-    sizelab = "Unique outcome metrics extracted:"
+    sizelab = "Unique outcome metrics extracted:",
+    circle_alpha = .5
 ) {
   # browser()
   # Setup ---------------------------------------------------------
+  
+  id_col <- enquo(id_col)
   
   line_width <- line_width / 2
   scale_y_expansion <- 
@@ -27,12 +31,12 @@ build_pico_overview <- function(
   pairwise_comparisons <- 
     pico_results %>% 
     distinct(
-      fpid,
+      !!id_col,
       intervention_matrix,
       control_matrix
     ) %>% 
     count(
-      fpid,
+      !!id_col,
       sort = T
     ) %>% 
     rename(n_pairwise_comparisons = n) 
@@ -41,8 +45,8 @@ build_pico_overview <- function(
   
   metrics <- 
     pico_results %>% 
-    distinct(fpid, metric_std) %>% 
-    count(fpid, sort = T) %>% 
+    distinct(!!id_col, metric_std) %>% 
+    count(!!id_col, sort = T) %>% 
     rename(n_metrics = n)
   
   # Put data together ---------------------------------------------
@@ -50,17 +54,17 @@ build_pico_overview <- function(
   to_main_plot <- 
     pairwise_comparisons %>% 
     left_join(metrics) %>% 
-    mutate(fpid = fpid %>% as_factor() %>% fct_rev())
+    mutate({{id_col}} := !!id_col %>% as_factor() %>% fct_rev())
 
   # Count effects extracted ----------------------------------------
   
   effect_extracted <- 
     pico_results %>%
-    count(fpid) %>%
+    count(!!id_col) %>%
     rename(n_effects = n) %>% 
     mutate(
-      fpid = fpid %>% factor(
-        levels = levels(to_main_plot$fpid)
+      {{id_col}} := !!id_col %>% factor(
+        levels = levels(to_main_plot %>% pull(!!id_col))
       )
     )
   
@@ -70,7 +74,7 @@ build_pico_overview <- function(
     effect_extracted %>% 
     ggplot() +
     aes(x = 1,
-        y = fpid) +
+        y = !!id_col) +
     geom_label(
       aes(label = paste0(" ", n_effects)),
       size = text_size_plot,
@@ -101,13 +105,13 @@ build_pico_overview <- function(
   p <-
     to_main_plot %>% 
     ggplot() +
-    aes(y = fpid,
+    aes(y = !!id_col,
         x = n_pairwise_comparisons) +
     geom_point(
       aes(size = n_metrics),
       shape = 21,
       # fill = "#FFFFFF00",
-      fill = alpha(fill_color, .7)
+      fill = alpha(fill_color, circle_alpha)
     ) +
     geom_point(
       size = .5,
