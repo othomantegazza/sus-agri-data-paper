@@ -118,7 +118,11 @@ build_pico_overview <- function(
     labs(x = xlab,
          y = ylab,
          size = sizelab) +
-    scale_radius(range = c(0, 15)) +
+    scale_radius(range = c(0, 15),
+                 guide = guide_legend(
+                   direction = "horizontal",
+                   title.position = "top"
+                 )) +
     scale_x_continuous(
       limits = c(0, NA),
       expand = expansion(c(0, .1)),
@@ -135,7 +139,13 @@ build_pico_overview <- function(
       axis.ticks.x.top = element_line(
         linewidth = line_width/2
       ),
-      axis.text.x.top = element_text(hjust = 0)
+      axis.text.x.top = element_text(hjust = 0),
+      legend.background = element_rect(
+        colour = "white",
+        fill = "white"
+      ),
+      legend.text = element_text(face = "italic"),
+      legend.title = element_text(face = "italic")
     )
   
   # Extract legend ------------------------------------------------
