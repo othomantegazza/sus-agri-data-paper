@@ -1,20 +1,27 @@
-# add table 
-# add table 
-# add table 
 build_pico_overview <- function(
     pico_results,
-    table_col_width = unit(1, "cm"),
+    table_col_width = unit(2, "cm"),
     omargin = unit(.5, "cm"),
-    xlab = "Pairwise Comparisons Extracted [n]",
-    ylab = "Farming Practice",
-    sizelab = "Unique Metrics Extracted [n]"
+    labels_height = unit(2, "cm"),
+    spacer_width = unit(.1, "cm"),
+    xlab = "Unique intervention-comparator pairs extracted",
+    ylab = "Farming Practice extracted",
+    table_lab = "Results of statistical tests extracted",
+    sizelab = "Unique outcome metrics"
 ) {
+  # browser()
   # Setup ---------------------------------------------------------
   
   line_width <- line_width / 2
   scale_y_expansion <- 
     scale_y_discrete(expand = expansion(.03))
-
+  gp <- gpar(
+    fontsize = base_size,
+    fontface = "italic"
+  )
+  table_x_low <- 1
+  table_x_high <- 1.3
+  
   # Count pairwise comparisons ---------------------------------
 
   pairwise_comparisons <- 
@@ -73,10 +80,12 @@ build_pico_overview <- function(
       hjust = 0,
       
     ) +
-    geom_vline(xintercept = 1,
+    geom_vline(xintercept = table_x_low,
+               linewidth = line_width) +
+    geom_vline(xintercept = table_x_high,
                linewidth = line_width) +
     scale_x_continuous(
-      limits = c(1, 1.3),
+      limits = c(table_x_low, table_x_high),
       expand = expansion(0)
     ) +
     scale_y_expansion +
@@ -116,8 +125,16 @@ build_pico_overview <- function(
       position = "top"
     ) +
     scale_y_expansion +
-    theme(axis.line.x = element_blank(),
-          axis.line.y = element_blank())
+    theme(
+      axis.line.x = element_blank(),
+      axis.line.y = element_blank(),
+      axis.title.x.top = element_text(
+        face = "italic",
+        hjust = 1
+      ),
+      # axis.ticks.x.top = element_blank(),
+      axis.text.x.top = element_text(hjust = 0)
+    )
   
   # extract legend and plot grob ----------------------------------
   
@@ -128,18 +145,46 @@ build_pico_overview <- function(
   p_grob <- 
     p %>% 
     ggplotGrob() %>% 
-    gtable_filter(pattern = "panel|axis|xlab-t")
+    gtable_filter(pattern = "panel|axis")
   
   p_grob %>% gtable_show_layout()
+  
+
+  # text labels ---------------------------------------------------
+
+  make_text_label <- function(text) {
+    textbox_grob(
+      text = text,
+      x = unit(0, "npc"),
+      y = unit(0, "npc"),
+      width = unit(1, "npc"),
+      hjust = 0,
+      halign = .5,
+      vjust = 0,
+      gp = gp
+    )
+  }
+  
+  label_table <- make_text_label(table_lab)
+  xlab_grob <- make_text_label(xlab)
+  ylab_grob <- make_text_label(ylab)
+   
   
   # put it all together -------------------------------------------
   
   p_out <- 
     p_grob %>% 
+    # table
     gtable_add_cols(
       widths = table_col_width,
       pos = 1
     ) %>% 
+    # labels
+    gtable_add_rows(
+      heights = labels_height,
+      pos = 0
+    ) %>% 
+    # padding
     gtable_add_cols(
       widths = omargin,
       pos = 0
@@ -156,10 +201,28 @@ build_pico_overview <- function(
       heights = omargin,
       pos = -1
     ) %>% 
+    # spacers
+    gtable_add_cols(
+      widths = spacer_width,
+      pos = 2
+    ) %>% 
+    gtable_add_cols(
+      widths = spacer_width,
+      pos = 4
+    ) %>% 
+    # grobs
     gtable_add_grob(
       grobs = p_table,
-      t = 4, l = 3
+      t = 4, l = 4,
+      name = "p_table"
+    ) %>%
+    gtable_add_grob(
+      grobs = list(ylab_grob, label_table, xlab_grob),
+      t = c(2, 2, 2), 
+      l = c(2, 4, 6),
+      name = "label_table"
     )
+    
   
   p_out %>% gtable_show_layout()
   p_out %>% grid.draw()
