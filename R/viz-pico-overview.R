@@ -132,24 +132,68 @@ build_pico_overview <- function(
         face = "italic",
         hjust = 1
       ),
-      # axis.ticks.x.top = element_blank(),
+      axis.ticks.x.top = element_line(
+        linewidth = line_width/2
+      ),
       axis.text.x.top = element_text(hjust = 0)
     )
   
-  # extract legend and plot grob ----------------------------------
+  # Extract legend ------------------------------------------------
+  
+  # black_square <- rectGrob(
+  #   gp = gpar(fill = "black")
+  # )
   
   size_guide <- 
     p %>% 
-    get_legend()
+    get_legend() %>% 
+    gtable_filter("guides") %>% 
+    .$grob %>% 
+    .[[1]]
+    
   
+  
+  size_table <- 
+    gtable() %>% 
+    gtable_add_cols(
+      widths = unit(1, "null"),
+      pos = 0
+    ) %>% 
+    gtable_add_rows(
+      heights = unit(1, "null"),
+      pos = 0
+    ) %>% 
+    gtable_add_cols(
+      widths = gtable_width(size_guide),
+      pos = 1
+    ) %>% 
+    gtable_add_rows(
+      heights = gtable_height(size_guide),
+      pos = 1
+    ) %>% 
+    # gtable_add_grob(
+    #   grobs = rectGrob(
+    #     gp = gpar(fill = "black")
+    #   ),
+    #   t = 1,
+    #   l = 1
+    # ) %>% 
+    gtable_add_grob(
+      grobs = size_guide,
+      t = 2,
+      l = 2
+    ) 
+
+  size_table %>% gtable_show_layout()
+  size_table %>% grid.draw()
+  
+  # extract plot grob ---------------------------------------------
+
   p_grob <- 
     p %>% 
     ggplotGrob() %>% 
     gtable_filter(pattern = "panel|axis")
   
-  p_grob %>% gtable_show_layout()
-  
-
   # text labels ---------------------------------------------------
 
   make_text_label <- function(text) {
@@ -168,7 +212,6 @@ build_pico_overview <- function(
   label_table <- make_text_label(table_lab)
   xlab_grob <- make_text_label(xlab)
   ylab_grob <- make_text_label(ylab)
-   
   
   # put it all together -------------------------------------------
   
@@ -221,6 +264,11 @@ build_pico_overview <- function(
       t = c(2, 2, 2), 
       l = c(2, 4, 6),
       name = "label_table"
+    ) %>% 
+    gtable_add_grob(
+      grobs = size_table,
+      t = 4, l = 6,
+      name = "size_guide"
     )
     
   
