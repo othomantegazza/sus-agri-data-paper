@@ -86,6 +86,13 @@ pico_results <-
     'data/output/imap/10_pico_cat_results.csv'
   )
 
+review_log <- 
+  read_excel(
+    "data/iMAP FP spreadsheets LOG FILE.xlsx"
+  ) %>% 
+  clean_names() %>% 
+  rename(fpid = farming_practice)
+
 # VIZ -----------------------------------------------------------
 
 # |- plot papers screened by search and publ year ---------------
@@ -217,6 +224,15 @@ jpeg(filename = "viz/p-impacts-by-fpid.jpeg",
 grid.newpage(); p_impacts_fpid %>% grid.draw()
 dev.off()
 
+
+# |- plot review log --------------------------------------------
+
+p_review_log <- 
+  build_p_review_log(
+    review_log
+  ) 
+
+
 # |- Prisma Statements for each FPID ----------------------------
 
 p_prisma <- 
@@ -234,5 +250,3 @@ for(p in p_prisma) {
 }
 dev.off()
 
-
-# p4 <- build_p4(synthesis, pico_results)
