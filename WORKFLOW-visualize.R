@@ -229,7 +229,8 @@ dev.off()
 
 p_review_log <- 
   build_p_review_log(
-    review_log
+    review_log = review_log, 
+    search_tab = search_tab 
   ) 
 
 
