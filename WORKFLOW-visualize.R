@@ -233,6 +233,13 @@ p_review_log <-
     search_tab = search_tab 
   ) 
 
+jpeg(filename = "viz/p-review-log.jpeg", 
+     height  = a4_height*.6, 
+     width = a4_width*.75, 
+     units = unit_type,
+     res = ppi)
+grid.newpage(); p_review_log %>% grid.draw()
+dev.off()
 
 # |- Prisma Statements for each FPID ----------------------------
 

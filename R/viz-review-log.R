@@ -43,8 +43,9 @@ build_p_review_log <- function(
           )
         }
     ) %>% 
-    mutate(
-      section_of_dataset = section_of_dataset %>% 
+    #count(fpid) %>% filter(fpid %>% str_detect("ammonia")) #%>% pull(fpid) #%>% {.[1] == .[2]}
+      mutate(
+        section_of_dataset = section_of_dataset %>% 
         {
           case_when(. == "All sections" ~ all_sections,
                     TRUE ~ .)
@@ -59,11 +60,11 @@ build_p_review_log <- function(
       section_of_dataset = section_of_dataset %>% 
         as_factor()
       ) %>% 
-    count(fpid, section_of_dataset)
+    count(fpid, section_of_dataset) 
   
-  
-  review_log %>% 
-    ggplot() + 
+  p <- 
+    review_log %>%
+    ggplot() +
     aes(x = section_of_dataset,
         y = fpid,
         fill = n) +
@@ -114,4 +115,6 @@ build_p_review_log <- function(
         linetype = '11'
       )
     )
+  
+  return(p)
 }
