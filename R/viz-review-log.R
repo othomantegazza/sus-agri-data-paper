@@ -3,8 +3,6 @@ build_p_review_log <- function(
     search_tab
     ) 
 {
-  browser()
-  
   all_sections <- 
     paste("Section", rep(1:10)) %>% 
     paste(collapse = ", ") 
