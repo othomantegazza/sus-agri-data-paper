@@ -1,7 +1,8 @@
 build_selected_years <- function(
     ma_list,
     screening_dates,
-    text_shrink_plot = .8
+    text_shrink_plot = .8,
+    lab_y = 'Selected meta-analyses'
 ) {
   line_width <- line_width/2
   text_size_plot <- text_size_plot*text_shrink_plot
@@ -86,7 +87,7 @@ build_selected_years <- function(
     labs(
       linetype = 'Collection status',
       x = "Publication year",
-      y = 'Selected meta-analysis'
+      y = lab_y
     ) +
     scale_x_continuous(
       expand = expansion(mult = c(0, .1))

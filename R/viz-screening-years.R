@@ -3,7 +3,8 @@ build_p_screening_by_year <- function(
     screening_dates,
     text_scaler = .8,
     cutoff_year = 2004,
-    highlight_colour = "#e50de1"
+    highlight_colour = "#e50de1",
+    lab_y = "Farming practice categories:"
 ) {
   
 
@@ -197,7 +198,7 @@ build_p_screening_by_year <- function(
   # text labels ---------------------------------------------------
   text_fpid <-  
     textbox_grob(
-      text = "Farming Practice:",
+      text = lab_y,
       height = unit(1, "npc"),
       halign = 1,
       valign = 0,

@@ -1,7 +1,8 @@
 build_p_screening <- function(
     screening,
     fill_color = "white",
-    text_scaler = .9
+    text_scaler = .9,
+    lab_y = "Farming practice categories:  "
 )
 {
   text_size_plot <- text_size_plot*text_scaler
@@ -265,7 +266,27 @@ build_p_screening <- function(
   
   status_tables <- 
     statuses %>% pmap(make_diagram)
-
+  
+  # text labels ---------------------------------------------------
+  text_fpid <-  
+    textbox_grob(
+      text = lab_y,
+      height = unit(1, "npc"),
+      halign = 1,
+      valign = 0,
+      margin = unit(c(0, 1.5, 0, 0), "mm"),
+      gp =gpar(
+        fontsize = base_size,
+        fontface = "italic"
+      ),
+      box_gp = gpar(
+        fill = "#FFFFFF00",
+        col = "#FFFFFF00"
+      )
+    )
+  
+  # put everything together ---------------------------------------
+  
   p_screening_augmented <- 
     p_screening %>%
     ggplotGrob() %>% 
@@ -304,7 +325,12 @@ build_p_screening <- function(
       grobs = status_tables[[3]],
       t = 2,
       l = 7
-    ) 
+    ) %>% 
+    gtable_add_grob(
+      grobs = text_fpid,
+      t = 2, 
+      l = 2
+    )
 
   return(p_screening_augmented)
 }
