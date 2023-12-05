@@ -6,10 +6,11 @@ build_pico_overview <- function(
     labels_height = unit(2, "cm"),
     spacer_width = unit(.1, "cm"),
     xlab = "Unique intervention-comparator pairs extracted",
-    ylab = "Farming Practice extracted",
+    ylab = "Farming practice categories",
     table_lab = "Results of statistical tests extracted",
     sizelab = "Unique outcome metrics extracted:",
-    circle_alpha = .5
+    circle_alpha = .5,
+    split_at = NULL
 ) {
   # browser()
   # Setup ---------------------------------------------------------
@@ -27,7 +28,7 @@ build_pico_overview <- function(
   table_x_high <- 1.3
   
   # Count pairwise comparisons ---------------------------------
-
+  
   pairwise_comparisons <- 
     pico_results %>% 
     distinct(
@@ -40,6 +41,75 @@ build_pico_overview <- function(
       sort = T
     ) %>% 
     rename(n_pairwise_comparisons = n) 
+  
+  # additional split ----------------------------------------------
+  
+  if(! is.null(split_at)) {
+    pairwise_comparisons <- 
+      pairwise_comparisons %>% 
+      mutate(block = case_when(
+        str_detect(impact_matrix, split_at) ~ 1,
+        TRUE ~ 0
+      )) %>% 
+      arrange(block, desc(n_pairwise_comparisons))
+    
+    block_ratio <- 
+      pairwise_comparisons %>% 
+      pull(block) %>% 
+      sum() %>% 
+      { . / nrow(pairwise_comparisons)}
+    
+    # Side Sections -------------------------------------------------
+    
+    hl <- 
+      polylineGrob(
+        x = unit(c( 0, 1, .5, .5, 0, 1), "npc"),
+        y = unit(c(0, 0, 0, 1, 1, 1), "npc")
+      )
+    
+    make_group_text <- function(text) {
+      richtext_grob(
+        text = text,
+        rot = 90,
+        padding = unit(c(1,1,1,1), "mm"),
+        gp = gp,
+        box_gp = gpar(
+          fill = "white",
+          col = "white"
+        )
+      )
+    }
+    
+    group_0 <- make_group_text("Empirical studies")
+    
+    group_1 <- make_group_text("Modelling studies")
+    
+    separator_grob <- 
+      gtable() %>% 
+      gtable_add_cols(
+        widths = unit(1, "null")
+      ) %>% 
+      gtable_add_rows(
+        heights = unit(
+          c(
+            1 - block_ratio, 
+            block_ratio
+          ), 
+          "null")
+      ) %>% 
+      gtable_add_grob(
+        grobs = grobTree(hl, group_0),
+        t = 1, 
+        l = 1
+      ) %>% 
+      gtable_add_grob(
+        grobs = grobTree(hl, group_1),
+        t = 2, 
+        l = 1
+      ) 
+    # grid.newpage()
+    # separator_grob %>% grid.draw()
+  }
   
   # Count metrics --------------------------------------------------
   
@@ -55,7 +125,7 @@ build_pico_overview <- function(
     pairwise_comparisons %>% 
     left_join(metrics) %>% 
     mutate({{id_col}} := !!id_col %>% as_factor() %>% fct_rev())
-
+  
   # Count effects extracted ----------------------------------------
   
   effect_extracted <- 
@@ -166,8 +236,6 @@ build_pico_overview <- function(
     gtable_filter("guides") %>% 
     .$grob %>% 
     .[[1]]
-    
-  
   
   size_table <- 
     gtable() %>% 
@@ -199,19 +267,19 @@ build_pico_overview <- function(
       t = 2,
       l = 2
     ) 
-
+  
   # size_table %>% gtable_show_layout()
   # size_table %>% grid.draw()
   
   # extract plot grob ---------------------------------------------
-
+  
   p_grob <- 
     p %>% 
     ggplotGrob() %>% 
     gtable_filter(pattern = "panel|axis")
   
   # text labels ---------------------------------------------------
-
+  
   make_text_label <- function(text) {
     textbox_grob(
       text = text,
@@ -286,7 +354,26 @@ build_pico_overview <- function(
       t = 4, l = 6,
       name = "size_guide"
     )
-    
+  
+  
+  if(! is.null(split_at)) {
+    p_out <- 
+      p_out %>% 
+      gtable_add_cols(
+        widths = spacer_width*2,
+        pos = 1
+      ) %>% 
+      gtable_add_grob(
+        grobs = separator_grob,
+        t = 4,
+        l = 1
+      ) %>% 
+      gtable_add_cols(
+        widths = omargin,
+        pos = 0
+      ) 
+      
+  }  
   
   # p_out %>% gtable_show_layout()
   # p_out %>% grid.draw()

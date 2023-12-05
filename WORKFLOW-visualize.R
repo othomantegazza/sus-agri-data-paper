@@ -196,7 +196,8 @@ p_pico_impact_overview <-
   build_pico_overview(
     pico_results,
     id_col = impact_matrix,
-    ylab = "Impact category extracted"
+    ylab = "Impact categories",
+    split_at = "(LCA)"
   )
 
 jpeg(filename = "viz/p-pico-impact-overview.jpeg", 
