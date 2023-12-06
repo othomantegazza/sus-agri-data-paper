@@ -1,11 +1,45 @@
 build_p_review_log <- function(
     review_log, 
-    search_tab
+    search_tab,
+    lab_fill = "Values corrected",
+    lab_y = "Farming practice categories",
+    lab_x = "Data section ",
+    margin_size = unit(.5, "cm"),
+    text_scaler = .8,
+    fontface = "italic"
     ) 
 {
+
+  # setup ---------------------------------------------------------
+  
+  text_size_plot <- text_size_plot*text_scaler
+  base_size <- base_size*text_scaler
+  
+  scale_fill_in_use <- 
+    scale_fill_viridis_c(
+      direction = -1,
+      option = 'G',
+      na.value = '#00000000',
+      guide = guide_colourbar(
+        title.theme = element_text(
+          size = base_size,
+          face = fontface),
+        label.theme = element_text(
+          size = base_size),
+        direction = "horizontal",
+        title.position = "top",
+        barwidth = unit(5, "cm"),
+        barheight = unit(.2, "cm")
+      )
+    )
+  
+  # detect sections -----------------------------------------------
+  
   all_sections <- 
     paste("Section", rep(1:10)) %>% 
     paste(collapse = ", ") 
+
+  # fix farming practices -----------------------------------------
   
   review_log <-
     review_log %>% 
@@ -59,6 +93,8 @@ build_p_review_log <- function(
         as_factor()
       ) %>% 
     count(fpid, section_of_dataset) 
+
+  # define main plot ----------------------------------------------
   
   p <- 
     review_log %>%
@@ -79,10 +115,8 @@ build_p_review_log <- function(
     ) +
     labs(
       x = NULL,
-      y = NULL
-    ) +
-    guides(
-      fill = 'none'
+      y = NULL,
+      fill = lab_fill
     ) +
     scale_x_discrete(
       position = 'top'
@@ -114,5 +148,114 @@ build_p_review_log <- function(
       )
     )
   
-  return(p)
+  # extract sections ----------------------------------------------
+  
+  pgrob <- 
+    p %>% ggplotGrob()
+  
+  p_main <- 
+    pgrob %>% 
+    gtable_filter("panel|axis")
+  
+  p_colorguide <- 
+    pgrob %>% 
+    gtable_filter("guide") %>% 
+    .$grob %>% 
+    .[[1]] %>% 
+    gtable_filter("guide") %>% 
+    .$grob %>% 
+    .[[1]] %>% 
+    gtable_filter("bar|label|ti") 
+  
+  # grid.newpage()
+  # p_colorguide %>% grid.draw()
+  # p_main %>% grid.draw()
+  
+  # define labels -------------------------------------------------
+  
+  label_box_y <-  
+    textbox_grob(
+      text = lab_y,
+      height = unit(1, "npc"),
+      halign = 1,
+      valign = 0,
+      padding = unit(
+        c(0, .18, 0, 0),
+        "cm"
+      ),
+      gp =gpar(
+        fontsize = base_size,
+        fontface = fontface
+      ),
+      box_gp = gpar(
+        fill = "#FFFFFF00",
+        col = "#FFFFFF00"
+      )
+    )  
+  
+  y_and_colorguide <- 
+    grobTree(
+      p_colorguide,
+      label_box_y
+    )
+  
+  label_box_x <- 
+    textbox_grob(
+      text = lab_x,
+      height = unit(1, "npc"),
+      halign = 1,
+      valign = 0,
+      gp =gpar(
+        fontsize = base_size,
+        fontface = fontface
+      ),
+      box_gp = gpar(
+        fill = "#FFFFFF00",
+        col = "#FFFFFF00"
+      )
+    )  
+  
+  # put it all together -------------------------------------------
+  
+  p_out <- 
+    p_main %>% 
+    gtable_add_rows(
+      heights = margin_size,
+      pos = 0
+    ) %>% 
+    gtable_add_rows(
+      heights = margin_size,
+      pos = -1
+    ) %>% 
+    gtable_add_cols(
+      widths = margin_size,
+      pos = 0
+    ) %>% 
+    gtable_add_cols(
+      widths = margin_size,
+      pos = -1
+    ) %>% 
+    gtable_add_grob(
+      grobs = y_and_colorguide,
+      t = 2,
+      l = 2
+    ) %>% 
+    gtable_add_rows(
+      height = margin_size,
+      pos = 0
+    ) %>% 
+    gtable_add_grob(
+      grobs = label_box_x,
+      t = 2,
+      l = 3
+    ) 
+  
+  p_out %>% 
+    gtable_show_layout()
+  
+  
+  grid.newpage()
+  p_out %>% grid.draw()
+  
+  return(p_out)
 }

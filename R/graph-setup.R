@@ -45,15 +45,3 @@ theme_set(
     )
 )
 
-scale_fill_in_use <- 
-  scale_fill_viridis_c(
-    direction = -1,
-    option = 'G',
-    na.value = '#00000000',
-    guide = guide_colourbar(
-      direction = "horizontal",
-      title.position = "top",
-      barwidth = unit(5, "cm"),
-      barheight = unit(.3, "cm")
-    )
-  )
