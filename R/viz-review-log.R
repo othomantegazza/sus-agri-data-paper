@@ -9,6 +9,7 @@ build_p_review_log <- function(
     fontface = "italic"
     ) 
 {
+  browser()
 
   # setup ---------------------------------------------------------
   
@@ -193,11 +194,11 @@ build_p_review_log <- function(
       )
     )  
   
-  y_and_colorguide <- 
-    grobTree(
-      p_colorguide,
-      label_box_y
-    )
+  # y_and_colorguide <- 
+  #   grobTree(
+  #     p_colorguide,
+  #     label_box_y
+  #   )
   
   label_box_x <- 
     textbox_grob(
@@ -235,14 +236,19 @@ build_p_review_log <- function(
       widths = margin_size,
       pos = -1
     ) %>% 
-    gtable_add_grob(
-      grobs = y_and_colorguide,
-      t = 2,
-      l = 2
-    ) %>% 
     gtable_add_rows(
       height = margin_size,
       pos = 0
+    ) %>% 
+    gtable_add_grob(
+      grobs = p_colorguide,
+      t = 2,
+      l = 2
+    ) %>% 
+    gtable_add_grob(
+      grobs = label_box_y,
+      t = 3,
+      l = 2
     ) %>% 
     gtable_add_grob(
       grobs = label_box_x,
