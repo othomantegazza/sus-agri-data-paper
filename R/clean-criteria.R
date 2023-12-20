@@ -18,7 +18,7 @@ clean_criteria <- function(
     ) %>%
     as_tibble() %>% 
     rename(line_type = info_type) %>% 
-    filter(name == "03_search_criteria")
+    filter(name == "03_selection_criteria")
   
   # clean ---------------------------------------------------------
   
