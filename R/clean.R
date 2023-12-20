@@ -62,7 +62,7 @@ clean_imap <- function(
     extract_duplicated_rows(
       id_cols = unique_identifiers
     ) %>% 
-    write_csv(
+    write_excel_csv2(
       here(
         'data',
         'output',
@@ -135,7 +135,7 @@ clean_imap <- function(
         is.na(.)
       )
     ) %>% 
-    write_csv(
+    write_excel_csv2(
       here(
         'data',
         'output',
@@ -149,7 +149,7 @@ clean_imap <- function(
       pick(all_of(unique_identifiers)),
       .keep_all = T
       ) %>% 
-    write_csv(
+    write_excel_csv2(
       here(
         'data',
         'output',
