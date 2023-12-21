@@ -69,7 +69,6 @@ p4_basic <- function(synthesis,
 }
 
 build_p4 <- function(synthesis, pico_results) {
-  browser() 
   
   p_fpid <- 
     synthesis %>% 
