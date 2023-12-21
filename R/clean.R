@@ -71,6 +71,8 @@ clean_imap <- function(
       )
     )
   
+  # check expected types and perform basic conversions ------------
+  
   types_check <- 
     df %>% {
       tibble(
@@ -144,18 +146,28 @@ clean_imap <- function(
       )
     )
   
+ # write clean dataset -------------------------------------------
+  
   df_clean %>% 
     distinct(
       pick(all_of(unique_identifiers)),
       .keep_all = T
       ) %>% 
+    mutate(
+      across(
+          .cols = is.character,
+          .fns = ~str_replace_all(., "\r\n", " ") %>% 
+            stringi::stri_trans_general("latin-ascii")
+      )
+    ) %>% 
     write_excel_csv2(
       here(
         'data',
         'output',
         'imap',
         paste0(name, '.csv')
-      )
+      ),
+      escape = "backslash"
     )
   
   return(NULL)
