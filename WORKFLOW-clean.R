@@ -14,6 +14,16 @@ library(here)
 library(paletteer)
 library(lubridate)
 
+
+# data files ----------------------------------------------------
+
+definitions <- here('data/MerFPs_DefinitionFP_20231017.xlsx')
+searches <- here('data/MerFPs_Search_20231017.xlsx')
+criteria <- here('data/MerFPs_Criteria_20231017.xlsx')
+screening <- here('data/MerFPs_Screening_20231017.xlsx')
+metric_harmonized <- here('data/MerFPs_Impacts_20231004_metrics harmonisation.xlsx')
+impacts <- here("data/MerFPs_Impacts_20231017.xlsx")
+
 # functions -----------------------------------------------------
 
 list.files(
@@ -25,30 +35,30 @@ list.files(
 # clean all data ------------------------------------------------
 
 clean_identifiers(
-  'data/MerFPs_DefinitionFP_20231017.xlsx'
+  definitions
 )
 
 clean_search(
-  'data/MerFPs_Search_20231017.xlsx'
+  searches
 )
 
 clean_criteria(
-  'data/MerFPs_Criteria_20231017.xlsx'
+  criteria
 )
 
 clean_screening(
-  'data/MerFPs_Screening_20231017.xlsx'
+  screening
 )
 
 clean_extract_standard_metric(
-  df = 'data/MerFPs_Impacts_20231004_metrics harmonisation.xlsx',
+  df = metric_harmonized,
   sheet = 'harmonisation'
 )
 
 clean_extract_factors(
-  "data/MerFPs_Impacts_20231017.xlsx"
+  impacts
 )
 
 clean_impacts(
-  'data/MerFPs_Impacts_20231017.xlsx'
+  impacts
 )
