@@ -17,12 +17,20 @@ library(lubridate)
 
 # data files ----------------------------------------------------
 
-definitions <- here('data/MerFPs_DefinitionFP_20231017.xlsx')
-searches <- here('data/MerFPs_Search_20231017.xlsx')
-criteria <- here('data/MerFPs_Criteria_20231017.xlsx')
-screening <- here('data/MerFPs_Screening_20231017.xlsx')
+make_path <- function(type, dstamp) {
+  fname <- glue(type, dstamp, ".xlsx")
+  path <- here("data", fname)
+  return(path)
+}
+
+dstamp <- "20240122"
+
+definitions <- make_path('MerFPs_DefinitionFP_', dstamp)
+searches <- make_path('MerFPs_Search_', dstamp)
+criteria <- make_path('MerFPs_Criteria_', dstamp)
+screening <- make_path('MerFPs_Screening_', dstamp)
 metric_harmonized <- here('data/MerFPs_Impacts_20231004_metrics harmonisation.xlsx')
-impacts <- here("data/MerFPs_Impacts_20231017.xlsx")
+impacts <-  make_path('MerFPs_Impacts_', dstamp)
 
 # functions -----------------------------------------------------
 
