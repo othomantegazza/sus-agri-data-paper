@@ -9,7 +9,7 @@ build_p_review_log <- function(
     fontface = "italic"
     ) 
 {
-  browser()
+  # browser()
 
   # setup ---------------------------------------------------------
   
@@ -94,14 +94,24 @@ build_p_review_log <- function(
         as_factor()
       ) %>% 
     count(fpid, section_of_dataset) 
+  
+  
+  # order logs ----------------------------------------------------
 
+  fpid_order <- 
+    review_log %>% 
+    summarise(n = n %>% sum(na.rm = T), 
+              .by = fpid) %>% 
+    arrange(n) %>% 
+    pull(fpid)
+  
   # define main plot ----------------------------------------------
   
   p <- 
     review_log %>%
     ggplot() +
     aes(x = section_of_dataset,
-        y = fpid,
+        y = fpid %>% factor(levels = fpid_order),
         fill = n) +
     geom_tile() +
     geom_text(
@@ -260,8 +270,8 @@ build_p_review_log <- function(
     gtable_show_layout()
   
   
-  grid.newpage()
-  p_out %>% grid.draw()
+  # grid.newpage()
+  # p_out %>% grid.draw()
   
   return(p_out)
 }
