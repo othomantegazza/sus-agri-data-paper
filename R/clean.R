@@ -157,7 +157,8 @@ clean_imap <- function(
       across(
           .cols = is.character,
           .fns = ~str_replace_all(., "\r\n", " ") %>% 
-            stringi::stri_trans_general("latin-ascii")
+            stringi::stri_trans_general("latin-ascii") %>% 
+            str_replace_all(";", ",")
       )
     ) %>% 
     write_excel_csv2(

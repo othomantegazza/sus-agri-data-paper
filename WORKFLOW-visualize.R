@@ -27,6 +27,7 @@ list.files(
 ) %>% 
   walk(source)
 
+delim <- ";"
 
 # metadata ------------------------------------------------------
 
@@ -49,8 +50,9 @@ search_tab <-
   )
 
 screening <-   
-  read_csv(
-    'data/output/imap/04_screeening.csv'
+  read_delim(
+    'data/output/imap/04_screeening.csv',
+    delim = delim
   ) %>% 
   left_join(
     statuses
@@ -67,23 +69,28 @@ screening_dates <-
   )
 
 ma_list <- 
-  read_csv(
-    'data/output/imap/05_ma_list.csv'
+  read_delim(
+    'data/output/imap/05_ma_list.csv',
+    delim = delim
   )
 
 synthesis <- 
-  read_csv(
-    'data/output/imap/07_ma_synthesis.csv'
+  read_delim(
+    'data/output/imap/07_ma_synthesis.csv',
+    delim = delim,
+    quote = "\""
   )
 
 pico_combinations <- 
-  read_csv(
-    'data/output/imap/08_pico_combinations.csv'
+  read_delim(
+    'data/output/imap/08_pico_combinations.csv',
+    delim = delim
   )
 
 pico_results <- 
-  read_csv(
-    'data/output/imap/10_pico_cat_results.csv'
+  read_delim(
+    'data/output/imap/10_pico_cat_results.csv',
+    delim = delim
   )
 
 review_log <- 

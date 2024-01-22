@@ -70,3 +70,4 @@ clean_extract_factors(
 clean_impacts(
   impacts
 )
+
