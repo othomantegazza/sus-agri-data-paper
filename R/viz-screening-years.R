@@ -7,7 +7,8 @@ build_p_screening_by_year <- function(
     tile_stroke_size = .8,
     lab_y = "Farming practice categories:"
 ) {
-
+  
+  browser()
   # define scales and vars ----------------------------------------
   text_size_plot <- text_size_plot*text_scaler
   base_size <- base_size*text_scaler
@@ -133,6 +134,7 @@ build_p_screening_by_year <- function(
       )
     )
   
+  # p
  
   # legend guide --------------------------------------------------
   p_for_legend <-
@@ -157,22 +159,24 @@ build_p_screening_by_year <- function(
     gtable_filter("bar|label|ti") %>% 
     gtable_add_cols(widths = unit(1, "null"),
                     pos = 999)
-    
   
-  # grid.newpage()
-  # p_legend %>% gtable_show_layout()
-  # p_legend %>% grid.draw()
+  
+  grid.newpage(); p_legend_color %>% gtable_show_layout()
+  grid.newpage(); p_legend_color %>% grid.draw()
 
   # extract essential gtable from main ----------------------------
+  
   p_minimal <- 
     p %>% 
     ggplotGrob() %>% 
-    gtable_filter(pattern = "panel|axis|background") %>% 
+    gtable_filter(pattern = "panel|axis") %>% 
     gtable_add_cols(
       widths = unit(0.13, "null"),
-      pos = 4
+      pos = 1
       ) 
-
+  
+  grid.newpage(); p_minimal %>% gtable_show_layout()
+  grid.newpage(); p_minimal %>% grid.draw()
 
   # define table --------------------------------------------------
   p_table <-
@@ -323,10 +327,14 @@ build_p_screening_by_year <- function(
   # put everything ------------------------------------------------
   p_out <- 
     p_minimal %>% 
-    gtable_add_grob(text_date, t = 6, l = 5) %>% 
-    gtable_add_grob(text_year, t = 6, l = 6) %>% 
-    gtable_add_grob(p_table_grob, t = 7, l = 5) %>% 
-    gtable_add_grob(p_legend_all, t = 6, l = 4, z = 2) 
+    gtable_add_grob(text_date, t = 1, l = 2) %>% 
+    gtable_add_grob(text_year, t = 1, l = 3) %>% 
+    gtable_add_grob(p_table_grob, t = 2, l = 2) %>% 
+    gtable_add_grob(p_legend_all, t = 1, l = 1, z = 2) 
+  
+  grid.newpage(); p_minimal %>% gtable_show_layout()
+  grid.newpage(); p_minimal %>% grid.draw()
+  grid.newpage(); p_out %>% grid.draw()
   
   return(p_out)
 }
