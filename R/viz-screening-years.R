@@ -4,9 +4,9 @@ build_p_screening_by_year <- function(
     text_scaler = .8,
     cutoff_year = 2004,
     highlight_colour = "#e50de1",
+    tile_stroke_size = .8,
     lab_y = "Farming practice categories:"
 ) {
-  
 
   # define scales and vars ----------------------------------------
   text_size_plot <- text_size_plot*text_scaler
@@ -26,10 +26,13 @@ build_p_screening_by_year <- function(
   
 
   # prepare data -----------------------------------------------------
+  
+  # used to organize farming practice by year of search
   screening_dates <-
     screening_dates %>%
     arrange(date_of_search)
   
+  # farming practice dois counted by year
   screening <-
     screening %>%
     mutate(
@@ -61,44 +64,23 @@ build_p_screening_by_year <- function(
 
 
   # define base plot ----------------------------------------
+  
+  # no geoms yet
   p <-
     screening %>%
     ggplot() +
     aes(x = year,
         y = fpid,
         fill = n)
- 
-  # legend guide --------------------------------------------------
-  p_legend <-
-    p + 
-    geom_tile() +
-    scale_fill_in_use +
-    labs(fill = "Number of meta-analyses retrieved") +
-    theme(
-      legend.text = element_text(size = base_size),
-      legend.title = element_text(size = base_size,
-                                  vjust = 1),
-      legend.position = "top"
-    )
-  
-  p_legend <-
-    p_legend %>% 
-    ggplotGrob() %>% 
-    gtable_filter("guide") %>% 
-    .$grob %>% 
-    .[[1]] %>% 
-    gtable_filter("guide") %>% 
-    .$grob %>% 
-    .[[1]] %>% 
-    gtable_filter("bar|label|ti") 
   
   # main plot -----------------------------------------------------
+  
+  # add geom and most features
   p <- 
     p +
     geom_tile(
       aes(colour = is_year_of_search),
-      size = .8,
-      show.legend = FALSE
+      size = tile_stroke_size,
     ) +
     scale_colour_manual(
       values = c(
@@ -120,9 +102,6 @@ build_p_screening_by_year <- function(
     labs(
       x = NULL,
       y = NULL
-    ) +
-    guides(
-      fill = 'none'
     ) +
     scale_x_discrete(
       position = 'top'
@@ -154,6 +133,35 @@ build_p_screening_by_year <- function(
       )
     )
   
+ 
+  # legend guide --------------------------------------------------
+  p_for_legend <-
+    p + 
+    labs(fill = "Number of meta-analyses retrieved") +
+    theme(
+      legend.text = element_text(size = base_size),
+      legend.title = element_text(size = base_size,
+                                  vjust = 1),
+      legend.position = "top"
+    )
+  
+  p_legend_color <-
+    p_for_legend %>% 
+    ggplotGrob() %>% 
+    gtable_filter("guide") %>% 
+    .$grob %>% 
+    .[[1]] %>% 
+    gtable_filter("guide") %>% 
+    .$grob %>% 
+    .[[1]] %>% 
+    gtable_filter("bar|label|ti") %>% 
+    gtable_add_cols(widths = unit(1, "null"),
+                    pos = 999)
+    
+  
+  # grid.newpage()
+  # p_legend %>% gtable_show_layout()
+  # p_legend %>% grid.draw()
 
   # extract essential gtable from main ----------------------------
   p_minimal <- 
@@ -195,7 +203,8 @@ build_p_screening_by_year <- function(
     .[[1]]
   
 
-  # text labels ---------------------------------------------------
+  # text labels fpid ---------------------------------------------
+  
   text_fpid <-  
     textbox_grob(
       text = lab_y,
@@ -212,30 +221,76 @@ build_p_screening_by_year <- function(
       )
     )
   
-  p_legend_2 <-
+  # legend stroke color -------------------------------------------
+  
+  stroke_legend_square <- 
+    rectGrob(width = unit(base_size, "pt"),
+             height = unit(base_size, "pt"), 
+             gp = gpar(col = highlight_colour,
+                       lwd = tile_stroke_size*2))
+  
+  stroke_legend_text <- 
+    textbox_grob(
+      text = "Year in which search was performed",
+      height = unit(1, "npc"),
+      halign = 0,
+      valign = .5,
+      gp =gpar(
+        fontsize = base_size
+      ),
+      box_gp = gpar(
+        fill = "#FFFFFF00",
+        col = "#FFFFFF00"
+      )
+    )
+  
+  stroke_legend <- 
+    gtable(heights = unit(1, "null"),
+           widths = unit(1, "null")) %>% 
+    gtable_add_cols(widths = unit(1, "cm"), pos = 0) %>% 
+    gtable_add_grob(stroke_legend_square, t = 1, l = 1) %>% 
+    gtable_add_grob(stroke_legend_text, t = 1, l = 2)
+  
+  # grid.newpage(); stroke_legend %>% gtable_show_layout()
+  
+  # put upper left legend together --------------------------------
+  
+  p_legend_all <-
     gtable() %>%
     gtable_add_rows(
-      heights = p_legend %>% gtable_height(),
+      heights = p_legend_color %>% gtable_height(),
       pos = 1
     ) %>% 
     gtable_add_rows(
-      heights = unit(1, "null"),
+      heights = p_legend_color %>% gtable_height(),
       pos = 2
+    ) %>% 
+    gtable_add_rows(
+      heights = unit(1, "null"),
+      pos = 3
+    ) %>% 
+    gtable_add_rows(
+      heights = p_legend_color %>% gtable_height(),
+      pos = 3
     ) %>% 
     gtable_add_cols(
       widths = unit(1, "null"),
       pos = 1
     ) %>% 
-    gtable_add_cols(
-      widths = p_legend %>% gtable_width(),
-      pos = 2
-    ) %>%
     gtable_add_grob(
-      p_legend, t = 1, b = 1, l = 2, r = 2
+      p_legend_color, t = 1, l = 1
     ) %>% 
     gtable_add_grob(
-      text_fpid, t = 2, b = 2, l = 2, r = 2
+      stroke_legend, t = 2, l = 1
+    ) %>% 
+    gtable_add_grob(
+      text_fpid, t = 4, b = 4, l = 1
     ) 
+  
+  # grid.newpage(); p_legend_all %>% gtable_show_layout()
+  # grid.newpage(); p_legend_all %>% grid.draw()
+  
+  # additional upper facet texts ----------------------------------
 
   text_date <- 
     textbox_grob(
@@ -265,20 +320,16 @@ build_p_screening_by_year <- function(
       )
     )
   
-
   # put everything ------------------------------------------------
   p_out <- 
     p_minimal %>% 
     gtable_add_grob(text_date, t = 6, l = 5) %>% 
     gtable_add_grob(text_year, t = 6, l = 6) %>% 
     gtable_add_grob(p_table_grob, t = 7, l = 5) %>% 
-    gtable_add_grob(p_legend_2, t = 6, l = 4, z = 2) 
+    gtable_add_grob(p_legend_all, t = 6, l = 4, z = 2) 
   
   return(p_out)
 }
-
-
-
 
 # 
 # # viz -----------------------------------------------------------
