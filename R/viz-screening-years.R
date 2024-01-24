@@ -8,7 +8,6 @@ build_p_screening_by_year <- function(
     lab_y = "Farming practice categories:"
 ) {
   
-  browser()
   # define scales and vars ----------------------------------------
   text_size_plot <- text_size_plot*text_scaler
   base_size <- base_size*text_scaler
@@ -137,6 +136,7 @@ build_p_screening_by_year <- function(
   # p
  
   # legend guide --------------------------------------------------
+  
   p_for_legend <-
     p + 
     labs(fill = "Number of meta-analyses retrieved") +
@@ -161,8 +161,8 @@ build_p_screening_by_year <- function(
                     pos = 999)
   
   
-  grid.newpage(); p_legend_color %>% gtable_show_layout()
-  grid.newpage(); p_legend_color %>% grid.draw()
+  # grid.newpage(); p_legend_color %>% gtable_show_layout()
+  # grid.newpage(); p_legend_color %>% grid.draw()
 
   # extract essential gtable from main ----------------------------
   
@@ -175,8 +175,8 @@ build_p_screening_by_year <- function(
       pos = 1
       ) 
   
-  grid.newpage(); p_minimal %>% gtable_show_layout()
-  grid.newpage(); p_minimal %>% grid.draw()
+  # grid.newpage(); p_minimal %>% gtable_show_layout()
+  # grid.newpage(); p_minimal %>% grid.draw()
 
   # define table --------------------------------------------------
   p_table <-
@@ -231,14 +231,16 @@ build_p_screening_by_year <- function(
     rectGrob(width = unit(base_size, "pt"),
              height = unit(base_size, "pt"), 
              gp = gpar(col = highlight_colour,
-                       lwd = tile_stroke_size*2))
+                       lwd = tile_stroke_size*2.5))
+  
+  stroke_legend_text_lab <- "MA were searched in this year."
   
   stroke_legend_text <- 
     textbox_grob(
-      text = "Year in which search was performed",
-      height = unit(1, "npc"),
+      text = stroke_legend_text_lab,
+      # height = unit(1, "npc"),
       halign = 0,
-      valign = .5,
+      valign = 1,
       gp =gpar(
         fontsize = base_size
       ),
@@ -251,9 +253,15 @@ build_p_screening_by_year <- function(
   stroke_legend <- 
     gtable(heights = unit(1, "null"),
            widths = unit(1, "null")) %>% 
-    gtable_add_cols(widths = unit(1, "cm"), pos = 0) %>% 
+    gtable_add_cols(
+      widths = unit(
+        1, "grobwidth", data = stroke_legend_square
+      ) + unit(.2, "cm"),
+      pos = 0
+    ) %>% 
     gtable_add_grob(stroke_legend_square, t = 1, l = 1) %>% 
-    gtable_add_grob(stroke_legend_text, t = 1, l = 2)
+    gtable_add_grob(stroke_legend_text, t = 1, l = 2) %>% 
+    gtable_add_rows(heights = unit(.2, "cm"), pos = 0)
   
   # grid.newpage(); stroke_legend %>% gtable_show_layout()
   
@@ -266,7 +274,7 @@ build_p_screening_by_year <- function(
       pos = 1
     ) %>% 
     gtable_add_rows(
-      heights = p_legend_color %>% gtable_height(),
+      heights = unit(.7, "cm"),
       pos = 2
     ) %>% 
     gtable_add_rows(
@@ -274,7 +282,7 @@ build_p_screening_by_year <- function(
       pos = 3
     ) %>% 
     gtable_add_rows(
-      heights = p_legend_color %>% gtable_height(),
+      heights = unit(.7, "cm"),
       pos = 3
     ) %>% 
     gtable_add_cols(
@@ -325,16 +333,21 @@ build_p_screening_by_year <- function(
     )
   
   # put everything ------------------------------------------------
+  
+  p_minimal$heights[1] <- unit(2.5, "cm")
+  
   p_out <- 
     p_minimal %>% 
     gtable_add_grob(text_date, t = 1, l = 2) %>% 
     gtable_add_grob(text_year, t = 1, l = 3) %>% 
     gtable_add_grob(p_table_grob, t = 2, l = 2) %>% 
-    gtable_add_grob(p_legend_all, t = 1, l = 1, z = 2) 
+    gtable_add_grob(p_legend_all, t = 1, l = 1, z = 2) %>% 
+    gtable_add_padding(padding = unit(.2, "cm"))
   
-  grid.newpage(); p_minimal %>% gtable_show_layout()
-  grid.newpage(); p_minimal %>% grid.draw()
-  grid.newpage(); p_out %>% grid.draw()
+  
+  # grid.newpage(); p_minimal %>% gtable_show_layout()
+  # grid.newpage(); p_minimal %>% grid.draw()
+  # grid.newpage(); p_out %>% grid.draw()
   
   return(p_out)
 }
