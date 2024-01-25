@@ -140,31 +140,16 @@ p_selected_years <-
   build_selected_years(
     ma_list,
     screening_dates = screening_dates
-  )
-
-jpeg(filename = "viz/p-selected-years.jpeg",
-     height  = a4_height*.3, 
-     width = a4_width*.5, 
-     units = unit_type,
-     res = ppi)
-p_selected_years
-dev.off()
-
+  ) %>% 
+  strip_plot()
 
 # |- plot papers by meta analyses -------------------------------
 
 p_papers_by_ma <- 
   build_papers_by_ma(
     synthesis = synthesis
-  )
-
-jpeg(filename = "viz/p-papers-by-ma.jpeg", 
-     height  = a4_height*.3, 
-     width = a4_width*.5, 
-     units = unit_type,
-     res = ppi)
-p_papers_by_ma
-dev.off()
+  ) %>% 
+  strip_plot()
 
 # |- plot geographic coverage -----------------------------------
 
@@ -172,15 +157,55 @@ p_geo <-
   build_p_geo(
     pico_combinations, 
     fill_color = fill_color
-  )
+  ) %>% 
+  strip_plot()
 
-jpeg(filename = "viz/p-geo.jpeg", 
-     width = a4_width*.5, 
+# put together the three bar charts -----------------------------
+
+bars_inner <- 
+  gtable(
+    widths = unit(1, "null"),
+    heights = unit(c(1, 1), "null")
+  ) %>% 
+  gtable_add_grob(
+    p_selected_years, 
+    t = 1, l = 1
+  ) %>% 
+  gtable_add_grob(
+    p_papers_by_ma, 
+    t = 2, l = 1
+  ) %>% 
+  gtable_add_row_space(padding)
+
+# check_plot(bars_inner)
+
+bars_outer <- 
+  gtable(
+    widths = unit(c(1, 1), "null"),
+    heights = unit(1, "null")
+  ) %>% 
+  gtable_add_grob(
+    p_geo, 
+    t = 1, l = 1
+  ) %>% 
+  gtable_add_grob(
+    bars_inner, 
+    t = 1, l = 2
+  ) %>% 
+  gtable_add_col_space(width = padding) %>% 
+  gtable_add_padding(padding)
+  
+# check_plot(bars_outer)
+
+jpeg(filename = "viz/p-bars.jpeg", 
+     width = a4_width, 
      height = a4_height*.6, 
      units = unit_type,
      res = ppi)
-grid.newpage(); p_geo %>% grid.draw()
+grid.newpage(); bars_outer %>% grid.draw()
 dev.off()
+
+
 
 # |- plot pico overview --------------------------------------------
 

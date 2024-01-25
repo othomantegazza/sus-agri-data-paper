@@ -50,3 +50,9 @@ check_plot <- function(p) {
   grid.newpage(); gtable_show_layout(p)
   grid.newpage(); grid.draw(p)
 }
+
+strip_plot <- function(p) {
+  p %>% 
+    ggplotGrob() %>% 
+    gtable_filter("panel|axis|lab")
+}
