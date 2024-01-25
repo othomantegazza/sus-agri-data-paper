@@ -7,7 +7,7 @@ build_p_geo <- function(pico_combinations,
     distinct(doi, geo_coverage) %>% 
     select(geo_coverage) %>% 
     mutate(
-      geo_coverage = geo_coverage %>% str_split(pattern = ";")
+      geo_coverage = geo_coverage %>% str_split(pattern = ",")
     ) %>% 
     unnest(geo_coverage) %>%
     mutate(
