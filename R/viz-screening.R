@@ -1,10 +1,157 @@
+make_diagram <- function(
+    short_description,
+    n,
+    discarded,
+    top_arrow = T,
+    right_arrow = T,
+    top_text = T,
+    text_height = 2,
+    text_widths = 1.7,
+    ...
+) {
+  # layout --------------------------------------------------------
+  
+  gp <- gpar(
+    fontsize = base_size
+  )
+  
+  hs <- c(2, .2, 1, text_height)
+  ws <- c(text_widths, 1, .2)
+  
+  diagr <- 
+    gtable() %>% 
+    gtable_add_rows(
+      heights = unit(hs[1], "cm")
+    ) %>%
+    gtable_add_rows(
+      heights = unit(hs[2], "cm")
+    ) %>%
+    gtable_add_rows(
+      heights = unit(hs[3], "null")
+    ) %>%
+    gtable_add_rows(
+      heights = unit(hs[4], "cm")
+    ) %>%
+    gtable_add_cols(
+      widths = unit(ws[1], "cm")
+    ) %>%
+    gtable_add_cols(
+      widths = unit(ws[2], "null")
+    ) %>%
+    gtable_add_cols(
+      widths = unit(ws[3], "cm")
+    )
+  
+  # check_plot(diagr)
+  
+  # bottom text
+  btxt <- 
+    textbox_grob(
+      text = paste(
+        short_description, n, ' MAs', sep = ''
+      ),
+      x = unit(0, "npc"),
+      y = unit(0, "npc"),
+      width = unit(1, "npc"),
+      hjust = 0,
+      vjust = 0,
+      gp = gp
+    )
+  
+  diagr <- 
+    diagr %>% 
+    gtable_add_grob(
+      grobs = btxt,
+      t = 4,
+      l = 1
+    ) 
+  
+  # check_plot(diagr)
+  
+  if(top_text) {
+    ttxt <- 
+      textbox_grob(
+        text = ,paste(
+          'Discarded:', ' ', discarded, ' ', 'MAs', sep = ''
+        ),
+        x = unit(0, "npc"),
+        y = unit(0, "npc"),
+        width = unit(1, "npc"),
+        hjust = 0,
+        vjust = 0,
+        gp = gp,
+        box_gp = gpar(fill = "white",
+                      col = '#00000000')
+      )
+    
+    diagr <- 
+      diagr %>% 
+      gtable_add_grob(
+        grobs = ttxt,
+        t = 1,
+        l = 1
+      )
+  }
+  
+  if(right_arrow) {
+    harr <- 
+      linesGrob(
+        x = unit(c(0, 1), 'npc'),
+        y = unit(rep(base_size, 2), 'points'),
+        arrow = arrow(
+          length = unit(.2, 'cm'),
+          type = "open"
+        ),
+        gp = gpar(
+          lty = '11'
+        )
+      )
+    
+    diagr <- 
+      diagr %>% 
+      gtable_add_grob(
+        grobs = harr,
+        t = 4,
+        l = 2
+      )
+  }
+  
+  if(top_arrow) {  
+    varr <- 
+      linesGrob(
+        x = unit(rep(base_size, 2), 'points'),
+        y = unit(c(0, 1), 'npc'),
+        arrow = arrow(
+          length = unit(.2, 'cm'),
+          type = "open"
+        ),
+        gp = gpar(
+          lty = '11'
+        )
+      )
+    
+    diagr <- 
+      diagr %>% 
+      gtable_add_grob(
+        grobs = varr,
+        t = 3,
+        l = 1
+      )
+  }
+  return(diagr)
+}
+
 build_p_screening <- function(
     screening,
     fill_color = "white",
     text_scaler = .9,
-    lab_y = "Farming practice categories:  "
+    lab_y = "↓ Farming practice categories:"
 )
 {
+  # browser()
+  
+  # basic setup ---------------------------------------------------
+  
   text_size_plot <- text_size_plot*text_scaler
   base_size <- base_size*text_scaler
   
@@ -17,6 +164,8 @@ build_p_screening <- function(
   ) {
     warning("Dropping Papers with Missing status")
   }
+  
+  # prepare data --------------------------------------------------
   
   status_by_fpid <- 
     screening %>% 
@@ -43,13 +192,16 @@ build_p_screening <- function(
     status_by_fpid %>% 
     mutate(
       short_description = status %>% {
-        case_when(. == 'R' ~ screening_levels[1],
-                  . == 'O' ~ screening_levels[2],
-                  . == 'B' ~ screening_levels[3]
+        case_when(
+          . == 'R' ~ screening_levels[1],
+          . == 'O' ~ screening_levels[2],
+          . == 'B' ~ screening_levels[3]
         )
       } %>% 
         factor(levels = screening_levels)
     )
+  
+  # main plot -----------------------------------------------------
   
   p_screening <- 
     status_by_fpid %>% 
@@ -91,7 +243,7 @@ build_p_screening <- function(
       y = NULL
     ) +
     scale_x_continuous(
-      expand = expansion(add = c(0, 100)),
+      expand = expansion(add = c(0, 150)),
       limits = ~c(0, ifelse(.[2] > 150, .[2], 150))
     ) +
     theme(
@@ -106,6 +258,8 @@ build_p_screening <- function(
       panel.spacing = unit(0, 'mm'),
       strip.text = element_blank()
     )
+  
+  # collect statuses for top panel---------------------------------
   
   statuses <- 
     status_by_fpid %>% 
@@ -123,146 +277,6 @@ build_p_screening <- function(
       text_height = c(3, 2, 2),
       text_widths = c(2.5, 1.7, 1.7) 
     )
-  
-  gp <- gpar(
-    fontsize = base_size
-  )
-  
-  make_diagram <- function(
-    short_description,
-    n,
-    discarded,
-    top_arrow = T,
-    right_arrow = T,
-    top_text = T,
-    text_height = 2,
-    text_widths = 1.7,
-    ...
-  ) {
-    hs <- c(2, .2, 1, text_height, .2)
-    ws <- c(text_widths, 1, .2)
-    
-    diagr <- 
-      gtable() %>% 
-      gtable_add_rows(
-        heights = unit(hs[1], "cm")
-      ) %>%
-      gtable_add_rows(
-        heights = unit(hs[2], "cm")
-      ) %>%
-      gtable_add_rows(
-        heights = unit(hs[3], "null")
-      ) %>%
-      gtable_add_rows(
-        heights = unit(hs[4], "cm")
-      ) %>%
-      gtable_add_rows(
-        heights = unit(hs[5], "cm")
-      ) %>%
-      gtable_add_cols(
-        widths = unit(ws[1], "cm")
-      ) %>%
-      gtable_add_cols(
-        widths = unit(ws[2], "null")
-      ) %>%
-      gtable_add_cols(
-        widths = unit(ws[3], "cm")
-      )
-    
-    # bottom text
-    btxt <- 
-      textbox_grob(
-        text = paste(
-          short_description, n, ' MAs', sep = ''
-        ),
-        x = unit(0, "npc"),
-        y = unit(0, "npc"),
-        width = unit(1, "npc"),
-        hjust = 0,
-        vjust = 0,
-        gp = gp
-      )
-    
-    diagr <- 
-      diagr %>% 
-      gtable_add_grob(
-        grobs = btxt,
-        t = 4,
-        l = 1
-      ) 
-    
-    if(top_text) {
-      ttxt <- 
-        textbox_grob(
-          text = ,paste(
-            'Discarded:', ' ', discarded, ' ', 'MAs', sep = ''
-          ),
-          x = unit(0, "npc"),
-          y = unit(0, "npc"),
-          width = unit(1, "npc"),
-          hjust = 0,
-          vjust = 0,
-          gp = gp,
-          box_gp = gpar(fill = "white",
-                        col = '#00000000')
-        )
-      
-      diagr <- 
-        diagr %>% 
-        gtable_add_grob(
-          grobs = ttxt,
-          t = 1,
-          l = 1
-        )
-    }
-    
-    if(right_arrow) {
-      harr <- 
-        linesGrob(
-          x = unit(c(0, 1), 'npc'),
-          y = unit(rep(base_size, 2), 'points'),
-          arrow = arrow(
-            length = unit(.2, 'cm'),
-            type = "open"
-          ),
-          gp = gpar(
-            lty = '11'
-          )
-        )
-      
-      diagr <- 
-        diagr %>% 
-        gtable_add_grob(
-          grobs = harr,
-          t = 4,
-          l = 2
-        )
-    }
-    
-    if(top_arrow) {  
-      varr <- 
-        linesGrob(
-          x = unit(rep(base_size, 2), 'points'),
-          y = unit(c(0, 1), 'npc'),
-          arrow = arrow(
-            length = unit(.2, 'cm'),
-            type = "open"
-          ),
-          gp = gpar(
-            lty = '11'
-          )
-        )
-      
-      diagr <- 
-        diagr %>% 
-        gtable_add_grob(
-          grobs = varr,
-          t = 3,
-          l = 1
-        )
-    }
-    return(diagr)
-  }
   
   status_tables <- 
     statuses %>% pmap(make_diagram)
@@ -295,42 +309,32 @@ build_p_screening <- function(
       pattern = c('panel|axis-l-1')
     ) %>% 
     # add padding
-    gtable_add_cols(
-      widths = unit(.2, 'cm'),
-      pos = 0
-    ) %>% 
-    gtable_add_cols(
-      widths = unit(.5, 'cm')
-    ) %>% 
-    gtable_add_rows(
-      heights = unit(.5, 'cm'),
-      pos = 0
-    ) %>% 
-    gtable_add_rows(
-      heights = unit(.5, 'cm')
-    )  %>% 
     gtable_add_rows(
       heights = unit(5.5, "cm"),
-      pos = 1
+      pos = 0
     ) %>% 
     gtable_add_grob(
       grobs = status_tables[[1]],
-      t = 2,
-      l = 3
+      t = 1,
+      l = 2
     ) %>% gtable_add_grob(
       grobs = status_tables[[2]],
-      t = 2,
-      l = 5
+      t = 1,
+      l = 4
     ) %>% gtable_add_grob(
       grobs = status_tables[[3]],
-      t = 2,
-      l = 7
+      t = 1,
+      l = 6
     ) %>% 
     gtable_add_grob(
       grobs = text_fpid,
-      t = 2, 
-      l = 2
-    )
+      t = 1, 
+      l = 1
+    ) %>% 
+    gtable_add_rows(height = padding/2, pos = 1) %>% 
+    gtable_add_padding(padding = padding) 
+  
+  # check_plot(p_screening_augmented)
 
   return(p_screening_augmented)
 }

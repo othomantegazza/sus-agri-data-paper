@@ -46,3 +46,7 @@ theme_set(
     )
 )
 
+check_plot <- function(p) {
+  grid.newpage(); gtable_show_layout(p)
+  grid.newpage(); grid.draw(p)
+}
