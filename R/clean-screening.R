@@ -36,7 +36,11 @@ clean_screening <- function(
   
   systematic_screening <-
     screening %>%
-    mutate(status = status %>% toupper()) %>% 
+    mutate(
+      status = status %>% 
+        toupper() %>% 
+        str_trim(side = "both")
+    ) %>% 
     mutate(status = status %>% {
       case_when(
         . == "LB" ~ "O",
