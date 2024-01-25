@@ -342,7 +342,7 @@ build_p_screening_by_year <- function(
     gtable_add_grob(text_year, t = 1, l = 3) %>% 
     gtable_add_grob(p_table_grob, t = 2, l = 2) %>% 
     gtable_add_grob(p_legend_all, t = 1, l = 1, z = 2) %>% 
-    gtable_add_padding(padding = unit(.2, "cm"))
+    gtable_add_padding(padding = padding)
   
   
   # grid.newpage(); p_minimal %>% gtable_show_layout()

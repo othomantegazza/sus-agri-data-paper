@@ -6,7 +6,7 @@ line_width <- 1.2
 a4_width <- 210
 a4_height <- 297
 width <- 150
-height <- width
+height <- 150
 base_size <- 10
 categorical_palette <- paletteer_d("futurevisions::atomic_blue")
 fill_color <- "#fcfcea"
@@ -17,6 +17,7 @@ size_scale <- 2.8455
 text_size_plot <- base_size/size_scale
 ppi <- 300
 lineheight <- .8
+padding <- unit(2, unit_type)
 
 theme_set(
   theme_minimal(
