@@ -68,7 +68,8 @@ clean_imap <- function(
         'output',
         'diagnostics',
         paste0(name, '-DUPL', '.csv')
-      )
+      ),
+      escape = "double"
     )
   
   # check expected types and perform basic conversions ------------
@@ -143,7 +144,8 @@ clean_imap <- function(
         'output',
         'diagnostics',
         paste0(name, '-MISSING-DATA', '.csv')
-      )
+      ),
+      escape = "double"
     )
   
  # write clean dataset -------------------------------------------
@@ -168,7 +170,7 @@ clean_imap <- function(
         'imap',
         paste0(name, '.csv')
       ),
-      escape = "backslash"
+      escape = "double"
     )
   
   return(NULL)
