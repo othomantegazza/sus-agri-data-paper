@@ -12,14 +12,17 @@ tgrob <- function(text, size) {
 }
 
 build_prisma_page <- function(
-    fpid,                 
-    papers_after_search,  
-    papers_after_merging,
-    B,
-    O,
-    R,
+    fpid,
+    papers_after_search,
+    discarded_after_merging,   
+    screened,
+    discarded_after_screening,
+    evaluated,
+    discarded_after_evaluation,
+    retained,  
     ...
 ) {
+  # browser()
   
   title_size <- 35
   body_size <- title_size/2
@@ -60,8 +63,9 @@ build_prisma_page <- function(
   
   text_search <- 
     "Records after querying the WOS and SCOPUS databases."
+  
   text_search_excluded <- 
-    "Records after removing duplicates from the two searches."
+    "Removed duplicated records"
   
   # layouts -------------------------------------------------------
   
@@ -116,7 +120,7 @@ build_prisma_page <- function(
   
   search_excluded_n <- 
     tgrob(
-      papers_after_search - papers_after_merging,
+      discarded_after_merging,
       title_size
     ) 
   
@@ -137,11 +141,11 @@ build_prisma_page <- function(
 
   # screening -----------------------------------------------------
   
-  screened_n <- tgrob(B + O + R, title_size)
+  screened_n <- tgrob(screened, title_size)
   screened_n_text <- tgrob(
     "Record Screened.", body_size
   )
-  screened_excluded_n <- tgrob(B, title_size)
+  screened_excluded_n <- tgrob(discarded_after_screening, title_size)
   screened_excluded_n_text <- tgrob(
     "Record excluded after screening.", body_size
   )
@@ -157,11 +161,11 @@ build_prisma_page <- function(
 
   # elegibility ---------------------------------------------------
   
-  elegibility_n <- tgrob(B + O, title_size)
+  elegibility_n <- tgrob(evaluated, title_size)
   elegibility_n_text <- tgrob(
     "Record assessed for elegibility.", body_size
   )
-  elegibility_excluded_n <- tgrob(O, title_size)
+  elegibility_excluded_n <- tgrob(discarded_after_evaluation, title_size)
   elegibility_excluded_n_text <- tgrob(
     "Record excluded after elegibility assessment.", body_size
   )
@@ -178,7 +182,7 @@ build_prisma_page <- function(
   
   # included ------------------------------------------------------
   
-  included_n <- tgrob(B, title_size)
+  included_n <- tgrob(retained, title_size)
   included_n_text <- tgrob(
     "Record included in the review.", body_size
   )
@@ -204,15 +208,29 @@ build_prisma_page <- function(
 build_p_prisma <- function(search_tab,
                            screening) {
   
-  search_tab <- 
+  # browser()
+  
+  # prepare search data -------------------------------------------
+  
+  search_tab <-
     search_tab %>% 
+      rowwise() %>% 
     transmute(
       fpid,
-      papers_after_search = nb_papers_scopus + nb_papers_wos,
+      papers_after_search = sum(nb_papers_scopus, nb_papers_wos, na.rm = T),
       papers_after_merging = nb_papers_after_merging
-    ) 
+    ) %>% 
+      mutate(
+        papers_after_search = papers_after_search %>% 
+          {
+            case_when(. == 0 ~ NA,
+                      TRUE ~ .)
+          }
+      )
   
-  screening <- 
+  # prepare screening tab -----------------------------------------
+  
+  screening <-
     screening %>% 
     count(fpid, status) %>% 
     drop_na() %>% 
@@ -228,7 +246,27 @@ build_p_prisma <- function(search_tab,
       by = c(
         "fpid" = "fpid"
       )
-    )
+    ) %>% 
+    rowwise() %>% 
+    select(-papers_after_merging) %>% 
+    mutate(
+      screened = sum(B, O, R),
+      .after = papers_after_search
+      ) %>% 
+    mutate(
+      discarded_after_merging = sum(
+        papers_after_search, - screened
+      ),
+      .after = papers_after_search
+    ) %>% 
+    mutate(
+      discarded_after_screening = R,
+      evaluated = O + B,
+      discarded_after_evaluation = O,
+      retained = B,
+      .after = screened
+    ) %>% 
+    select(-B, -O, -R)
   
   
   prisma_p <- 

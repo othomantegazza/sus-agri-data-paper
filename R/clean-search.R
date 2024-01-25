@@ -1,6 +1,6 @@
 clean_search <- function(df = 'data/MerFPs_Search_20231017.xlsx') {
-  # read data -----------------------------------------------------
-  
+ 
+   # read data -----------------------------------------------------
   search_tab <- 
     read_excel(
       df
@@ -42,7 +42,7 @@ clean_search <- function(df = 'data/MerFPs_Search_20231017.xlsx') {
         ),
         .fns = ~as.numeric(.)
       )
-    )
+    ) 
   
   metadata %>% 
     mutate(df = search_tab %>% list()) %>% 
@@ -50,9 +50,9 @@ clean_search <- function(df = 'data/MerFPs_Search_20231017.xlsx') {
       clean_imap
     )
   
-  
   # save additional assets ----------------------------------------
   
+  # for prisma statements -------------------------------------------
   
   search_tab <-
     search_tab %>% 
@@ -77,12 +77,27 @@ clean_search <- function(df = 'data/MerFPs_Search_20231017.xlsx') {
         .fns = ~max(., na.rm = T)
       ),
       .by = fpid
+    ) %>% 
+    mutate(
+      across(
+        .cols = is.numeric,
+        .fns = ~case_when(is.infinite(.) ~ NA, TRUE ~ .)
+      )
+    ) %>% 
+    mutate(
+      across(
+        .cols = where(is.Date),
+        .fns = ~case_when(is.infinite(.) ~ NA, TRUE ~ .)
+      )
     )
+
   
   search_tab %>% 
     write_csv(
       "data/output/03-search-summarised.csv"
     )
+  
+  # dates of searches for main visualizations ---------------------
   
   search_dates <-
     search_tab %>% 
