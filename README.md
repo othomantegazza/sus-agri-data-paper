@@ -2,7 +2,7 @@
 
 ## 1. Data
 
-Copy the metanalyses dataset into the [data](data) folder.
+Copy the imap datasets into the [data/output/imap](data/output/imap) folder.
  
 
 ## 2. Restore the R environment
@@ -18,4 +18,4 @@ renv::restore()
 
 ## 3. Run the analysis
 
-Run the [WORKFLOW.R](WORKFLOW.R) and find the output in the [img](img) folder.
+Run the [WORKFLOW-visualize.R](WORKFLOW-visualize.R) script and find the output in the [viz](viz) folder.
