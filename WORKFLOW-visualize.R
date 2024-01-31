@@ -255,24 +255,6 @@ jpeg(filename = "viz/p-pico-impact-overview.jpeg",
 grid.newpage(); p_pico_impact_overview %>% grid.draw()
 dev.off()
 
-
-# |- plot impacts by fpid -------------------------------------
-
-p_impacts_fpid <- 
-  build_p_impacts_fpid(
-    synthesis,
-    pico_combinations
-  )
-
-jpeg(filename = "viz/p-impacts-by-fpid.jpeg", 
-     height  = a4_width, 
-     width = a4_height, 
-     units = unit_type,
-     res = ppi)
-grid.newpage(); p_impacts_fpid %>% grid.draw()
-dev.off()
-
-
 # |- plot review log --------------------------------------------
 
 p_review_log <- 
