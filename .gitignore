@@ -12,7 +12,9 @@ data/output/*.json
 **.zip
 
 # output
-viz
+viz/**.pdf
+viz/**.jpeg
+viz/**.zip
 
 # Mac stuff
 **.DS_Store
