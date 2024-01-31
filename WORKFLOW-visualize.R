@@ -45,8 +45,22 @@ statuses <-
 # DATA ----------------------------------------------------------
 
 search_tab <- 
-  read_csv(
-    "data/output/03-search-summarised.csv"
+  read_delim(
+    "data/output/imap/02_search_eq.csv",
+    delim = delim
+  ) %>% 
+  summarise(
+    nb_papers_wos = nb_papers_wos %>%
+      sum(na.rm = T),
+    nb_papers_scopus = nb_papers_scopus %>%
+      sum(na.rm = T),
+    nb_papers_after_merging = nb_papers_scopus %>%
+      sum(na.rm = T),
+    date_of_search_wos = date_of_search_wos %>%
+      as_date() %>% max(na.rm = T),
+    date_of_search_scopus = date_of_search_scopus %>%
+      as_date() %>% max(na.rm = T),
+    .by = fpid
   )
 
 screening <-   
@@ -60,13 +74,15 @@ screening <-
   mutate(year)
 
 screening_dates <-
-  read_csv("data/output/03-search-dates.csv") %>% 
-  mutate(
-    across(
-      date_of_search,
-      lubridate::as_date
-    )
-  )
+  # read_csv("data/output/03-search-dates.csv") %>% 
+  # mutate(
+  #   across(
+  #     date_of_search,
+  #     lubridate::as_date
+  #   )
+  # )
+  search_tab %>% 
+  select(fpid, date_of_search = date_of_search_wos)
 
 ma_list <- 
   read_delim(
