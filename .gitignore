@@ -1,6 +1,10 @@
 # data
 data/*.xlsx
-data/output/**
+data/output/diagnostics
+data/output/**.tsv
+data/output/**.csv
+data/output/old
+data/output/imap/**.csv
 data/old/*.csv
 data/old/*.xlsx
 data/*.pdf
