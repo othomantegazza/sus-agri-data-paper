@@ -8,7 +8,6 @@ build_p_review_log <- function(
     fontface = "italic"
     ) 
 {
-  browser()
 
   # setup ---------------------------------------------------------
   
