@@ -1,6 +1,5 @@
 build_p_review_log <- function(
-    review_log, 
-    search_tab,
+    review_log,
     lab_fill = "Values corrected",
     lab_y = "Farming practice categories",
     lab_x = "Data section ",
@@ -9,7 +8,7 @@ build_p_review_log <- function(
     fontface = "italic"
     ) 
 {
-  # browser()
+  browser()
 
   # setup ---------------------------------------------------------
   
@@ -39,62 +38,6 @@ build_p_review_log <- function(
   all_sections <- 
     paste("Section", rep(1:10)) %>% 
     paste(collapse = ", ") 
-
-  # fix farming practices -----------------------------------------
-  
-  review_log <-
-    review_log %>% 
-    mutate(
-      fpid = fpid %>% 
-        {
-          case_when(
-            . == "Agroforestry" ~ "Agroforestry systems",
-            . == "All FPs" ~ "All",
-            . == "Conversion of forests into agroforestry" ~ "Agroforestry systems",
-            . == "Cover crop" ~ "Cover and catch crops",
-            . == "Enhanced-efficiency fertilisers" ~ "Enhanced efficiency fertilisers",
-            . == "Grazing" ~ "Grazing management",
-            . == "Green Manure" ~ "Green manure",
-            . == "Livestock feeding techniques" ~ "Livestock dietary manipulation techniques",
-            . == "Livestock housin" ~ "Livestock housing techniques",
-            . == "Low ammonia" ~ "Low ammonia techniques for mineral fertilisation",
-            . == "Low ammonia emission techiniques" ~ "Low ammonia techniques for mineral fertilisation",
-            . == "Low ammonia techniques for mineral fertilisation" ~ "Low ammonia techniques for mineral fertilisation",
-            . == "Manure land application" ~ "Manure land application techniques",
-            . == "Livestock housing" ~ "Livestock housing techniques",
-            . == "No tillage" ~ "No tillage and reduced tillage",
-            . == "No-irrigation" ~ "No irrigation",
-            . == "Pesticide reduction strategies" ~ "Pesticides reduction strategies",
-            . == "Sustainable water management in flooded land" ~ "Water-saving irrigation practices in flooded lands",
-            . == "Sustainable water management in flooded lands" ~ "Water-saving irrigation practices in flooded lands",
-            . == "Water saving techniques in flooded land" ~ "Water-saving irrigation practices in flooded lands",
-            . == "Sustainable water management in non-flooded land" ~ "Water-saving irrigation practices in non-flooded lands",
-            . == "Sustainable water management in non-flooded lands" ~ "Water-saving irrigation practices in non-flooded lands",
-            . == "Sustainable water management in non-flooded lands_spreadsheet_240723" ~ "Water-saving irrigation practices in non-flooded lands",
-            . == "Water saving techniques in non-flooded land" ~ "Water-saving irrigation practices in non-flooded lands",
-            TRUE ~ .
-          )
-        }
-    ) %>% 
-    #count(fpid) %>% filter(fpid %>% str_detect("ammonia")) #%>% pull(fpid) #%>% {.[1] == .[2]}
-      mutate(
-        section_of_dataset = section_of_dataset %>% 
-        {
-          case_when(. == "All sections" ~ all_sections,
-                    TRUE ~ .)
-        }
-    ) %>% 
-    mutate(
-      section_of_dataset = section_of_dataset %>% 
-        str_split(", ")
-    ) %>% 
-    unnest(section_of_dataset) %>% 
-    mutate(
-      section_of_dataset = section_of_dataset %>% 
-        as_factor()
-      ) %>% 
-    count(fpid, section_of_dataset) 
-  
   
   # order logs ----------------------------------------------------
 

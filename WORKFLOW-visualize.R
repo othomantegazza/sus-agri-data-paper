@@ -110,11 +110,10 @@ pico_results <-
   )
 
 review_log <- 
-  read_excel(
-    "data/iMAP FP spreadsheets LOG FILE.xlsx"
-  ) %>% 
-  clean_names() %>% 
-  rename(fpid = farming_practice)
+  read_delim(
+    "data/output/imap/11-review-log.csv",
+    delim = delim
+  )
 
 # VIZ -----------------------------------------------------------
 
@@ -278,8 +277,7 @@ dev.off()
 
 p_review_log <- 
   build_p_review_log(
-    review_log = review_log, 
-    search_tab = search_tab 
+    review_log = review_log,
   ) 
 
 jpeg(filename = "viz/p-review-log.jpeg", 
