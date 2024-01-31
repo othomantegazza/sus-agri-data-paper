@@ -464,9 +464,11 @@
       "doi",
       "fpid",
       "impact_matrix",
-      "intervention_matrix",
-      "control_matrix",
-      "metric_std"
+      "intervention",
+      "control",
+      "metric",
+      "effect_size",
+      "population"
     ],
     "columns": [
       {
@@ -479,6 +481,10 @@
       },
       {
         "colname": "impact_matrix",
+        "type": "character"
+      },
+      {
+        "colname": "population",
         "type": "character"
       },
       {
