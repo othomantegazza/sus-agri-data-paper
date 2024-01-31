@@ -1,6 +1,9 @@
 library(tidyverse)
 library(readxl)
 
+read_tsv("data/output/02_search_eq - Sheet1.tsv") %>% 
+  write_excel_csv2("data/output/imap/02_search_eq.csv", escape = "double")
+
 factors <- read_csv(file = "data/output/imap/09_factors.csv")
 
 factors_andrea <-

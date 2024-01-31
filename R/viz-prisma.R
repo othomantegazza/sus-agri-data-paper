@@ -208,8 +208,6 @@ build_prisma_page <- function(
 build_p_prisma <- function(search_tab,
                            screening) {
   
-  # browser()
-  
   # prepare search data -------------------------------------------
   
   search_tab <-
